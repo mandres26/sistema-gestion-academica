@@ -22,40 +22,30 @@
                         <h:outputLabel value="#{bundle.ListCursoTitle_nombreCurso}"/>
                         <p:inputText id="name" label="Nombre de Curso" required="true" value="#{cursoController.current.nombreCurso}"> </p:inputText>
                         <p:message for="name"/> 
-
                         <f:facet name="footer">
-
-
                             <p:commandButton value="ACTUALIZAR" rendered="#{cursoController.cursoId!=null}"
                                              action="#{cursoController.update()}"
                                              update="panelEditCurso">
-
                             </p:commandButton>
 
                             <p:commandButton value="GUARDAR" rendered="#{cursoController.cursoId == null}"
                                              action="#{cursoController.persist()}"
                                              update="panelEditCurso">
-
                             </p:commandButton>
 
                             <p:commandButton value="CANCELAR" action="#{cursoController.cancelEdit()}"
                                              immediate="true" icon="ui-icon ui-icon-trash">
-
                             </p:commandButton>
 
                             <p:commandButton value="AGREGAR PARALELO"  action="#{cursoController.addParalelos()}" ajax="true" 
                                              update="tableAddParalelos" process="@this"/>
-
                         </f:facet> 
-
                     </p:panelGrid>
-
                 </p:panel>
 
-
                 <p:panel header="Añadir Paralelos">
-
                     <p:dataTable id="tableAddParalelos" var="_paralelos" value="#{cursoController.current.paralelos}" rows="10" paginator="true">
+
                         <p:column headerText="Nombre" >
                             <p:inputText label="Nombre de Paralelo" required="true" value="#{_paralelos.nombreParalelo}">
                                 <p:ajax partialSubmit="true"/>
@@ -66,31 +56,19 @@
                             <p:inputText label="Número de cupos" required="true" value="#{_paralelos.numeroCupos}">
                                 <p:ajax partialSubmit="true"/>
                             </p:inputText>
-
                         </p:column>
 
                         <p:column headerText="Acciones">
                             <p:button value="EDITAR">
-
                             </p:button>
-
+                            
                             <p:commandButton value="ELIMINAR">
-
                             </p:commandButton>
 
                         </p:column>
-
                     </p:dataTable>
-
-
                 </p:panel>
-
-
-
-
             </h:form>
-
-
         </ui:define>
     </ui:composition>
 

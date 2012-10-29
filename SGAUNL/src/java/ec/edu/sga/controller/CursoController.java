@@ -77,9 +77,9 @@ public class CursoController implements Serializable {
         if (id != null && id.longValue() > 0) {
             this.current = ejbFacade.find(id);
             this.cursoId = this.current.getId();
-            System.out.println("========> INGRESO a Editar Estudiante: " + current.getNombreCurso());
+            System.out.println("========> INGRESO a Editar un Curso: " + current.getNombreCurso());
         } else {
-            System.out.println("========> INGRESO a Crear Estudiante: ");
+            System.out.println("========> INGRESO a Crear un Curso: ");
             this.current = new Curso();
         }
         
