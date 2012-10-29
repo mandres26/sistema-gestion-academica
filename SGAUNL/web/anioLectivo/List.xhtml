@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/templates/plantilla.xhtml">
+        
+        <ui:define name="content">
+            
+            
+            
+            
+            <h:outputText value="#{bundle.ListAnioLectivoTitle}"></h:outputText>
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListAnioLectivoEmpty}" rendered="#{anioLectivoController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{anioLectivoController.items.rowCount > 0}">
+                    <h:outputText value="#{anioLectivoController.pagination.pageFirstItem + 1}..#{anioLectivoController.pagination.pageLastItem + 1}/#{anioLectivoController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{anioLectivoController.previous}" value="#{bundle.Previous} #{anioLectivoController.pagination.pageSize}" rendered="#{anioLectivoController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{anioLectivoController.next}" value="#{bundle.Next} #{anioLectivoController.pagination.pageSize}" rendered="#{anioLectivoController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{anioLectivoController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAnioLectivoTitle_id}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.id}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAnioLectivoTitle_fechaInicio}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaInicio}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAnioLectivoTitle_fechaFin}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.fechaFin}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListAnioLectivoTitle_duracion}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.duracion}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{anioLectivoController.prepareView}" value="#{bundle.ListAnioLectivoViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{anioLectivoController.prepareEdit}" value="#{bundle.ListAnioLectivoEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{anioLectivoController.destroy}" value="#{bundle.ListAnioLectivoDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{anioLectivoController.prepareCreate}" value="#{bundle.ListAnioLectivoCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListAnioLectivoIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

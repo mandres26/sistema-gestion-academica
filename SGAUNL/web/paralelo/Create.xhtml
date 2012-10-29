@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateParaleloTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateParaleloLabel_id}" for="id" />
+                    <h:inputText id="id" value="#{paraleloController.selected.id}" title="#{bundle.CreateParaleloTitle_id}" />
+                    <h:outputLabel value="#{bundle.CreateParaleloLabel_nombreParalelo}" for="nombreParalelo" />
+                    <h:inputText id="nombreParalelo" value="#{paraleloController.selected.nombreParalelo}" title="#{bundle.CreateParaleloTitle_nombreParalelo}" />
+                    <h:outputLabel value="#{bundle.CreateParaleloLabel_numeroCupos}" for="numeroCupos" />
+                    <h:inputText id="numeroCupos" value="#{paraleloController.selected.numeroCupos}" title="#{bundle.CreateParaleloTitle_numeroCupos}" />
+                    <h:outputLabel value="#{bundle.CreateParaleloLabel_curso}" for="curso" />
+                    <h:selectOneMenu id="curso" value="#{paraleloController.selected.curso}" title="#{bundle.CreateParaleloTitle_curso}" >
+                        <f:selectItems value="#{cursoController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{paraleloController.create}" value="#{bundle.CreateParaleloSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{paraleloController.prepareList}" value="#{bundle.CreateParaleloShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateParaleloIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <f:metadata>
+        <f:viewParam name="cursoId" value="#{cursoController.cursoId}"/>
+    </f:metadata>
+
+    <ui:composition template="/templates/plantilla.xhtml">
+
+        <ui:define name="content">
+
+            <h:form id="formEdit">
+                <p:panel header="#{cursoController.cursoId!=null  ? bundle['ListCursoEditLink'] : bundle['ListCursoCreateLink']}" id="panelEditCurso">
+
+                    <p:panelGrid columns="2">
+                        <h:outputLabel value="#{bundle.ListCursoTitle_nombreCurso}"/>
+                        <p:inputText id="name" label="Nombre de Curso" required="true" value="#{cursoController.current.nombreCurso}"> </p:inputText>
+                        <p:message for="name"/> 
+
+                        <f:facet name="footer">
+
+
+                            <p:commandButton value="ACTUALIZAR" rendered="#{cursoController.cursoId!=null}"
+                                             action="#{cursoController.update()}"
+                                             update="panelEditCurso">
+
+                            </p:commandButton>
+
+                            <p:commandButton value="GUARDAR" rendered="#{cursoController.cursoId == null}"
+                                             action="#{cursoController.persist()}"
+                                             update="panelEditCurso">
+
+                            </p:commandButton>
+
+                            <p:commandButton value="CANCELAR" action="#{cursoController.cancelEdit()}"
+                                             immediate="true" icon="ui-icon ui-icon-trash">
+
+                            </p:commandButton>
+
+                            <p:commandButton value="AGREGAR PARALELO"  action="#{cursoController.addParalelos()}" ajax="true" 
+                                             update="tableAddParalelos" process="@this"/>
+
+                        </f:facet> 
+
+                    </p:panelGrid>
+
+                </p:panel>
+
+
+                <p:panel header="Añadir Paralelos">
+
+                    <p:dataTable id="tableAddParalelos" var="_paralelos" value="#{cursoController.current.paralelos}" rows="10" paginator="true">
+                        <p:column headerText="Nombre" >
+                            <p:inputText label="Nombre de Paralelo" required="true" value="#{_paralelos.nombreParalelo}">
+                                <p:ajax partialSubmit="true"/>
+                            </p:inputText>
+                        </p:column>
+
+                        <p:column headerText="Numero de Cupos">
+                            <p:inputText label="Número de cupos" required="true" value="#{_paralelos.numeroCupos}">
+                                <p:ajax partialSubmit="true"/>
+                            </p:inputText>
+
+                        </p:column>
+
+                        <p:column headerText="Acciones">
+                            <p:button value="EDITAR">
+
+                            </p:button>
+
+                            <p:commandButton value="ELIMINAR">
+
+                            </p:commandButton>
+
+                        </p:column>
+
+                    </p:dataTable>
+
+
+                </p:panel>
+
+
+
+
+            </h:form>
+
+
+        </ui:define>
+    </ui:composition>
+
+</html>
