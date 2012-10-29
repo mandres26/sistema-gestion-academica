@@ -115,10 +115,10 @@ public class Curso implements Serializable {
             paralelos.add(paralelo);
             paralelo.setCurso(this);
         }
-        
-        
+
+
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
