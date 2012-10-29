@@ -34,7 +34,11 @@ public class Paralelo implements Serializable {
     @ManyToOne
     private Curso curso;
 
+
+
     //-----------------------------CONTRUCTORES----------------------------------//
+   
+    
     //----------------------------GETTERS AND SETTERS----------------------------//
     public Long getId() {
         return id;
