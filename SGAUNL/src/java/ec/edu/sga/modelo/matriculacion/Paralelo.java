@@ -6,6 +6,7 @@ package ec.edu.sga.modelo.matriculacion;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,7 +32,7 @@ public class Paralelo implements Serializable {
     private Long id;
     private String nombreParalelo;
     private int numeroCupos;
-    @ManyToOne
+    @ManyToOne(fetch= FetchType.EAGER)
     private Curso curso;
 
 
