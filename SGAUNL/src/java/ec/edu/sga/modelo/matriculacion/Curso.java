@@ -27,7 +27,10 @@ import javax.persistence.TableGenerator;
 @Entity
 @TableGenerator(name = "CursoGenerador", table = "GeneradorIdentificador", pkColumnName = "nombre",
 valueColumnName = "valor", pkColumnValue = "Curso", initialValue = 1, allocationSize = 1)
-@NamedQueries(value={@NamedQuery(name="Curso.findAll", query="select c from Curso c")})
+@NamedQueries(value={@NamedQuery(name="Curso.findAll", query="select c from Curso c"),
+@NamedQuery(name="findParalelosByEstudentId",
+        query="select distinct e from Curso e left join fetch"
+        + " e.paralelos where e.id =:id")})
 public class Curso implements Serializable {
 
     //-----------------------ATRIBUTOS----------------------------------//

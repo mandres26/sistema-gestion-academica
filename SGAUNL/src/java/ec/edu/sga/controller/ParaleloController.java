@@ -11,6 +11,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -138,4 +139,14 @@ public class ParaleloController implements Serializable {
         resultlist = ejbFacade.findAllParalelos();
         return resultlist;
     }
+    
+     // ______________________MÉTODOS PARA DEVOLVER UNA LISTA DE CURSOS_______________________//
+    public SelectItem[] getItemsAvailableSelectMany() {
+        return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
+    }
+
+    public SelectItem[] getItemsAvailableSelectOne() {
+        return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
+    }
+    
 }

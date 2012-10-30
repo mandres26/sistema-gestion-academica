@@ -81,6 +81,8 @@ public class CursoController implements Serializable {
         if (id != null && id.longValue() > 0) {
             this.current = ejbFacade.find(id);
             this.cursoId = this.current.getId();
+            //Method from find all paralel of a course
+            this.current = ejbFacade.findParalelosByEstudentId(cursoId);
             System.out.println("========> INGRESO a Editar un Curso: " + current.getNombreCurso());
         } else {
             System.out.println("========> INGRESO a Crear un Curso: ");
