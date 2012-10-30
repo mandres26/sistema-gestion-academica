@@ -108,7 +108,7 @@ public class CursoController implements Serializable {
     
     
     
-    //________________MÉTODOS PARA INICIALIZAR Y FINALIZAR LA CONVERSACIÓN_________//
+   //________________MÉTODOS PARA INICIALIZAR Y FINALIZAR LA CONVERSACIÓN_________//
     
     public void beginConversation() {
         if (conversation.isTransient()) {
