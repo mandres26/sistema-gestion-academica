@@ -26,7 +26,7 @@ public class CursoController implements Serializable {
 
     private Curso current;
     private DataModel items = null;
-    private List<Curso> list;
+    private List<Curso> resultlist;
    
     @EJB
     private ec.edu.sga.facade.CursoFacade ejbFacade;
@@ -34,12 +34,12 @@ public class CursoController implements Serializable {
     private int selectedItemIndex;
     private Long cursoId;
     @Inject
-    private Conversation conversation;
+    Conversation conversation;
     
 
     //_____________________________________CONSTRUCTOR______________________________//
     public CursoController() {
-        list = new ArrayList();
+        resultlist = new ArrayList();
         current=new Curso();
     }
 
@@ -49,16 +49,20 @@ public class CursoController implements Serializable {
     }
 
     public void setCurrent(Curso current) {
+        System.out.println("Ingreso a fijar curso: " + current);
+        this.beginConversation();
         this.current = current;
     }
 
-    public List getList() {
-        return list;
+    public List<Curso> getResultlist() {
+        return resultlist;
     }
 
-    public void setList(List list) {
-        this.list = list;
+    public void setResultlist(List<Curso> resultlist) {
+        this.resultlist = resultlist;
     }
+
+    
     
     
     public Long getCursoId(){
@@ -89,7 +93,7 @@ public class CursoController implements Serializable {
 
     //--------------------------------------MÉTODOS--------------------------------//
     public String findAll() {
-        list = ejbFacade.findAll();
+        resultlist = ejbFacade.findAll();
         String summary = "Encontrado Correctamente!";
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null));
         return "curso/List";

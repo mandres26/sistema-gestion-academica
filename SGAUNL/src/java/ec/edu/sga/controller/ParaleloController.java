@@ -55,6 +55,8 @@ public class ParaleloController implements Serializable {
     }
 
     public void setCurrent(Paralelo current) {
+        System.out.println("Ingreso a fijar paralelo" + current);
+        this.beginConversation();
         this.current = current;
     }
 
