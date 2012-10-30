@@ -5,6 +5,7 @@
 package ec.edu.sga.modelo.usuarios;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,11 +25,11 @@ public class Ficha implements Serializable {
     private Long id;
     @OneToOne
     private Usuario usuario;
-    @OneToOne
+    @OneToOne(mappedBy="ficha",cascade= CascadeType.ALL,orphanRemoval=true)
     private FichaPersonal fichaPersonal;
-    @OneToOne
+    @OneToOne(mappedBy="ficha",cascade= CascadeType.ALL,orphanRemoval=true)
     private FichaMedica fichaMedica;
-    @OneToOne
+    @OneToOne(mappedBy="ficha",cascade= CascadeType.ALL,orphanRemoval=true)
     private FichaSocioeconomica fichaSocio;
 
     public Ficha() {

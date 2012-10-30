@@ -5,6 +5,7 @@
 package ec.edu.sga.modelo.usuarios;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,7 +23,7 @@ public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
-    @OneToOne
+    @OneToOne(mappedBy = "usuario",cascade= CascadeType.ALL,orphanRemoval=true)
     private Ficha ficha;
 
     public Usuario() {
