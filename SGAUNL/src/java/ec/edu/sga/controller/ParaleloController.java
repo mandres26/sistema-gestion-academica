@@ -24,7 +24,7 @@ public class ParaleloController implements Serializable {
     private Paralelo current;
     private Long paraleloId;
     @Inject
-    private Conversation conversation;
+    Conversation conversation;
 
     //_________________________CONSTRUCTORES______________________________//
     public ParaleloController() {
@@ -55,7 +55,7 @@ public class ParaleloController implements Serializable {
     }
 
     public void setCurrent(Paralelo current) {
-        System.out.println("Ingreso a fijar paralelo" + current);
+        System.out.println("Ingreso a fijar paralelo" + this.current);
         this.beginConversation();
         this.current = current;
     }
@@ -88,10 +88,10 @@ public class ParaleloController implements Serializable {
         System.out.println("Ingreso a grabar el paralelo: " + current.getNombreParalelo());
         ejbFacade.create(current);
         this.endConversation();
-//         String summary = ResourceBundle.getBundle("/Bundle").getString("CursoCreated");
-//        JsfUtil.addSuccessMessage(summary);
-//       
-//        FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
+         String summary = ResourceBundle.getBundle("/Bundle").getString("CursoCreated");
+        JsfUtil.addSuccessMessage(summary);
+       
+        FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 
         return "/index";
     }
