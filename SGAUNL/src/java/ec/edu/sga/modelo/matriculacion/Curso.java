@@ -8,6 +8,7 @@ import ec.edu.sga.modelo.academico.MallaCurricular;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -43,7 +44,7 @@ public class Curso implements Serializable {
     private Matricula matricula;
     @OneToOne(mappedBy = "curso")
     private MallaCurricular mallaCurricular;
-    @OneToMany(mappedBy = "curso")
+    @OneToMany(mappedBy = "curso", cascade={CascadeType.ALL}, orphanRemoval=true)
     private List<Paralelo> paralelos;
 
     //----------------------constructores--------------------------------------//
