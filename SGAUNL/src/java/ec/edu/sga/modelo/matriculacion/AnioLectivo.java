@@ -39,8 +39,9 @@ public class AnioLectivo implements Serializable {
 
     //---------------------------CONSTRUCTORES--------------------------//
     public AnioLectivo() {
-        fechaInicio = new Date();
-        fechaFin = new Date();
+        //Fechas comentadas para que no se inicialice el p:calendar
+//        fechaInicio = new Date();
+//        fechaFin = new Date();
         matriculas = new ArrayList<Matricula>();
     }
 
