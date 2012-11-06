@@ -1,9 +1,9 @@
 package ec.edu.sga.controller;
 
-import ec.edu.sga.modelo.academico.Quimestre;
+import ec.edu.sga.modelo.academico.PeriodoAcademico;
 import ec.edu.sga.controller.util.JsfUtil;
 import ec.edu.sga.controller.util.PaginationHelper;
-import ec.edu.sga.facade.QuimestreFacade;
+import ec.edu.sga.facade.PeriodoAcademicoFacade;
 
 import java.io.Serializable;
 import java.util.ResourceBundle;
@@ -20,27 +20,27 @@ import javax.faces.model.SelectItem;
 
 @Named("quimestreController")
 @SessionScoped
-public class QuimestreController implements Serializable {
+public class PeriodoAcademicoController implements Serializable {
 
-    private Quimestre current;
+    private PeriodoAcademico current;
     private DataModel items = null;
     @EJB
-    private ec.edu.sga.facade.QuimestreFacade ejbFacade;
+    private ec.edu.sga.facade.PeriodoAcademicoFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
 
-    public QuimestreController() {
+    public PeriodoAcademicoController() {
     }
 
-    public Quimestre getSelected() {
+    public PeriodoAcademico getSelected() {
         if (current == null) {
-            current = new Quimestre();
+            current = new PeriodoAcademico();
             selectedItemIndex = -1;
         }
         return current;
     }
 
-    private QuimestreFacade getFacade() {
+    private PeriodoAcademicoFacade getFacade() {
         return ejbFacade;
     }
 
@@ -67,13 +67,13 @@ public class QuimestreController implements Serializable {
     }
 
     public String prepareView() {
-        current = (Quimestre) getItems().getRowData();
+        current = (PeriodoAcademico) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
 
     public String prepareCreate() {
-        current = new Quimestre();
+        current = new PeriodoAcademico();
         selectedItemIndex = -1;
         return "Create";
     }
@@ -90,7 +90,7 @@ public class QuimestreController implements Serializable {
     }
 
     public String prepareEdit() {
-        current = (Quimestre) getItems().getRowData();
+        current = (PeriodoAcademico) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "Edit";
     }
@@ -107,7 +107,7 @@ public class QuimestreController implements Serializable {
     }
 
     public String destroy() {
-        current = (Quimestre) getItems().getRowData();
+        current = (PeriodoAcademico) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         performDestroy();
         recreatePagination();
@@ -187,14 +187,14 @@ public class QuimestreController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    @FacesConverter(forClass = Quimestre.class)
+    @FacesConverter(forClass = PeriodoAcademico.class)
     public static class QuimestreControllerConverter implements Converter {
 
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            QuimestreController controller = (QuimestreController) facesContext.getApplication().getELResolver().
+            PeriodoAcademicoController controller = (PeriodoAcademicoController) facesContext.getApplication().getELResolver().
                     getValue(facesContext.getELContext(), null, "quimestreController");
             return controller.ejbFacade.find(getKey(value));
         }
@@ -215,11 +215,11 @@ public class QuimestreController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Quimestre) {
-                Quimestre o = (Quimestre) object;
+            if (object instanceof PeriodoAcademico) {
+                PeriodoAcademico o = (PeriodoAcademico) object;
                 return getStringKey(o.getId());
             } else {
-                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + Quimestre.class.getName());
+                throw new IllegalArgumentException("object " + object + " is of type " + object.getClass().getName() + "; expected type: " + PeriodoAcademico.class.getName());
             }
         }
     }

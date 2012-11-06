@@ -5,40 +5,40 @@
 package ec.edu.sga.modelo.academico;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.TableGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
  * @author lucho
  */
 @Entity
-@TableGenerator(name = "QuimestreGenerador", table = "GeneradorIdentificador", pkColumnName = "nombre",
-valueColumnName = "valor", pkColumnValue = "Quimestre", initialValue = 1, allocationSize = 1)
-public class Quimestre implements Serializable {
-    @OneToOne
-    private RegistroCalificaciones registroCalificaciones;
-    
-    
+@TableGenerator(name = "PeriodoAcademicoGenerador", table = "GeneradorIdentificador", pkColumnName = "nombre",
+valueColumnName = "valor", pkColumnValue = "PeriodoAcademico", initialValue = 1, allocationSize = 1)
+public class PeriodoAcademico implements Serializable {
     //--------------------------------ATRIBUTOS--------------------------------//
+
     private static final long serialVersionUID = 1L;
     @Id
-   @GeneratedValue(strategy = GenerationType.TABLE, generator="QuimestreGenerador")
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "PeriodoAcademicoGenerador")
     private Long id;
-    
-    private String nombreQuimestre;
-    private Boolean estadoQuimestre;
+    private String nombre;
+    private Boolean estado;
+    @Temporal(TemporalType.DATE)
+    private Date fechaInicio;
+    @Temporal(TemporalType.DATE)
+    private Date fechaFin;
+    @OneToOne
+    private RegistroCalificaciones registroCalificaciones;
 
-    
-    
-     //------------------------------CONSTRUCTORES----------------------------//
-    
-    
-    
+    //------------------------------CONSTRUCTORES----------------------------//
     //----------------------------GETTERS AND SETTERS-------------------------//
     public Long getId() {
         return id;
@@ -56,25 +56,40 @@ public class Quimestre implements Serializable {
         this.registroCalificaciones = registroCalificaciones;
     }
 
-    public String getNombreQuimestre() {
-        return nombreQuimestre;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setNombreQuimestre(String nombreQuimestre) {
-        this.nombreQuimestre = nombreQuimestre;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public Boolean getEstadoQuimestre() {
-        return estadoQuimestre;
+    public Boolean getEstado() {
+        return estado;
     }
 
-    public void setEstadoQuimestre(Boolean estadoQuimestre) {
-        this.estadoQuimestre = estadoQuimestre;
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
     }
+
+    public Date getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public Date getFechaFin() {
+        return fechaFin;
+    }
+
+    public void setFechaFin(Date fechaFin) {
+        this.fechaFin = fechaFin;
+    }
+
     
-    
 
-    
     //--------------------------------MÉTODOS---------------------------------//
     @Override
     public int hashCode() {
@@ -86,10 +101,10 @@ public class Quimestre implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Quimestre)) {
+        if (!(object instanceof PeriodoAcademico)) {
             return false;
         }
-        Quimestre other = (Quimestre) object;
+        PeriodoAcademico other = (PeriodoAcademico) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -100,5 +115,4 @@ public class Quimestre implements Serializable {
     public String toString() {
         return "ec.edu.sga.otras.Quimestre[ id=" + id + " ]";
     }
-    
 }

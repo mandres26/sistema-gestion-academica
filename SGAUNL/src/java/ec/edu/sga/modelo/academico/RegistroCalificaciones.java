@@ -44,7 +44,7 @@ public class RegistroCalificaciones implements Serializable {
     private List<Nota> notas;
     
     @OneToOne(mappedBy = "registroCalificaciones")
-    private Quimestre quimestre;
+    private PeriodoAcademico periodoAcademico;
     
    
 
@@ -89,12 +89,12 @@ public class RegistroCalificaciones implements Serializable {
         this.notas = notas;
     }
 
-    public Quimestre getQuimestre() {
-        return quimestre;
+    public PeriodoAcademico getPeriodoAcademico() {
+        return periodoAcademico;
     }
 
-    public void setQuimestre(Quimestre quimestre) {
-        this.quimestre = quimestre;
+    public void setPeriodoAcademico(PeriodoAcademico periodoAcademico) {
+        this.periodoAcademico = periodoAcademico;
     }
     
     
