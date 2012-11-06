@@ -3,26 +3,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
-   
+
     <h:form>
-            <p:menu >  
-                <p:submenu label="Inicio">  
-                    <p:menuitem value="Crear"/>  
-                    <p:menuitem value="Eliminar"/> 
-                     <p:menuitem value="Modificar"/>
-                </p:submenu>  
-                
-                <p:submenu label="Configuración del Sistema">  
-                    <p:menuitem value="Años Lectivos" outcome="/anioLectivo/List"/>  
-                    <p:menuitem value="Cursos" outcome="/curso/List"/>
-                </p:submenu>  
-        
-                <p:submenu label="Navigations">  
-                    <p:menuitem value="External" />  
-                    <p:menuitem value="Internal" />  
-                </p:submenu>  
-            </p:menu> 
-            </h:form>
-    
+        <p:menu >  
+            <p:submenu label="Inicio">  
+                <p:menuitem value="Crear"/>  
+                <p:menuitem value="Eliminar"/> 
+                <p:menuitem value="Modificar"/>
+            </p:submenu>  
+
+            <p:submenu label="Configuración del Sistema">  
+                <p:menuitem value="Años Lectivos" outcome="/anioLectivo/Edit"/> 
+                <p:menuitem value="Niveles" outcome="/nivel/List"/>
+                <p:menuitem value="Cursos" outcome="/curso/List"/>
+                <p:menuitem value="Especialidad" outcome="/especialidad/List"/>
+                <p:menuitem value="Paralelos" outcome="/paralelo/List"/>
+
+            </p:submenu>  
+
+            <p:submenu label="Navigations">  
+                <p:menuitem value="External" />  
+                <p:menuitem value="Internal" />  
+            </p:submenu>  
+        </p:menu> 
+    </h:form>
+
 </html>
 
