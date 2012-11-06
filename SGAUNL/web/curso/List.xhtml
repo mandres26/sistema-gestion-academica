@@ -8,8 +8,10 @@
 
 
     <f:metadata>   
+       
         <f:event listener="#{cursoController.findAll()}" type="preRenderView"/>
         <f:viewParam name="cursoId" value="#{cursoController.cursoId}" />
+      
 
     </f:metadata>
 
@@ -32,10 +34,8 @@
 
 
                             <p:column headerText="Paralelos">
-                                <p:selectOneMenu>
-                                    <f:selectItems value="#{paraleloController.itemsAvailableSelectOne}"/>
-                                </p:selectOneMenu>
-                            </p:column>
+                               
+                             </p:column>
 
                             <p:column headerText="Acciones">
                                 <p:button value="Editar" outcome="/curso/Edit">

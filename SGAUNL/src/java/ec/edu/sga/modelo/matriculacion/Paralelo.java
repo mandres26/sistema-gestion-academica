@@ -22,7 +22,8 @@ import javax.persistence.TableGenerator;
 @Entity
 @TableGenerator(name = "ParaleloGenerador", table = "GeneradorIdentificador", pkColumnName = "nombre",
 valueColumnName = "valor", pkColumnValue = "paralelo", initialValue = 1, allocationSize = 1)
-@NamedQueries(value={@NamedQuery(name="Paralelo.findAllParalelos", query="select p from Paralelo p")})
+@NamedQueries(value={@NamedQuery(name="Paralelo.findAllParalelos", query="select p from Paralelo p"),
+@NamedQuery(name="Paralelo.findAllParalelosByCursoId",query="select p from Paralelo p where p.curso.id =:cursoId")})
 public class Paralelo implements Serializable {
 
     //----------------------------ATRIBUTOS-----------------------------------//

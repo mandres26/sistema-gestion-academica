@@ -1,8 +1,7 @@
 package ec.edu.sga.controller;
 
 import ec.edu.sga.controller.util.JsfUtil;
-import ec.edu.sga.controller.util.PaginationHelper;
-import ec.edu.sga.facade.CursoFacade;
+import ec.edu.sga.facade.ParaleloFacade;
 import ec.edu.sga.modelo.matriculacion.Curso;
 import ec.edu.sga.modelo.matriculacion.Paralelo;
 import java.io.Serializable;
@@ -14,8 +13,6 @@ import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -25,13 +22,12 @@ import javax.inject.Named;
 public class CursoController implements Serializable {
 
     private Curso current;
-    private DataModel items = null;
     private List<Curso> resultlist;
-   
+   private List<Paralelo> listParalelos;
     @EJB
     private ec.edu.sga.facade.CursoFacade ejbFacade;
-    private PaginationHelper pagination;
-    private int selectedItemIndex;
+    @EJB
+    private ParaleloFacade ejbFacadeParalelo;
     private Long cursoId;
     @Inject
     Conversation conversation;
@@ -74,15 +70,21 @@ public class CursoController implements Serializable {
     return null;
     }
     
-    public void setCursoId(Long id){
+    public void setCursoId(Long cursoId){
     
-        System.out.println("========> Ingreso a fijar el id de un Curso: " + id);
+        System.out.println("========> Ingreso a fijar el id de un Curso: " + cursoId);
         this.beginConversation();
-        if (id != null && id.longValue() > 0) {
-            this.current = ejbFacade.find(id);
+        if (cursoId != null && cursoId.longValue() > 0) {
+            
+            
+            
+            //Method that return an Course, next of to enter the id 
+            //this.current = ejbFacade.find(cursoId);
+            //Method that return an Course whith all their paralels 
+            this.current = ejbFacade.findCursoByCursoId(cursoId);
             this.cursoId = this.current.getId();
-            //Method from find all paralel of a course
-            this.current = ejbFacade.findParalelosByEstudentId(cursoId);
+            
+            //esto era una prueba       this.getItemsAvailableSelectOne();
             System.out.println("========> INGRESO a Editar un Curso: " + current.getNombreCurso());
         } else {
             System.out.println("========> INGRESO a Crear un Curso: ");
@@ -91,15 +93,46 @@ public class CursoController implements Serializable {
         
         
     }
+
+    public List<Paralelo> getListParalelos() {
+        return listParalelos;
+    }
+
+    public void setListParalelos(List<Paralelo> listParalelos) {
+        this.listParalelos = listParalelos;
+    }
+    
+    
     
 
     //--------------------------------------MÉTODOS--------------------------------//
-    public String findAll() {
+    
+    
+    
+    public String findAll() { 
         resultlist = ejbFacade.findAll();
+        for (Curso object : resultlist) {
+            System.out.println("cursos: "+ object);
+            
+        }
         String summary = "Encontrado Correctamente!";
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null));
         return "curso/List";
     }
+    
+    public String findAllCursosAndParalelos() { 
+        resultlist = ejbFacade.findCursosAndParalelos();
+         for (Curso object : resultlist) {
+            System.out.println("cursos: "+ object);
+            
+        }
+        String summary = "Encontrado Correctamente!";
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null));
+        return "curso/List";
+    }
+    
+    
+    
     
     
     public void addParalelos(){
@@ -199,161 +232,28 @@ public class CursoController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
 
-    public SelectItem[] getItemsAvailableSelectOne() {
-        return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
-    }
-    
-    
-    
-    
-    
-
-    public Curso getSelected() {
-        if (current == null) {
-            current = new Curso();
-            selectedItemIndex = -1;
-        }
-        return current;
-    }
-
-    private CursoFacade getFacade() {
-        return ejbFacade;
-    }
-
-    public PaginationHelper getPagination() {
-        if (pagination == null) {
-            pagination = new PaginationHelper(10) {
-                @Override
-                public int getItemsCount() {
-                    return getFacade().count();
-                }
-
-                @Override
-                public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
-                }
-            };
-        }
-        return pagination;
-    }
-
-    public String prepareList() {
-        recreateModel();
-        return "List";
-    }
-
-    public String prepareView() {
-        current = (Curso) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "View";
-    }
-
-    public String prepareCreate() {
-        current = new Curso();
-        selectedItemIndex = -1;
-        return "Create";
-    }
-
-    public String create() {
-        try {
-            getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("CursoCreated"));
-            return prepareCreate();
-        } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-            return null;
-        }
-    }
-
-    public String prepareEdit() {
-        current = (Curso) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "Edit";
-    }
-
-//    public String update() {
-//        try {
-//            getFacade().edit(current);
-//            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("CursoUpdated"));
-//            return "View";
-//        } catch (Exception e) {
-//            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-//            return null;
-//        }
+//    public SelectItem[] getItemsAvailableSelectOne() {
+//       return JsfUtil.getSelectItems(ejbFacade.findParalelosByCursoId2(cursoId), true);
 //    }
-
-    public String destroy() {
-        current = (Curso) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        performDestroy();
-        recreatePagination();
-        recreateModel();
-        return "List";
-    }
-
-    public String destroyAndView() {
-        performDestroy();
-        recreateModel();
-        updateCurrentItem();
-        if (selectedItemIndex >= 0) {
-            return "View";
-        } else {
-            // all items were removed - go back to list
-            recreateModel();
-            return "List";
-        }
-    }
-
-    private void performDestroy() {
-        try {
-            getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("CursoDeleted"));
-        } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-        }
-    }
-
-    private void updateCurrentItem() {
-        int count = getFacade().count();
-        if (selectedItemIndex >= count) {
-            // selected index cannot be bigger than number of items:
-            selectedItemIndex = count - 1;
-            // go to previous page if last page disappeared:
-            if (pagination.getPageFirstItem() >= count) {
-                pagination.previousPage();
-            }
-        }
-        if (selectedItemIndex >= 0) {
-            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
-        }
-    }
-
-    public DataModel getItems() {
-        if (items == null) {
-            items = getPagination().createPageDataModel();
-        }
-        return items;
-    }
-
-    private void recreateModel() {
-        items = null;
-    }
-
-    private void recreatePagination() {
-        pagination = null;
-    }
-
-    public String next() {
-        getPagination().nextPage();
-        recreateModel();
-        return "List";
-    }
-
-    public String previous() {
-        getPagination().previousPage();
-        recreateModel();
-        return "List";
-    }
+    
+    
+    private SelectItem[] itemsParalelos;
 
     
+
+    public void setItemsParalelos(SelectItem[] itemsParalelos) {
+        this.itemsParalelos = itemsParalelos;
+    }
+    
+//    public SelectItem[] getItemsParalelos(){
+//        
+//        int cont = 0;
+//        itemsParalelos = new SelectItem[ejbFacade.findParalelosByCursoId2(cursoId).size()];
+//        for (Paralelo paralelo : ejbFacade.findParalelosByCursoId2(cursoId)) {
+//            
+//            itemsParalelos[cont++] = new SelectItem(paralelo, paralelo.toString()); 
+//            System.out.println("prueba items"+ itemsParalelos[cont]);
+//        }
+//        return itemsParalelos;        
+//    }
 }

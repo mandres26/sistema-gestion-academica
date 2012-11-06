@@ -37,12 +37,27 @@ public class CursoFacade extends AbstractFacade<Curso> {
             return query.getResultList();
         }
         
-        public Curso findParalelosByEstudentId(Long estudentId){
-            Query query = em.createNamedQuery("findParalelosByEstudentId");
-            query.setParameter("id", estudentId);
+        public Curso findCursoByCursoId(Long id){
+            Query query = em.createNamedQuery("findCursosAndParalelos");
+            query.setParameter("id", id);
             return (Curso)query.getSingleResult();
             
         }
+        
+        
+         public List<Curso> findCursosAndParalelos(){
+            Query query = em.createNamedQuery("findCursosAndParalelos");
+            return query.getResultList();
+            
+        }
+        
+        
+//        public List<Paralelo> findParalelosByCursoId2(Long estudentId){
+//            Query query = em.createNamedQuery("findParalelosByCursoId");
+//            query.setParameter("id", estudentId);
+//            return query.getResultList();
+//            
+//        }
         
         
     

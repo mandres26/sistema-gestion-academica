@@ -34,4 +34,10 @@ public class ParaleloFacade extends AbstractFacade<Paralelo> {
         return query.getResultList();
     }
     
+    public List<Paralelo> findAllParalelosByCurso(Long cursoId){
+        Query query = em.createNamedQuery("Paralelo.findAllParalelosByCursoId");
+        query.setParameter("cursoId", cursoId);
+        return query.getResultList();
+    }
+    
 }
