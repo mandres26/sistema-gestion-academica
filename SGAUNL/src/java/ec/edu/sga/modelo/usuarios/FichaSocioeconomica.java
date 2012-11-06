@@ -22,22 +22,43 @@ public class FichaSocioeconomica implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
+    private String internet;
+    private String viveCon;
     @OneToOne
     private Ficha ficha;
 
     public FichaSocioeconomica() {
+        
     }
 
+   
     public Long getId() {
         return id;
     }
 
+   
     public void setId(Long id) {
         this.id = id;
     }
 
     public Ficha getFicha() {
         return ficha;
+    }
+
+    public String getInternet() {
+        return internet;
+    }
+
+    public void setInternet(String internet) {
+        this.internet = internet;
+    }
+
+    public String getViveCon() {
+        return viveCon;
+    }
+
+    public void setViveCon(String viveCon) {
+        this.viveCon = viveCon;
     }
 
     public void setFicha(Ficha ficha) {

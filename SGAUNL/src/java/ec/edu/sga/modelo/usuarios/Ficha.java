@@ -7,6 +7,7 @@ package ec.edu.sga.modelo.usuarios;
 import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,7 +24,7 @@ public class Ficha implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
-    @OneToOne
+    @OneToOne(mappedBy="ficha",cascade= CascadeType.ALL,orphanRemoval=true)
     private Usuario usuario;
     @OneToOne(mappedBy="ficha",cascade= CascadeType.ALL,orphanRemoval=true)
     private FichaPersonal fichaPersonal;
@@ -33,6 +34,10 @@ public class Ficha implements Serializable {
     private FichaSocioeconomica fichaSocio;
 
     public Ficha() {
+        this.usuario= new Usuario();
+        this.fichaPersonal= new FichaPersonal();
+        this.fichaMedica= new FichaMedica();
+        this.fichaSocio= new FichaSocioeconomica();
     }
 
     public Long getId() {

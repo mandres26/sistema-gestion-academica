@@ -28,7 +28,7 @@ public class FichaMedica implements Serializable {
     private TipoSangre tipoSangre;
     private String alergias;
     private String hospital;
-    private String telefono;
+    private String telefonoHospital;
     private String observaciones;
     @OneToOne
     private Ficha ficha;
@@ -36,10 +36,12 @@ public class FichaMedica implements Serializable {
     public FichaMedica() {
     }
 
+ 
     public Long getId() {
         return id;
     }
 
+ 
     public void setId(Long id) {
         this.id = id;
     }
@@ -68,12 +70,12 @@ public class FichaMedica implements Serializable {
         this.hospital = hospital;
     }
 
-    public String getTelefono() {
-        return telefono;
+    public String getTelefonoHospital() {
+        return telefonoHospital;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setTelefonoHospital(String telefonoHospital) {
+        this.telefonoHospital = telefonoHospital;
     }
 
     public String getObservaciones() {

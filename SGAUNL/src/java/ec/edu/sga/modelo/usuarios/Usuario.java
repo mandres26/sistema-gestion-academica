@@ -5,12 +5,17 @@
 package ec.edu.sga.modelo.usuarios;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -23,7 +28,15 @@ public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
-    @OneToOne(mappedBy = "usuario",cascade= CascadeType.ALL,orphanRemoval=true)
+    private String dni;
+    private String libretaMilitar;
+    private String nombres;
+    private String apellidos;
+    @Enumerated(EnumType.STRING)
+    private TipoSexo sexo;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date fechaNacimiento;
+    @OneToOne
     private Ficha ficha;
 
     public Usuario() {
@@ -35,6 +48,54 @@ public class Usuario implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
+    public String getLibretaMilitar() {
+        return libretaMilitar;
+    }
+
+    public void setLibretaMilitar(String libretaMilitar) {
+        this.libretaMilitar = libretaMilitar;
+    }
+
+    public String getNombres() {
+        return nombres;
+    }
+
+    public void setNombres(String nombres) {
+        this.nombres = nombres;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    public TipoSexo getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(TipoSexo sexo) {
+        this.sexo = sexo;
+    }
+
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
     }
 
     public Ficha getFicha() {
@@ -67,6 +128,6 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "ec.edu.sga.modelo.user.Usuario[ id=" + id + " ]";
+        return nombres+apellidos;
     }
 }
