@@ -21,7 +21,16 @@
                     <p:panelGrid columns="2">
                         <h:outputLabel value="#{bundle.ListCursoTitle_nombreCurso}"/>
                         <p:inputText id="name" label="Nombre de Curso" required="true" value="#{cursoController.current.nombreCurso}"> </p:inputText>
-                        <p:message for="name"/> 
+                        <h:outputLabel value="#{bundle.ListCursoTitle_nivel}"/>
+                        <p:selectOneMenu converter="genericConverter"
+                                         value="#{cursoController.current.nivel}">
+                            <f:selectItems 
+                                value="#{nivelController.itemsAvailableSelectOne}"/>
+                            </p:selectOneMenu>
+                        
+                        
+                        
+                        <p:messages /> 
                         <f:facet name="footer">
                             <p:commandButton value="ACTUALIZAR" rendered="#{cursoController.cursoId!=null}"
                                              action="#{cursoController.update()}"

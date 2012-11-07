@@ -32,8 +32,19 @@
                                 <h:outputText value="#{_curso.nombreCurso}"/>
                             </p:column>
 
+                            <p:column headerText="Nivel">
+                                <h:outputText value="#{_curso.nivel}"/>
+                                
+                            </p:column>
 
-                            <p:column headerText="Paralelos">
+                            <p:column headerText="Paralelos" filterOptions="#{paraleloController.itemsAvailableSelectOne}"  
+                filterMatchMode="exact">  
+                                
+                                <p:selectOneMenu >
+                                    <f:selectItems value="#{_curso.paralelos}" />
+                                </p:selectOneMenu>
+                                
+                                
                                
                              </p:column>
 

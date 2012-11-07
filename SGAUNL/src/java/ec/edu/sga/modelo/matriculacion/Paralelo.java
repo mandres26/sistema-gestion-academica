@@ -33,7 +33,7 @@ public class Paralelo implements Serializable {
     private Long id;
     private String nombreParalelo;
     private int numeroCupos;
-    @ManyToOne(fetch= FetchType.EAGER)
+    @ManyToOne
     private Curso curso;
 
 

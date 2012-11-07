@@ -1,6 +1,8 @@
 package ec.edu.sga.controller;
 
 import ec.edu.sga.controller.util.JsfUtil;
+import ec.edu.sga.facade.CursoFacade;
+import ec.edu.sga.facade.NivelFacade;
 import ec.edu.sga.facade.ParaleloFacade;
 import ec.edu.sga.modelo.matriculacion.Curso;
 import ec.edu.sga.modelo.matriculacion.Paralelo;
@@ -28,6 +30,8 @@ public class CursoController implements Serializable {
     private ec.edu.sga.facade.CursoFacade ejbFacade;
     @EJB
     private ParaleloFacade ejbFacadeParalelo;
+    @EJB
+    private NivelFacade ejbFacadeNivel;
     private Long cursoId;
     @Inject
     Conversation conversation;
@@ -100,6 +104,38 @@ public class CursoController implements Serializable {
 
     public void setListParalelos(List<Paralelo> listParalelos) {
         this.listParalelos = listParalelos;
+    }
+
+    public CursoFacade getEjbFacade() {
+        return ejbFacade;
+    }
+
+    public void setEjbFacade(CursoFacade ejbFacade) {
+        this.ejbFacade = ejbFacade;
+    }
+
+    public ParaleloFacade getEjbFacadeParalelo() {
+        return ejbFacadeParalelo;
+    }
+
+    public void setEjbFacadeParalelo(ParaleloFacade ejbFacadeParalelo) {
+        this.ejbFacadeParalelo = ejbFacadeParalelo;
+    }
+
+    public NivelFacade getEjbFacadeNivel() {
+        return ejbFacadeNivel;
+    }
+
+    public void setEjbFacadeNivel(NivelFacade ejbFacadeNivel) {
+        this.ejbFacadeNivel = ejbFacadeNivel;
+    }
+
+    public Conversation getConversation() {
+        return conversation;
+    }
+
+    public void setConversation(Conversation conversation) {
+        this.conversation = conversation;
     }
     
     
