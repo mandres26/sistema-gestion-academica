@@ -5,27 +5,25 @@
 package ec.edu.sga.modelo.usuarios;
 
 import java.io.Serializable;
-import java.util.Date;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
+import javax.persistence.TableGenerator;
 
 /**
  *
  * @author edison
  */
 @Entity
+@TableGenerator(name = "FichaPersonalGenerador", table = "GeneradorIdentificador", pkColumnName = "nombre",
+valueColumnName = "valor", pkColumnValue = "FichaPersonal", initialValue = 1, allocationSize = 1)
 public class FichaPersonal implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator="FichaPersonalGenerador")
     private Long id;
     private String ciudadNacimiento;
     private String cantonNaciemiento;

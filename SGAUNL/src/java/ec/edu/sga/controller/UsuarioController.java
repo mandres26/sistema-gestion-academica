@@ -6,6 +6,8 @@ package ec.edu.sga.controller;
 
 import ec.edu.sga.controller.util.JsfUtil;
 import ec.edu.sga.controller.util.PaginationHelper;
+import ec.edu.sga.facade.FichaFacade;
+import ec.edu.sga.facade.FichaPersonalFacade;
 import ec.edu.sga.facade.UsuarioFacade;
 import ec.edu.sga.modelo.usuarios.Ficha;
 import ec.edu.sga.modelo.usuarios.FichaMedica;
@@ -34,32 +36,91 @@ import javax.inject.Named;
  */
 @Named(value = "usuarioController")
 @ConversationScoped
-public class UsuarioController implements Serializable{
+public class UsuarioController implements Serializable {
 
     private Usuario current;
-//    private Ficha ficha;
-//    private FichaPersonal fichaP;
-//    private FichaMedica fichaM;
-//    private FichaSocioeconomica fichaS;
+private Ficha ficha;
+private FichaPersonal fichaP;
+private FichaMedica fichaM;
+private FichaSocioeconomica fichaS;
     private DataModel items = null;
     @EJB
     private ec.edu.sga.facade.UsuarioFacade ejbFacade;
+   // @EJB
+    private FichaFacade ejbFacadeFicha;
+    //@EJB
+    private FichaPersonalFacade ejbFacadeFichaPersonal;
+    //@EJB
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private List<Usuario> resultlist;
+    private Long fichaId;
+    private Long fichaPersonalId; 
+    
+    
+//     public void addFicha(){
+//        beginConversation();
+//        if(fichaId!=null && fichaId.longValue() >0){
+//            Ficha e = ejbFacadeFicha.find(fichaId);
+//            FichaPersonal f = ejbFacadeFichaPersonal.find(fichaPersonalId);
+//            e.setFichaPersonal(f);
+//            current.setFicha(e);
+//                    
+//        } else{
+//            Ficha e= new Ficha();
+//            FichaPersonal f = new FichaPersonal();
+//        }
+//        
+//    }
+    
+    
+    public void addFicha(){
+        Ficha f= new Ficha();
+       FichaPersonal fp = new FichaPersonal();
+       f.add(fp);
+        current.add(f);
+        
+    }
+    
+    
+    
+    
+    
+     
+      public void addFichaPersonal(){
+        beginConversation();
+        if(fichaPersonalId!=null && fichaPersonalId.longValue() >0){
+            FichaPersonal e = ejbFacadeFichaPersonal.find(fichaPersonalId);
+            current.setFicha(ficha);
+                    
+        } else{
+            FichaPersonal e= new FichaPersonal();
+        }
+        
+    }
+     
+     
+    
+    
+    
+//    Ficha ficha;
+//    FichaPersonal fichaP;
+//    FichaMedica fichaM;
+//    FichaSocioeconomica fichaS;
     @Inject
     Conversation conversation;
-    
+
     public UsuarioController() {
-        current= new Usuario();
-//        ficha= new Ficha();
-//        fichaP= new FichaPersonal();
-//        fichaM= new FichaMedica();
-//        fichaS= new FichaSocioeconomica();
-        
-        resultlist= new ArrayList<Usuario>();
-                
-        
+        System.out.println("Constructor de Usuario Controller");
+        current = new Usuario();
+        ficha = new Ficha();
+        fichaP = new FichaPersonal();
+        fichaM = new FichaMedica();
+        fichaS = new FichaSocioeconomica();
+
+        resultlist = new ArrayList<Usuario>();
+
+
     }
 
 //    public String find() {
@@ -96,6 +157,8 @@ public class UsuarioController implements Serializable{
 
         System.out.println("========> INGRESO a Grabar nuevo Usuario: " + current.getNombres());
         ejbFacade.create(current);
+//        ejbFacadeFicha.create(ficha);
+//        ejbFacadeFichaPersonal.create(fichaP);
         this.endConversation();
 
         String summary = ResourceBundle.getBundle("/Bundle").getString("EstudianteCreated");
@@ -103,7 +166,7 @@ public class UsuarioController implements Serializable{
         //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null));
         FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 
-        return "/estudiante/Created?faces-redirect=true";
+        return "/index";
         //return "/vehicle/BrandList";
 
     }

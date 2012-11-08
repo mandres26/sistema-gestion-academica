@@ -11,26 +11,33 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.TableGenerator;
 
 /**
  *
  * @author edison
  */
 @Entity
+@TableGenerator(name = "FichaGenerador", table = "GeneradorIdentificador", pkColumnName = "nombre",
+valueColumnName = "valor", pkColumnValue = "Ficha", initialValue = 1, allocationSize = 1)
 public class Ficha implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator="FichaGenerador")
     private Long id;
-    @OneToOne(mappedBy="ficha",cascade= CascadeType.ALL,orphanRemoval=true)
+    @OneToOne
     private Usuario usuario;
-    @OneToOne(mappedBy="ficha",cascade= CascadeType.ALL,orphanRemoval=true)
+    
+    
+    @OneToOne(mappedBy="ficha",cascade= CascadeType.ALL,orphanRemoval=true, fetch= FetchType.EAGER)
     private FichaPersonal fichaPersonal;
     @OneToOne(mappedBy="ficha",cascade= CascadeType.ALL,orphanRemoval=true)
     private FichaMedica fichaMedica;
     @OneToOne(mappedBy="ficha",cascade= CascadeType.ALL,orphanRemoval=true)
+    @JoinColumn
     private FichaSocioeconomica fichaSocio;
 
     public Ficha() {
@@ -78,6 +85,13 @@ public class Ficha implements Serializable {
 
     public void setFichaSocio(FichaSocioeconomica fichaSocio) {
         this.fichaSocio = fichaSocio;
+    }
+    
+    public void add(FichaPersonal fichaPersonal) {
+        if (!fichaPersonal.equals(fichaPersonal)) {
+            this.fichaPersonal=fichaPersonal;
+            fichaPersonal.setFicha(this);
+        }
     }
 
     @Override

@@ -15,6 +15,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 
 /**
@@ -22,11 +23,13 @@ import javax.persistence.Temporal;
  * @author edison
  */
 @Entity
+@TableGenerator(name = "UsuarioGenerador", table = "GeneradorIdentificador", pkColumnName = "nombre",
+valueColumnName = "valor", pkColumnValue = "Usuario", initialValue = 1, allocationSize = 1)
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "UsuarioGenerador")
     private Long id;
     private String dni;
     private String libretaMilitar;
@@ -36,7 +39,7 @@ public class Usuario implements Serializable {
     private TipoSexo sexo;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaNacimiento;
-    @OneToOne
+    @OneToOne(mappedBy = "usuario", cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.EAGER)
     private Ficha ficha;
 
     public Usuario() {
@@ -106,6 +109,17 @@ public class Usuario implements Serializable {
         this.ficha = ficha;
     }
 
+    public void add(Ficha ficha) {
+        if (!ficha.equals(ficha)) {
+            this.ficha=ficha;
+            ficha.setUsuario(this);
+        }
+    }
+
+    
+
+
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -128,6 +142,6 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return nombres+apellidos;
+        return nombres + apellidos;
     }
 }
