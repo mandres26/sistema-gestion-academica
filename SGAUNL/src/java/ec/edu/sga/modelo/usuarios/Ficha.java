@@ -41,10 +41,11 @@ public class Ficha implements Serializable {
     private FichaSocioeconomica fichaSocio;
 
     public Ficha() {
-        this.usuario= new Usuario();
-        this.fichaPersonal= new FichaPersonal();
-        this.fichaMedica= new FichaMedica();
-        this.fichaSocio= new FichaSocioeconomica();
+//        this.usuario= new Usuario();
+//        
+//        this.fichaPersonal= new FichaPersonal();
+//        this.fichaMedica= new FichaMedica();
+//        this.fichaSocio= new FichaSocioeconomica();
     }
 
     public Long getId() {
@@ -56,6 +57,7 @@ public class Ficha implements Serializable {
     }
 
     public Usuario getUsuario() {
+        
         return usuario;
     }
 

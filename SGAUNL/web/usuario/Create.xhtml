@@ -55,7 +55,9 @@ and open the template in the editor.
                     <h:outputLabel value="#{bundle.CreateEstudianteLabel_foto}" for="foto" />
                     <p:inputText id="foto" value="#{usuarioController.current.ficha.fichaPersonal.foto}" title="#{bundle.CreateEstudianteTitle_foto}" />
                     <h:outputLabel value="Tipo Sangre" for="tipoSangre" />
-                    <p:inputText id="tipoSangre" value="#{usuarioController.current.ficha.fichaMedica.tipoSangre}" title="#{bundle.CreateEstudianteTitle_foto}" />
+                    <p:selectOneMenu id="_typeSangre" value="#{usuarioController.current.ficha.fichaMedica.tipoSangre}" effect="fade" >  
+                        <f:selectItems value="#{typeListController.typeListSangre}" var="_sangre" itemLabel="#{bundle[fuelType]}" itemValue="#{_sangre}"/>  
+                    </p:selectOneMenu>
                     <h:outputLabel value="Alergias" for="alergias" />
                     <p:inputText id="alergias" value="#{usuarioController.current.ficha.fichaMedica.alergias}" title="#{bundle.CreateEstudianteTitle_foto}" />
                     <h:outputLabel value="Hospital" for="hospital" />
@@ -68,7 +70,8 @@ and open the template in the editor.
                     <p:inputText id="internet" value="#{usuarioController.current.ficha.fichaSocio.internet}" title="#{bundle.CreateEstudianteTitle_foto}" />
                     <h:outputLabel value="Vive Con" for="viveCon" />
                     <p:inputText id="viveCon" value="#{usuarioController.current.ficha.fichaSocio.viveCon}" title="#{bundle.CreateEstudianteTitle_foto}" />
-
+                    
+                   
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{usuarioController.persist()}" value="#{bundle.CreateEstudianteSaveLink}" />

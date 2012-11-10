@@ -111,15 +111,11 @@ public class Usuario implements Serializable {
 
     public void add(Ficha ficha) {
         if (!ficha.equals(ficha)) {
-            this.ficha=ficha;
+            this.ficha = ficha;
             ficha.setUsuario(this);
         }
     }
 
-    
-
-
-    
     @Override
     public int hashCode() {
         int hash = 0;

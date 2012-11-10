@@ -9,6 +9,7 @@ import ec.edu.sga.controller.util.PaginationHelper;
 import ec.edu.sga.facade.EstudianteFacade;
 import ec.edu.sga.facade.FichaMedicaFacade;
 import ec.edu.sga.modelo.matriculacion.Estudiante;
+import ec.edu.sga.modelo.usuarios.Ficha;
 import ec.edu.sga.modelo.usuarios.FichaMedica;
 import ec.edu.sga.modelo.usuarios.Usuario;
 import java.io.Serializable;
@@ -36,6 +37,7 @@ import javax.inject.Inject;
 public class FichaMedicaController implements Serializable{
 
     private FichaMedica current;
+    private Ficha ficha;
     private DataModel items = null;
     @EJB
     private ec.edu.sga.facade.FichaMedicaFacade ejbFacade;
@@ -47,6 +49,8 @@ public class FichaMedicaController implements Serializable{
     Conversation conversation;
     public FichaMedicaController() {
         current = new FichaMedica();
+//        ficha=  new Ficha();
+//        current.setFicha(ficha);
         resultlist= new ArrayList<FichaMedica>();
     }
     

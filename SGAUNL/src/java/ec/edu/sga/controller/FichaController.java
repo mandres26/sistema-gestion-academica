@@ -42,7 +42,7 @@ public class FichaController implements Serializable{
     @Inject
     Conversation conversation;
     public FichaController() {
-        current= new Ficha();
+        this.current= new Ficha();
         resultlist= new ArrayList<Ficha>();
     }
     

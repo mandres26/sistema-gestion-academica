@@ -21,7 +21,6 @@ import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.DataModel;
@@ -39,74 +38,18 @@ import javax.inject.Named;
 public class UsuarioController implements Serializable {
 
     private Usuario current;
-private Ficha ficha;
-private FichaPersonal fichaP;
-private FichaMedica fichaM;
-private FichaSocioeconomica fichaS;
+    private Ficha ficha;
+    private FichaPersonal fichaP;
+    private FichaMedica fichaM;
+    private FichaSocioeconomica fichaS;
     private DataModel items = null;
     @EJB
     private ec.edu.sga.facade.UsuarioFacade ejbFacade;
-   // @EJB
-    private FichaFacade ejbFacadeFicha;
-    //@EJB
-    private FichaPersonalFacade ejbFacadeFichaPersonal;
-    //@EJB
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private List<Usuario> resultlist;
     private Long fichaId;
-    private Long fichaPersonalId; 
-    
-    
-//     public void addFicha(){
-//        beginConversation();
-//        if(fichaId!=null && fichaId.longValue() >0){
-//            Ficha e = ejbFacadeFicha.find(fichaId);
-//            FichaPersonal f = ejbFacadeFichaPersonal.find(fichaPersonalId);
-//            e.setFichaPersonal(f);
-//            current.setFicha(e);
-//                    
-//        } else{
-//            Ficha e= new Ficha();
-//            FichaPersonal f = new FichaPersonal();
-//        }
-//        
-//    }
-    
-    
-    public void addFicha(){
-        Ficha f= new Ficha();
-       FichaPersonal fp = new FichaPersonal();
-       f.add(fp);
-        current.add(f);
-        
-    }
-    
-    
-    
-    
-    
-     
-      public void addFichaPersonal(){
-        beginConversation();
-        if(fichaPersonalId!=null && fichaPersonalId.longValue() >0){
-            FichaPersonal e = ejbFacadeFichaPersonal.find(fichaPersonalId);
-            current.setFicha(ficha);
-                    
-        } else{
-            FichaPersonal e= new FichaPersonal();
-        }
-        
-    }
-     
-     
-    
-    
-    
-//    Ficha ficha;
-//    FichaPersonal fichaP;
-//    FichaMedica fichaM;
-//    FichaSocioeconomica fichaS;
+    private Long fichaPersonalId;
     @Inject
     Conversation conversation;
 
@@ -114,37 +57,24 @@ private FichaSocioeconomica fichaS;
         System.out.println("Constructor de Usuario Controller");
         current = new Usuario();
         ficha = new Ficha();
+        current.setFicha(ficha);
+        ficha.setUsuario(current);
         fichaP = new FichaPersonal();
+        fichaP.setFicha(ficha);
+        ficha.setFichaPersonal(fichaP);
         fichaM = new FichaMedica();
+        fichaM.setFicha(ficha);
+        ficha.setFichaMedica(fichaM);
         fichaS = new FichaSocioeconomica();
+        fichaS.setFicha(ficha);
+        ficha.setFichaSocio(fichaS);
 
         resultlist = new ArrayList<Usuario>();
 
 
     }
 
-//    public String find() {
-//        System.out.println("Ingreso a buscar con criterio: " + criterio);
-//        resultList = ejbFacade.buscarPorClave(criterio);
-//
-//        for (Estudiante estudiante : resultList) {
-//            System.out.println(estudiante);
-//
-//        }
-//        String summary = "Encontrado Correctamente!";
-//        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null));
-//        //puedo hacer retornar a la pagina q se quiera
-//        return "/estudiante/List";
-//
-//    }
-//    public List<Estudiante> findCompleteBrand(String query) {
-//        System.out.println("====INGRESO A BUSCAR AUTOCOMPLETE CON::" + query);
-//        return ejbFacade.buscarPorClave(query);
-//    }
-//    public void agregarContacto() {
-//        Contacto c = new Contacto();
-//        current.agregar(c);
-//    }
+
     public String createInstance() {
         //return "/vehicle/Edit?faces-redirect=true";
         System.out.println("========> INGRESO a Crear Instance estudiante: " + current.getNombres());

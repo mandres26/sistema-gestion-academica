@@ -7,6 +7,7 @@ package ec.edu.sga.controller;
 import ec.edu.sga.controller.util.JsfUtil;
 import ec.edu.sga.controller.util.PaginationHelper;
 import ec.edu.sga.facade.FichaPersonalFacade;
+import ec.edu.sga.modelo.usuarios.Ficha;
 import ec.edu.sga.modelo.usuarios.FichaPersonal;
 import ec.edu.sga.modelo.usuarios.Usuario;
 import java.util.ArrayList;
@@ -32,24 +33,27 @@ import javax.inject.Named;
 public class FichaPersonalController {
 
     private FichaPersonal current;
+    private Ficha ficha;
     private DataModel items = null;
     @EJB
     private ec.edu.sga.facade.FichaPersonalFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private List<FichaPersonal> resultlist;
-
     @Inject
     Conversation conversation;
+
     public FichaPersonalController() {
-        current= new FichaPersonal();
-        resultlist= new ArrayList<FichaPersonal>();
-        
+        current = new FichaPersonal();
+//        ficha = new Ficha();
+//        current.setFicha(ficha);
+        resultlist = new ArrayList<FichaPersonal>();
+
     }
-    
-     public String createInstance() {
+
+    public String createInstance() {
         //return "/vehicle/Edit?faces-redirect=true";
-        System.out.println("========> INGRESO a Crear Instance estudiante: " );
+        System.out.println("========> INGRESO a Crear Instance estudiante: ");
         this.current = new FichaPersonal();
         return "/estudiante/Edit?faces-redirect=true";
         //return "/vehicle/BrandEdit";
@@ -87,7 +91,7 @@ public class FichaPersonalController {
     }
 
     public String delete() {
-        System.out.println("========> INGRESO a Eliminar Estudiante: " );
+        System.out.println("========> INGRESO a Eliminar Estudiante: ");
         ejbFacade.remove(current);
 
         // this.find();
@@ -227,7 +231,6 @@ public class FichaPersonalController {
 //            return null;
 //        }
 //    }
-
     public String destroy() {
         current = (FichaPersonal) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();

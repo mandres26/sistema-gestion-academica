@@ -7,6 +7,7 @@ package ec.edu.sga.controller;
 import ec.edu.sga.controller.util.JsfUtil;
 import ec.edu.sga.controller.util.PaginationHelper;
 import ec.edu.sga.facade.FichaSocioeconomicaFacade;
+import ec.edu.sga.modelo.usuarios.Ficha;
 import ec.edu.sga.modelo.usuarios.FichaSocioeconomica;
 import ec.edu.sga.modelo.usuarios.Usuario;
 import java.io.Serializable;
@@ -34,6 +35,7 @@ import javax.inject.Named;
 public class FichaSocioeconomicaController implements Serializable{
 
     private FichaSocioeconomica current;
+    private Ficha ficha;
     private DataModel items = null;
     @EJB
     private ec.edu.sga.facade.FichaSocioeconomicaFacade ejbFacade;
@@ -43,8 +45,11 @@ public class FichaSocioeconomicaController implements Serializable{
     
     @Inject
     Conversation conversation;
+    
     public FichaSocioeconomicaController() {
         current= new FichaSocioeconomica();
+//        ficha= new Ficha();
+//        current.setFicha(ficha);
         resultlist= new ArrayList<FichaSocioeconomica>();
     }
     
