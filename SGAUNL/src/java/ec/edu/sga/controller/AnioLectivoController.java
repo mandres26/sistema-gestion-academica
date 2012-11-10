@@ -2,9 +2,7 @@ package ec.edu.sga.controller;
 
 import ec.edu.sga.controller.util.JsfUtil;
 import ec.edu.sga.facade.AnioLectivoFacade;
-import ec.edu.sga.facade.ParaleloFacade;
 import ec.edu.sga.modelo.matriculacion.AnioLectivo;
-import ec.edu.sga.modelo.matriculacion.Paralelo;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -158,7 +156,22 @@ public class AnioLectivoController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
     
+     public SelectItem[] getItemAnioActivate() {
+        return JsfUtil.getSelectItem(ejbFacade.findAnioActivate(Boolean.TRUE));
+    }
+    
+   
     
     
+    //Method that return the Anio that are activate == true
+//    public AnioLectivo anioActivo(){
+//        beginConversation();
+//        AnioLectivo a = ejbFacade.findAnioActivate(Boolean.TRUE);
+//        System.out.println("el año activo es: " +a);
+//        anioLectivoId=a.getId();
+//        return ejbFacade.findAnioActivate(Boolean.TRUE);
+//        
+//       
+//    }
     
 }

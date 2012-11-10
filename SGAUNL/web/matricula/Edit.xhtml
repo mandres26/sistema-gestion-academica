@@ -6,9 +6,7 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-    <f:metadata>
-        <f:viewParam name="matriculaId" value="#{matriculaController.matriculaId}"/>
-    </f:metadata>
+   
 
     <ui:composition template="/templates/plantilla.xhtml">
         <ui:define name="title">
@@ -19,6 +17,17 @@
             <h:form id="formEditMatricula">
                 <p:panel header="Editar Matriculas" id="panelEditMatriculas">
                     <p:panelGrid columns="2">
+                        
+                        
+                        <h:outputLabel value="#{bundle.ListMatriculaTitle_anioLectivo}"/>
+                        <p:selectOneMenu converter="genericConverter" value="#{matriculaController.current.anioLectivo}">
+                            <f:selectItems value="#{anioLectivoController.itemAnioActivate}"/>
+                        </p:selectOneMenu>
+                            
+                       
+
+                        <h:outputLabel value="#{bundle.ListMatriculaTitle_estudiante}"/>
+                        <h:outputText value="#{matriculaController.current.estudiante}" />
 
                         <h:outputLabel value="#{bundle.ListMatriculaTitle_numeroMatricula}"/>
                         <p:inputText required="true" label="Tipo de Matricula" value="#{matriculaController.current.numeroMatricula}"/>
@@ -27,13 +36,11 @@
                         <h:outputText value="#{matriculaController.current.fechaMatricula}" >
                             <f:convertDateTime pattern="dd/MM/yyyy"/>
                         </h:outputText>
-                        
-                        <h:outputLabel value="#{bundle.ListMatriculaTitle_estudiante}"/>
-                        <h:outputText value="#{matriculaController.current.estudiante}" />
-                           
 
                         <h:outputLabel value="#{bundle.ListMatriculaTitle_tipoMatricula}"/>
-                        <p:inputText label="Tipo de Matrícula" required="true" value="#{matriculaController.current.tipoMatricula}" />
+                        <p:selectOneMenu label="Tipo de Matrícula" required="true" value="#{matriculaController.current.tipoMatricula}">
+                            <f:selectItems value="#{typeListController.typeTipoMatriculas}"/>  
+                        </p:selectOneMenu>
 
                         <h:outputLabel value="#{bundle.ListMatriculaTitle_segundaTerceraMatricula}"/>
                         <p:inputText label="Segunda o tercera matrícula" required="true" value="#{matriculaController.current.segundaTerceraMatricula}" />
@@ -41,6 +48,15 @@
                         <h:outputLabel value="#{bundle.ListMatriculaTitle_observaciones}"/>
                         <p:inputTextarea label="Observaciones" required="true" value="#{matriculaController.current.observaciones}" />
 
+                        
+                        
+                        <h:outputLabel value="#{bundle.ListMatriculaTitle_curso}"/>
+                        <p:selectOneMenu label="Curso" required="true" value="#{matriculaController.current.curso}">
+                            <f:selectItems value=""/>  
+                        </p:selectOneMenu>
+                        
+                        
+                        
                         <p:messages />
 
                         <f:facet name="footer">

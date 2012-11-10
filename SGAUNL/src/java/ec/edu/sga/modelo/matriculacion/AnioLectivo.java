@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
@@ -23,6 +25,7 @@ import javax.persistence.Temporal;
 @Entity
 @TableGenerator(name = "AnioLectivoGenerador", table = "GeneradorIdentificador", pkColumnName = "nombre",
 valueColumnName = "valor", pkColumnValue = "AnioLectivo", initialValue = 1, allocationSize = 1)
+@NamedQueries(value={@NamedQuery(name="AnioLectivo.findAnioActivo",query="select a from AnioLectivo a where a.estado=:parameter")})
 public class AnioLectivo implements Serializable {
 
     private static final long serialVersionUID = 1L;

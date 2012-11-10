@@ -22,6 +22,17 @@ public class JsfUtil {
         }
         return items;
     }
+    
+    
+    public static SelectItem[] getSelectItem(Object entities) {
+      
+        SelectItem[] items = new SelectItem[1];
+        items[0] = new SelectItem(entities, entities.toString());
+        return items;
+    }
+    
+    
+    
 
     public static void addErrorMessage(Exception ex, String defaultMsg) {
         String msg = ex.getLocalizedMessage();

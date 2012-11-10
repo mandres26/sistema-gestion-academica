@@ -8,6 +8,7 @@ import ec.edu.sga.modelo.matriculacion.AnioLectivo;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -26,5 +27,14 @@ public class AnioLectivoFacade extends AbstractFacade<AnioLectivo> {
     public AnioLectivoFacade() {
         super(AnioLectivo.class);
     }
+    
+    //método para encontrar el año activo
+    public AnioLectivo findAnioActivate(Boolean parameter){
+        Query query=em.createNamedQuery("AnioLectivo.findAnioActivo");
+        query.setParameter("parameter", parameter);
+        return (AnioLectivo) query.getSingleResult();
+    }
+    
+    
     
 }

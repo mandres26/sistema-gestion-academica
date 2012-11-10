@@ -2,7 +2,9 @@ package ec.edu.sga.controller;
 
 import ec.edu.sga.modelo.matriculacion.Matricula;
 import ec.edu.sga.controller.util.JsfUtil;
+import ec.edu.sga.facade.AnioLectivoFacade;
 import ec.edu.sga.facade.MatriculaFacade;
+import ec.edu.sga.modelo.matriculacion.AnioLectivo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -26,6 +28,8 @@ public class MatriculaController implements Serializable {
    
     @EJB
     private ec.edu.sga.facade.MatriculaFacade ejbFacade;
+    @EJB
+    private ec.edu.sga.facade.AnioLectivoFacade ejbFacadeAnioLectivo;
      @Inject
     Conversation conversation;
    
@@ -94,6 +98,14 @@ public class MatriculaController implements Serializable {
         this.conversation = conversation;
     }
 
+    public AnioLectivoFacade getEjbFacadeAnioLectivo() {
+        return ejbFacadeAnioLectivo;
+    }
+
+    public void setEjbFacadeAnioLectivo(AnioLectivoFacade ejbFacadeAnioLectivo) {
+        this.ejbFacadeAnioLectivo = ejbFacadeAnioLectivo;
+    }
+
    
     
     //_____________________________MÉTODOS_____________________________//
@@ -148,6 +160,9 @@ public class MatriculaController implements Serializable {
         }
 
     }
+    
+    //___________________________MÉTODOS DE BÚSQUEDA___________________________//
+    
     public SelectItem[] getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
@@ -156,5 +171,11 @@ public class MatriculaController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
+    
+    //Method that return the Anio that are activate == true
+//    public AnioLectivo anioActivo(){
+//        beginConversation();
+//                return ejbFacadeAnioLectivo.findAnioActivate(Boolean.TRUE);
+//    }
         
 }
