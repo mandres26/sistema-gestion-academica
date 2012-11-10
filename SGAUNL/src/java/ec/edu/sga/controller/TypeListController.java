@@ -4,6 +4,7 @@
  */
 package ec.edu.sga.controller;
 
+import ec.edu.sga.modelo.matriculacion.TipoMatricula;
 import ec.edu.sga.modelo.usuarios.TipoSangre;
 import ec.edu.sga.modelo.usuarios.TipoSexo;
 import javax.inject.Named;
@@ -28,5 +29,9 @@ public class TypeListController {
     
     public TipoSangre[] getTypeListSangre(){
         return TipoSangre.values();
+    }
+    
+    public TipoMatricula[] getTypeTipoMatriculas(){
+        return TipoMatricula.values();
     }
 }
