@@ -21,9 +21,11 @@ import javax.persistence.TableGenerator;
  * @author lucho
  */
 @Entity
-@TableGenerator(name = "NivelGenerador", table = "GeneradorIdentificador", pkColumnName = "nombre",
-valueColumnName = "valor", pkColumnValue = "nivel", initialValue = 1, allocationSize = 1)
-@NamedQueries(value={@NamedQuery(name="Nivel.findAllNiveles",query="select n from Nivel n")})
+@TableGenerator(name = "NivelGenerador", table = "GeneradorIdentificador",
+pkColumnName = "nombre", valueColumnName = "valor",
+pkColumnValue = "nivel", initialValue = 1, allocationSize = 1)
+@NamedQueries(value = {
+    @NamedQuery(name = "Nivel.findAllNiveles", query = "select n from Nivel n")})
 public class Nivel implements Serializable {
 
     //----------------------ATRIBUTOS--------------------------//

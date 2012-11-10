@@ -25,6 +25,10 @@
                         <p:calendar label="Fecha de finalización" value="#{anioLectivoController.current.fechaFin}" navigator="true" showOn="button"/>
                         <h:outputLabel value="#{bundle.CreateAnioLectivoLabel_duracion}"/>
                         <p:inputText label="Duración" value="#{anioLectivoController.current.duracion}"/>
+                        <h:outputLabel value="El año es activo"/>
+                        <p:selectBooleanCheckbox value="#{anioLectivoController.current.estado}"/>
+                        
+                        
                         <f:facet name="footer">
                             <p:commandButton value="ACTUALIZAR" rendered="#{anioLectivoController.anioLectivoId!=null}"
                                              action="#{anioLectivoController.update()}"

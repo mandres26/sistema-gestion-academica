@@ -5,16 +5,13 @@
 package ec.edu.sga.modelo.matriculacion;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
@@ -25,7 +22,8 @@ import javax.persistence.TemporalType;
  * @author lucho
  */
 @Entity
-@TableGenerator(name = "MatriculaGenerador", table = "GeneradorIdentificador", pkColumnName = "nombre", pkColumnValue = "matricula",
+@TableGenerator(name = "MatriculaGenerador", table = "GeneradorIdentificador",
+pkColumnName = "nombre", pkColumnValue = "matricula",
 valueColumnName = "valor", initialValue = 1, allocationSize = 1)
 public class Matricula implements Serializable {
 
@@ -38,7 +36,8 @@ public class Matricula implements Serializable {
     private Date fechaMatricula;
     private int numeroMatricula;
     private int folioMatricula;
-    private String tipoMatricula;
+    @Enumerated
+    private TipoMatricula tipoMatricula;
     private String observaciones;
     private int segundaTerceraMatricula;
     @ManyToOne
@@ -95,11 +94,11 @@ public class Matricula implements Serializable {
         this.folioMatricula = folioMatricula;
     }
 
-    public String getTipoMatricula() {
+    public TipoMatricula getTipoMatricula() {
         return tipoMatricula;
     }
 
-    public void setTipoMatricula(String tipoMatricula) {
+    public void setTipoMatricula(TipoMatricula tipoMatricula) {
         this.tipoMatricula = tipoMatricula;
     }
 
@@ -158,6 +157,6 @@ public class Matricula implements Serializable {
 
     @Override
     public String toString() {
-        return tipoMatricula;
+        return tipoMatricula+"";
     }
 }

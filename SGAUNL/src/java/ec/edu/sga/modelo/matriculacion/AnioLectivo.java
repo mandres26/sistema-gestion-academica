@@ -36,6 +36,7 @@ public class AnioLectivo implements Serializable {
     @OneToMany(mappedBy = "anioLectivo")
     private List<Matricula> matriculas;
     private Long duracion;
+    private Boolean estado;
 
     //---------------------------CONSTRUCTORES--------------------------//
     public AnioLectivo() {
@@ -85,6 +86,16 @@ public class AnioLectivo implements Serializable {
     public void setDuracion(Long duracion) {
         this.duracion = duracion;
     }
+
+    public Boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
+    }
+    
+    
 
     //----------------------------MÉTODOS-------------------------------//
     @Override
