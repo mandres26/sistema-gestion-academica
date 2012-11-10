@@ -38,6 +38,7 @@ import javax.inject.Named;
 public class UsuarioController implements Serializable {
 
     private Usuario current;
+    private String criterio;
     private Ficha ficha;
     private FichaPersonal fichaP;
     private FichaMedica fichaM;
@@ -48,10 +49,9 @@ public class UsuarioController implements Serializable {
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private List<Usuario> resultlist;
-    private Long fichaId;
-    private Long fichaPersonalId;
     @Inject
     Conversation conversation;
+    private Long usuarioId;
 
     public UsuarioController() {
         System.out.println("Constructor de Usuario Controller");
@@ -74,6 +74,20 @@ public class UsuarioController implements Serializable {
 
     }
 
+    public String find() {
+        System.out.println("Ingreso a buscar con criterio: " + criterio);
+        resultlist = ejbFacade.buscarPorClave(criterio);
+
+        for (Usuario usuario : resultlist) {
+            System.out.println(usuario);
+
+        }
+        String summary = "Encontrado Correctamente!";
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null));
+        //puedo hacer retorjava.util.concurrent.Executorsnar a la pagina q se quiera
+        return "/usuario/List";
+
+    }
 
     public String createInstance() {
         //return "/vehicle/Edit?faces-redirect=true";
@@ -87,8 +101,6 @@ public class UsuarioController implements Serializable {
 
         System.out.println("========> INGRESO a Grabar nuevo Usuario: " + current.getNombres());
         ejbFacade.create(current);
-//        ejbFacadeFicha.create(ficha);
-//        ejbFacadeFichaPersonal.create(fichaP);
         this.endConversation();
 
         String summary = ResourceBundle.getBundle("/Bundle").getString("EstudianteCreated");
@@ -152,6 +164,29 @@ public class UsuarioController implements Serializable {
         }
     }
 
+    public Long getUsuarioId() {
+        if (this.current != null) {
+            return this.current.getId();
+        } else {
+            return null;
+        }
+    }
+
+    public void setUsuarioId(Long usuarioId) {
+        System.out.println("========> INGRESO a Fijar Estudiante: " + usuarioId);
+        this.beginConversation();
+        if (usuarioId != null && usuarioId.longValue() > 0) {
+            //this.current = ejbFacade.buscarPorId(estudianteId);
+            this.current = ejbFacade.find(usuarioId);
+//            List<Contacto> res= ejbFacade.buscarContactos(estudianteId);
+//            this.current.setContactos(res);
+            System.out.println("========> INGRESO a Editar Estudiante: " + current.getNombres());
+        } else {
+            System.out.println("========> INGRESO a Crear Estudiante: ");
+            this.current = new Usuario();
+        }
+    }
+
     public Usuario getSelected() {
         if (current == null) {
             current = new Usuario();
@@ -176,6 +211,46 @@ public class UsuarioController implements Serializable {
 
     public void setEjbFacade(UsuarioFacade ejbFacade) {
         this.ejbFacade = ejbFacade;
+    }
+
+    public String getCriterio() {
+        return criterio;
+    }
+
+    public void setCriterio(String criterio) {
+        this.criterio = criterio;
+    }
+
+    public Ficha getFicha() {
+        return ficha;
+    }
+
+    public void setFicha(Ficha ficha) {
+        this.ficha = ficha;
+    }
+
+    public FichaPersonal getFichaP() {
+        return fichaP;
+    }
+
+    public void setFichaP(FichaPersonal fichaP) {
+        this.fichaP = fichaP;
+    }
+
+    public FichaMedica getFichaM() {
+        return fichaM;
+    }
+
+    public void setFichaM(FichaMedica fichaM) {
+        this.fichaM = fichaM;
+    }
+
+    public FichaSocioeconomica getFichaS() {
+        return fichaS;
+    }
+
+    public void setFichaS(FichaSocioeconomica fichaS) {
+        this.fichaS = fichaS;
     }
 
     public int getSelectedItemIndex() {

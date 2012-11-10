@@ -5,9 +5,11 @@
 package ec.edu.sga.facade;
 
 import ec.edu.sga.modelo.usuarios.Usuario;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -26,5 +28,13 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
 
     public UsuarioFacade() {
         super(Usuario.class);
+    }
+
+    public List<Usuario> buscarPorClave(String clave) {
+
+        Query query = em.createNamedQuery("Usuario.buscarPorClave");
+        query.setParameter("clave", clave);
+
+        return query.getResultList();
     }
 }

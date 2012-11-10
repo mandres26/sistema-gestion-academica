@@ -14,6 +14,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
@@ -25,6 +27,16 @@ import javax.persistence.Temporal;
 @Entity
 @TableGenerator(name = "UsuarioGenerador", table = "GeneradorIdentificador", pkColumnName = "nombre",
 valueColumnName = "valor", pkColumnValue = "Usuario", initialValue = 1, allocationSize = 1)
+@NamedQueries(value = {
+    @NamedQuery(name = "Usuario.buscarPorClave",
+    query = "select u from Usuario u where"
+    + " lower(u.dni) like lower(concat('%',:clave,'%'))"
+    + "or"
+    + " lower(u.nombres) like lower(concat('%',:clave,'%')) " 
+    + "or"
+    + " lower(u.apellidos) like lower(concat('%',:clave,'%'))"
+    + "order by u.nombres")   
+})
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
