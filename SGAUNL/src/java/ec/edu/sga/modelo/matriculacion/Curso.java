@@ -44,8 +44,8 @@ public class Curso implements Serializable {
     private Especialidad especialidad;
     @ManyToOne
     private Nivel nivel;
-    @OneToOne
-    private Matricula matricula;
+    @OneToMany(mappedBy = "curso", cascade={CascadeType.ALL}, orphanRemoval=true)   
+    private List<Matricula> matriculas;
     @OneToOne(mappedBy = "curso")
     private MallaCurricular mallaCurricular;
     @OneToMany(mappedBy = "curso", cascade={CascadeType.ALL}, orphanRemoval=true, fetch= FetchType.EAGER)    
@@ -89,13 +89,15 @@ public class Curso implements Serializable {
         this.nivel = nivel;
     }
 
-    public Matricula getMatricula() {
-        return matricula;
+    public List<Matricula> getMatriculas() {
+        return matriculas;
     }
 
-    public void setMatricula(Matricula matricula) {
-        this.matricula = matricula;
+    public void setMatriculas(List<Matricula> matriculas) {
+        this.matriculas = matriculas;
     }
+
+   
 
     public MallaCurricular getMallaCurricular() {
         return mallaCurricular;

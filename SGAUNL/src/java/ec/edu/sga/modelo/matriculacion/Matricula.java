@@ -44,7 +44,7 @@ public class Matricula implements Serializable {
     private Estudiante estudiante;
     @ManyToOne
     private AnioLectivo anioLectivo;
-    @OneToOne(mappedBy = "matricula")
+    @ManyToOne
     private Curso curso;
     
     //--------------------COSTRUCTORES-----------------------//

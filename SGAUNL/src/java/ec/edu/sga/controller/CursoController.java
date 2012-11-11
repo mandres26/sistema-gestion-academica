@@ -30,7 +30,7 @@ public class CursoController implements Serializable {
     private ec.edu.sga.facade.CursoFacade ejbFacade;
     @EJB
     private ParaleloFacade ejbFacadeParalelo;
-    @EJB
+    //@EJB
     private NivelFacade ejbFacadeNivel;
     private Long cursoId;
     @Inject

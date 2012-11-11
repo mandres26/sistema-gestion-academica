@@ -39,15 +39,12 @@ public class MatriculaController implements Serializable {
     //_______________________CONSTRUCTORES______________________________//
     public MatriculaController() {
         current = new Matricula();
-//        matriculas = new ArrayList<Matricula>();
-//        curso = new Curso();
-//        nivel = new Nivel();
-//
-//        curso.getMatriculas().add(current);
-//        current.setCurso(curso);
-//        curso.setNivel(nivel);
-        
-        //nivel.getCursos().add(curso);
+        matriculas = new ArrayList<Matricula>();
+        curso = new Curso();
+        nivel = new Nivel();
+
+        curso.setNivel(nivel);
+        current.setCurso(curso);
 
     }
 
