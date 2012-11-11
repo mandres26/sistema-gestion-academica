@@ -26,10 +26,17 @@
                                          value="#{cursoController.current.nivel}">
                             <f:selectItems 
                                 value="#{nivelController.itemsAvailableSelectOne}"/>
-                            </p:selectOneMenu>
-                        
-                        
-                        
+                        </p:selectOneMenu>
+
+                        <h:outputLabel value="Especialidad"/>
+                        <p:selectOneMenu converter="genericConverter"
+                                         value="#{cursoController.current.especialidad}">
+                            <f:selectItems 
+                                value="#{especialidadController.itemsAvailableSelectOne}"/>
+                        </p:selectOneMenu>
+
+
+
                         <p:messages /> 
                         <f:facet name="footer">
                             <p:commandButton value="ACTUALIZAR" rendered="#{cursoController.cursoId!=null}"
@@ -70,7 +77,7 @@
                         <p:column headerText="Acciones">
                             <p:button value="EDITAR">
                             </p:button>
-                            
+
                             <p:commandButton value="ELIMINAR">
                             </p:commandButton>
 
