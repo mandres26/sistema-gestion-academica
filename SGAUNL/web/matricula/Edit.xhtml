@@ -21,7 +21,7 @@
                         
                         <h:outputLabel value="#{bundle.ListMatriculaTitle_anioLectivo}"/>
                         <p:selectOneMenu converter="genericConverter" value="#{matriculaController.current.anioLectivo}">
-                            <f:selectItems value="#{anioLectivoController.itemAnioActivate}"/>
+                            <f:selectItems value="#{matriculaController.itemAnioActivo}"/>
                         </p:selectOneMenu>
                             
                        
@@ -50,9 +50,15 @@
 
                         
                         
+                        <h:outputLabel value="Nivel"/>
+                        <p:selectOneMenu converter="genericConverter" label="Nivel" required="true" value="#{matriculaController.current.curso.nivel}">
+                            <f:selectItems value="#{nivelController.itemsAvailableSelectOne}"/>  
+                        </p:selectOneMenu>
+                        
+                        
                         <h:outputLabel value="#{bundle.ListMatriculaTitle_curso}"/>
-                        <p:selectOneMenu label="Curso" required="true" value="#{matriculaController.current.curso}">
-                            <f:selectItems value=""/>  
+                        <p:selectOneMenu converter="genericConverter" label="Curso" required="true" value="#{matriculaController.current.curso}">
+                            <f:selectItems value="#{cursoController.itemsAvailableSelectOne}"/>  
                         </p:selectOneMenu>
                         
                         

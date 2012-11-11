@@ -268,9 +268,9 @@ public class CursoController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
 
-//    public SelectItem[] getItemsAvailableSelectOne() {
-//       return JsfUtil.getSelectItems(ejbFacade.findParalelosByCursoId2(cursoId), true);
-//    }
+    public SelectItem[] getItemsAvailableSelectOne() {
+       return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
+    }
     
     
     private SelectItem[] itemsParalelos;

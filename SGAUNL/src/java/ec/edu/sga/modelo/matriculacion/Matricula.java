@@ -46,7 +46,7 @@ public class Matricula implements Serializable {
     private AnioLectivo anioLectivo;
     @OneToOne(mappedBy = "matricula")
     private Curso curso;
-
+    
     //--------------------COSTRUCTORES-----------------------//
     public Matricula() {
         fechaMatricula = new Date();
@@ -121,7 +121,7 @@ public class Matricula implements Serializable {
     public Curso getCurso() {
         return curso;
     }
-
+   
     public void setCurso(Curso curso) {
         this.curso = curso;
     }

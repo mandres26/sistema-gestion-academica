@@ -5,6 +5,8 @@ import ec.edu.sga.controller.util.JsfUtil;
 import ec.edu.sga.facade.AnioLectivoFacade;
 import ec.edu.sga.facade.MatriculaFacade;
 import ec.edu.sga.modelo.matriculacion.AnioLectivo;
+import ec.edu.sga.modelo.matriculacion.Curso;
+import ec.edu.sga.modelo.matriculacion.Nivel;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -25,30 +27,37 @@ public class MatriculaController implements Serializable {
     private Matricula current;
     private Long matriculaId;
     private List<Matricula> matriculas;
-   
+    private Curso curso;
+    private Nivel nivel;
     @EJB
     private ec.edu.sga.facade.MatriculaFacade ejbFacade;
     @EJB
     private ec.edu.sga.facade.AnioLectivoFacade ejbFacadeAnioLectivo;
-     @Inject
+    @Inject
     Conversation conversation;
-   
 
     //_______________________CONSTRUCTORES______________________________//
     public MatriculaController() {
         current = new Matricula();
-        matriculas = new ArrayList<Matricula>();
+//        matriculas = new ArrayList<Matricula>();
+//        curso = new Curso();
+//        nivel = new Nivel();
+//
+//        curso.getMatriculas().add(current);
+//        current.setCurso(curso);
+//        curso.setNivel(nivel);
+        
+        //nivel.getCursos().add(curso);
+
     }
 
-    
     //_____________________SETTERS AND GETTERS_____________________________//
-    
     public Matricula getCurrent() {
         return current;
     }
 
     public void setCurrent(Matricula current) {
-         System.out.println("Ingreso a fijar matricula" + this.current);
+        System.out.println("Ingreso a fijar matricula" + this.current);
         this.beginConversation();
         this.current = current;
     }
@@ -63,10 +72,10 @@ public class MatriculaController implements Serializable {
 
     public void setMatriculaId(Long matriculaId) {
         conversation.begin();
-        if (matriculaId != null && matriculaId.longValue() > 0) { 
+        if (matriculaId != null && matriculaId.longValue() > 0) {
             this.current = ejbFacade.find(matriculaId);
             this.matriculaId = current.getId();
-             System.out.println("Ingreso a editar matriculas: " +current.getTipoMatricula());
+            System.out.println("Ingreso a editar matriculas: " + current.getTipoMatricula());
 
         } else {
             System.out.println("Ingreso a crear una nueva matrícula");
@@ -106,18 +115,14 @@ public class MatriculaController implements Serializable {
         this.ejbFacadeAnioLectivo = ejbFacadeAnioLectivo;
     }
 
-   
-    
     //_____________________________MÉTODOS_____________________________//
-
-
     public String persist() {
         System.out.println("Ingreso a grabar la matrícula: " + current.getTipoMatricula());
         ejbFacade.create(current);
         this.endConversation();
-         String summary = ResourceBundle.getBundle("/Bundle").getString("MatriculaCreated");
+        String summary = ResourceBundle.getBundle("/Bundle").getString("MatriculaCreated");
         JsfUtil.addSuccessMessage(summary);
-       
+
         FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 
         return "/index";
@@ -160,9 +165,8 @@ public class MatriculaController implements Serializable {
         }
 
     }
-    
+
     //___________________________MÉTODOS DE BÚSQUEDA___________________________//
-    
     public SelectItem[] getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
@@ -171,11 +175,9 @@ public class MatriculaController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
-    
     //Method that return the Anio that are activate == true
-//    public AnioLectivo anioActivo(){
-//        beginConversation();
-//                return ejbFacadeAnioLectivo.findAnioActivate(Boolean.TRUE);
-//    }
-        
+    public SelectItem[] getItemAnioActivo() {
+        // beginConversation();
+        return JsfUtil.getSelectItem(ejbFacadeAnioLectivo.findAnioActivate(Boolean.TRUE));
+    }
 }
