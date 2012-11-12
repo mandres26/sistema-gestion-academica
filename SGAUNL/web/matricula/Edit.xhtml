@@ -6,7 +6,9 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-   
+    <f:metadata>
+        <f:viewParam name="id" value="#{usuarioController.usuarioId}" />
+    </f:metadata>
 
     <ui:composition template="/templates/plantilla.xhtml">
         <ui:define name="title">
@@ -27,7 +29,7 @@
                        
 
                         <h:outputLabel value="#{bundle.ListMatriculaTitle_estudiante}"/>
-                        <h:outputText value="#{matriculaController.current.estudiante}" />
+                        <h:outputText value="#{matriculaController.current.usuario}" />
 
                         <h:outputLabel value="#{bundle.ListMatriculaTitle_numeroMatricula}"/>
                         <p:inputText required="true" label="Tipo de Matricula" value="#{matriculaController.current.numeroMatricula}"/>

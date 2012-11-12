@@ -4,6 +4,7 @@
  */
 package ec.edu.sga.modelo.matriculacion;
 
+import ec.edu.sga.modelo.usuarios.Usuario;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -41,7 +42,7 @@ public class Matricula implements Serializable {
     private String observaciones;
     private int segundaTerceraMatricula;
     @ManyToOne
-    private Estudiante estudiante;
+    private Usuario usuario;
     @ManyToOne
     private AnioLectivo anioLectivo;
     @ManyToOne
@@ -70,12 +71,12 @@ public class Matricula implements Serializable {
         this.fechaMatricula = fechaMatricula;
     }
 
-    public Estudiante getEstudiante() {
-        return estudiante;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setEstudiante(Estudiante estudiante) {
-        this.estudiante = estudiante;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public int getNumeroMatricula() {

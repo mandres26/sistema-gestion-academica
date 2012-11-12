@@ -4,8 +4,12 @@
  */
 package ec.edu.sga.modelo.usuarios;
 
+import ec.edu.sga.modelo.academico.ExpedienteAcademico;
+import ec.edu.sga.modelo.academico.RegistroCalificaciones;
+import ec.edu.sga.modelo.matriculacion.Matricula;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -16,6 +20,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
@@ -56,6 +61,12 @@ public class Usuario implements Serializable {
     private Date fechaNacimiento;
     @OneToOne(mappedBy = "usuario", cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.EAGER)
     private Ficha ficha;
+    @OneToMany(mappedBy = "usuario")
+    private List<Matricula> matriculas;
+    @OneToOne(mappedBy = "usuario")
+    private RegistroCalificaciones registroCalificaciones;
+    @OneToOne(mappedBy = "usuario")
+    private ExpedienteAcademico expedienteAcademico;
 
     public Usuario() {
     }
@@ -124,11 +135,28 @@ public class Usuario implements Serializable {
         this.ficha = ficha;
     }
 
-    public void add(Ficha ficha) {
-        if (!ficha.equals(ficha)) {
-            this.ficha = ficha;
-            ficha.setUsuario(this);
-        }
+    public List<Matricula> getMatriculas() {
+        return matriculas;
+    }
+
+    public void setMatriculas(List<Matricula> matriculas) {
+        this.matriculas = matriculas;
+    }
+
+    public RegistroCalificaciones getRegistroCalificaciones() {
+        return registroCalificaciones;
+    }
+
+    public void setRegistroCalificaciones(RegistroCalificaciones registroCalificaciones) {
+        this.registroCalificaciones = registroCalificaciones;
+    }
+
+    public ExpedienteAcademico getExpedienteAcademico() {
+        return expedienteAcademico;
+    }
+
+    public void setExpedienteAcademico(ExpedienteAcademico expedienteAcademico) {
+        this.expedienteAcademico = expedienteAcademico;
     }
 
     @Override

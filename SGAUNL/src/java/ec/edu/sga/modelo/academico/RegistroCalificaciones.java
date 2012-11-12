@@ -5,6 +5,7 @@
 package ec.edu.sga.modelo.academico;
 
 import ec.edu.sga.modelo.matriculacion.Estudiante;
+import ec.edu.sga.modelo.usuarios.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,38 +26,27 @@ import javax.persistence.TableGenerator;
 @TableGenerator(name = "RegistroCalificacionesGenerador", table = "GeneradorIdentificador", pkColumnName = "nombre",
 valueColumnName = "valor", pkColumnValue = "RegistroCalificaciones", initialValue = 1, allocationSize = 1)
 public class RegistroCalificaciones implements Serializable {
-  
-    
-    
+
     //----------------------------ATRIBUTOS--------------------------------//
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE, generator="RegistroCalificacionesGenerador")
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "RegistroCalificacionesGenerador")
     private Long id;
-    
-      @OneToOne
-    private Estudiante estudiante;
-    
+    @OneToOne
+    private Usuario usuario;
     @ManyToOne
     private ExpedienteAcademico expedienteAcademico;
-    
     @OneToMany(mappedBy = "registroCalificaciones")
     private List<Nota> notas;
-    
     @OneToOne(mappedBy = "registroCalificaciones")
     private PeriodoAcademico periodoAcademico;
-    
-   
 
-    
-     //------------------------------CONSTRUCTORES----------------------------//
-    
-    public RegistroCalificaciones(){
+    //------------------------------CONSTRUCTORES----------------------------//
+    public RegistroCalificaciones() {
         notas = new ArrayList<Nota>();
     }
-    
+
     //----------------------------GETTERS AND SETTERS-------------------------//
-    
     public Long getId() {
         return id;
     }
@@ -65,12 +55,12 @@ public class RegistroCalificaciones implements Serializable {
         this.id = id;
     }
 
-    public Estudiante getEstudiante() {
-        return estudiante;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setEstudiante(Estudiante estudiante) {
-        this.estudiante = estudiante;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public ExpedienteAcademico getExpedienteAcademico() {
@@ -96,11 +86,8 @@ public class RegistroCalificaciones implements Serializable {
     public void setPeriodoAcademico(PeriodoAcademico periodoAcademico) {
         this.periodoAcademico = periodoAcademico;
     }
-    
-    
 
     //--------------------------------METODOS---------------------------------//
-    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -125,5 +112,4 @@ public class RegistroCalificaciones implements Serializable {
     public String toString() {
         return "ec.edu.sga.otras.RegistroCalificaciones[ id=" + id + " ]";
     }
-    
 }

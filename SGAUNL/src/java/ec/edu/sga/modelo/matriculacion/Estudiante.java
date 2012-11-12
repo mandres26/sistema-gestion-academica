@@ -51,16 +51,16 @@ public class Estudiante implements Serializable {
     private TipoGenero genero;
     private String nacionalidad;
     private String foto;
-    @OneToMany(mappedBy = "estudiante")
-    private List<Matricula> matriculas;
-    @OneToOne(mappedBy = "estudiante")
-    private RegistroCalificaciones registroCalificaciones;
-    @OneToOne(mappedBy = "estudiante")
-    private ExpedienteAcademico expedienteAcademico;
+//    @OneToMany(mappedBy = "estudiante")
+//    private List<Matricula> matriculas;
+//    @OneToOne(mappedBy = "estudiante")
+//    private RegistroCalificaciones registroCalificaciones;
+//    @OneToOne(mappedBy = "estudiante")
+//    private ExpedienteAcademico expedienteAcademico;
 
     //---------------------CONTRUCTORES-----------------------------//
     public Estudiante() {
-        matriculas = new ArrayList<Matricula>();
+//        matriculas = new ArrayList<Matricula>();
         fechaNacimiento = new Date();
 
     }
@@ -194,29 +194,29 @@ public class Estudiante implements Serializable {
         this.foto = foto;
     }
 
-    public List<Matricula> getMatriculas() {
-        return matriculas;
-    }
-
-    public void setMatriculas(List<Matricula> matriculas) {
-        this.matriculas = matriculas;
-    }
-
-    public RegistroCalificaciones getRegistroCalificaciones() {
-        return registroCalificaciones;
-    }
-
-    public void setRegistroCalificaciones(RegistroCalificaciones registroCalificaciones) {
-        this.registroCalificaciones = registroCalificaciones;
-    }
-
-    public ExpedienteAcademico getExpedienteAcademico() {
-        return expedienteAcademico;
-    }
-
-    public void setExpedienteAcademico(ExpedienteAcademico expedienteAcademico) {
-        this.expedienteAcademico = expedienteAcademico;
-    }
+//    public List<Matricula> getMatriculas() {
+//        return matriculas;
+//    }
+//
+//    public void setMatriculas(List<Matricula> matriculas) {
+//        this.matriculas = matriculas;
+//    }
+//
+//    public RegistroCalificaciones getRegistroCalificaciones() {
+//        return registroCalificaciones;
+//    }
+//
+//    public void setRegistroCalificaciones(RegistroCalificaciones registroCalificaciones) {
+//        this.registroCalificaciones = registroCalificaciones;
+//    }
+//
+//    public ExpedienteAcademico getExpedienteAcademico() {
+//        return expedienteAcademico;
+//    }
+//
+//    public void setExpedienteAcademico(ExpedienteAcademico expedienteAcademico) {
+//        this.expedienteAcademico = expedienteAcademico;
+//    }
 
     //--------------------------MÉTODOS-----------------------------//
     @Override

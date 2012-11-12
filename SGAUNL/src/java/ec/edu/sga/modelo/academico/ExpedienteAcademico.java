@@ -5,6 +5,7 @@
 package ec.edu.sga.modelo.academico;
 
 import ec.edu.sga.modelo.matriculacion.Estudiante;
+import ec.edu.sga.modelo.usuarios.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +39,7 @@ public class ExpedienteAcademico implements Serializable {
     private List<RegistroCalificaciones> registrocalificaciones;
     
     @OneToOne
-    private Estudiante estudiante;
+    private Usuario usuario;
     
     
     //------------------------------CONSTRUCTORES----------------------------//
@@ -68,12 +69,12 @@ public class ExpedienteAcademico implements Serializable {
         this.registrocalificaciones = registrocalificaciones;
     }
 
-    public Estudiante getEstudiante() {
-        return estudiante;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setEstudiante(Estudiante estudiante) {
-        this.estudiante = estudiante;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
     
     
