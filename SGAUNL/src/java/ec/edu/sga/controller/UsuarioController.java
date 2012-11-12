@@ -68,10 +68,7 @@ public class UsuarioController implements Serializable {
         fichaS = new FichaSocioeconomica();
         fichaS.setFicha(ficha);
         ficha.setFichaSocio(fichaS);
-
         resultlist = new ArrayList<Usuario>();
-
-
     }
 
     public String find() {
@@ -93,7 +90,7 @@ public class UsuarioController implements Serializable {
         //return "/vehicle/Edit?faces-redirect=true";
         System.out.println("========> INGRESO a Crear Instance estudiante: " + current.getNombres());
         this.current = new Usuario();
-        return "/estudiante/Edit?faces-redirect=true";
+        return "/usuario/Create?faces-redirect=true";
         //return "/vehicle/BrandEdit";
     }
 
@@ -108,7 +105,7 @@ public class UsuarioController implements Serializable {
         //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null));
         FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 
-        return "/index";
+        return "/index?faces-redirect=true";
         //return "/vehicle/BrandList";
 
     }
@@ -124,7 +121,7 @@ public class UsuarioController implements Serializable {
         FacesContext.getCurrentInstance().addMessage("successInfo", new FacesMessage(FacesMessage.SEVERITY_INFO, summary, summary));
         FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 
-        return "/estudiante/List?faces-redirect=true";
+        return "/usuario/List?faces-redirect=true";
 
     }
 
@@ -140,14 +137,14 @@ public class UsuarioController implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null));
 
 
-        return "/estudiante/List?faces-redirect=true";
+        return "/usuario/List?faces-redirect=true";
 
     }
 
     public String cancelEdit() {
         System.out.println("me acaban de llamar: canceledit()");
         this.endConversation();
-        return "/estudiante/List?faces-redirect=true";
+        return "/usuario/List?faces-redirect=true";
     }
 
     public void beginConversation() {
@@ -181,9 +178,22 @@ public class UsuarioController implements Serializable {
 //            List<Contacto> res= ejbFacade.buscarContactos(estudianteId);
 //            this.current.setContactos(res);
             System.out.println("========> INGRESO a Editar Estudiante: " + current.getNombres());
+            System.out.println("========> INGRESO a Editar Estudiante: " + current.getFicha().getFichaPersonal().getCiudadNacimiento());
         } else {
             System.out.println("========> INGRESO a Crear Estudiante: ");
             this.current = new Usuario();
+            ficha = new Ficha();
+            current.setFicha(ficha);
+            ficha.setUsuario(current);
+            fichaP = new FichaPersonal();
+            fichaP.setFicha(ficha);
+            ficha.setFichaPersonal(fichaP);
+            fichaM = new FichaMedica();
+            fichaM.setFicha(ficha);
+            ficha.setFichaMedica(fichaM);
+            fichaS = new FichaSocioeconomica();
+            fichaS.setFicha(ficha);
+            ficha.setFichaSocio(fichaS);
         }
     }
 

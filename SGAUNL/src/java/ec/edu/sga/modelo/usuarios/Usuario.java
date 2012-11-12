@@ -32,10 +32,13 @@ valueColumnName = "valor", pkColumnValue = "Usuario", initialValue = 1, allocati
     query = "select u from Usuario u where"
     + " lower(u.dni) like lower(concat('%',:clave,'%'))"
     + "or"
-    + " lower(u.nombres) like lower(concat('%',:clave,'%')) " 
+    + " lower(u.nombres) like lower(concat('%',:clave,'%')) "
     + "or"
     + " lower(u.apellidos) like lower(concat('%',:clave,'%'))"
-    + "order by u.nombres")   
+    + "order by u.nombres"),
+    @NamedQuery(name = "Usuario.buscarPorId",
+    query = "select distinct u from Usuario u left join fetch u.ficha where"
+    + " u.id=:id")
 })
 public class Usuario implements Serializable {
 
@@ -150,6 +153,6 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return nombres + apellidos;
+        return nombres + " " + apellidos;
     }
 }

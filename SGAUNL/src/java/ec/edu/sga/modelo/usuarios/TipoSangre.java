@@ -9,6 +9,6 @@ package ec.edu.sga.modelo.usuarios;
  * @author edison
  */
 public enum TipoSangre {
-    OP,ON,AP,AN,BP,BN,AB
+    ORH,ON,AP,AN,BP,BN,AB
     
 }

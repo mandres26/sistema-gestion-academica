@@ -10,11 +10,13 @@ import ec.edu.sga.facade.FichaPersonalFacade;
 import ec.edu.sga.modelo.usuarios.Ficha;
 import ec.edu.sga.modelo.usuarios.FichaPersonal;
 import ec.edu.sga.modelo.usuarios.Usuario;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
+import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.context.Dependent;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -29,8 +31,8 @@ import javax.inject.Named;
  * @author edison
  */
 @Named(value = "fichaPersonalController")
-@Dependent
-public class FichaPersonalController {
+@ConversationScoped
+public class FichaPersonalController  implements Serializable{
 
     private FichaPersonal current;
     private Ficha ficha;
