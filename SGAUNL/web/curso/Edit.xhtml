@@ -53,13 +53,19 @@
                                              immediate="true" icon="ui-icon ui-icon-trash">
                             </p:commandButton>
 
-                            <p:commandButton value="AGREGAR PARALELO"  action="#{cursoController.addParalelos()}" 
-                                             ajax="true" update="tableAddParalelos" process="@this"/>
+
                         </f:facet> 
                     </p:panelGrid>
                 </p:panel>
 
                 <p:panel header="Añadir Paralelos">
+
+
+                    <f:facet name="header">
+                        <p:commandButton value="AGREGAR PARALELO"  action="#{cursoController.addParalelos()}" 
+                                         ajax="true" update="tableAddParalelos" process="@this"/>
+
+                    </f:facet>
                     <p:dataTable id="tableAddParalelos" var="_paralelos" value="#{cursoController.current.paralelos}" rows="10" paginator="true">
 
                         <p:column headerText="Nombre" >
@@ -69,7 +75,7 @@
                         </p:column>
 
                         <p:column headerText="Numero de Cupos">
-                            <p:inputText label="Número de cupos" required="true" value="#{_paralelos.numeroCupos}">
+                            <p:inputText label="Número de cupos" required="true" value="#{_paralelos.numeroCupos}" >
                                 <p:ajax partialSubmit="true"/>
                             </p:inputText>
                         </p:column>

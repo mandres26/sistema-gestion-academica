@@ -4,9 +4,11 @@ import ec.edu.sga.modelo.matriculacion.Matricula;
 import ec.edu.sga.controller.util.JsfUtil;
 import ec.edu.sga.facade.AnioLectivoFacade;
 import ec.edu.sga.facade.MatriculaFacade;
+import ec.edu.sga.facade.UsuarioFacade;
 import ec.edu.sga.modelo.matriculacion.AnioLectivo;
 import ec.edu.sga.modelo.matriculacion.Curso;
 import ec.edu.sga.modelo.matriculacion.Nivel;
+import ec.edu.sga.modelo.usuarios.Usuario;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -27,6 +29,7 @@ public class MatriculaController implements Serializable {
 
     private Matricula current;
     private Long matriculaId;
+    private Long usuarioId;
     private List<Matricula> matriculas;
     private Curso curso;
     private Nivel nivel;
@@ -34,6 +37,8 @@ public class MatriculaController implements Serializable {
     private ec.edu.sga.facade.MatriculaFacade ejbFacade;
     @EJB
     private ec.edu.sga.facade.AnioLectivoFacade ejbFacadeAnioLectivo;
+    @EJB
+    private UsuarioFacade ejbFacadeUsuario;
     @Inject
     Conversation conversation;
     @Inject
@@ -111,11 +116,44 @@ public class MatriculaController implements Serializable {
         return ejbFacadeAnioLectivo;
     }
 
-    public void setEjbFacadeAnioLectivo(AnioLectivoFacade ejbFacadeAnioLectivo) {
-        this.ejbFacadeAnioLectivo = ejbFacadeAnioLectivo;
+   
+    public Long getUsuarioId() {
+        return usuarioId;
     }
 
+    public void setUsuarioId(Long usuarioId) {
+        this.usuarioId = usuarioId;
+    }
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
+    }
+
+    public Nivel getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(Nivel nivel) {
+        this.nivel = nivel;
+    }
+    
+    
+
     //_____________________________MÉTODOS_____________________________//
+   
+    
+    // Metodo que permite buscar un usuario para poder matricular
+    public void findUserEnrollment() {
+        beginConversation();
+        if (usuarioId != null && usuarioId.longValue() > 0) {
+            Usuario u = ejbFacadeUsuario.find(usuarioId);
+            current.setUsuario(u);
+        }
+    }
     public String persist() {
         System.out.println("Ingreso a grabar la matrícula: " + current.getTipoMatricula());
         ejbFacade.create(current);
