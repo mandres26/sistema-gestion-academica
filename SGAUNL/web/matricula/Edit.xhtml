@@ -7,7 +7,8 @@
       xmlns:p="http://primefaces.org/ui">
 
     <f:metadata>
-        <f:viewParam name="id" value="#{usuarioController.usuarioId}" />
+        <f:viewParam name="id" value="#{matriculaController.usuarioId}" />
+        <f:event listener="#{matriculaController.findUserEnrollment()}" type="preRenderView"/>
     </f:metadata>
 
     <ui:composition template="/templates/plantilla.xhtml">
@@ -15,19 +16,13 @@
             <h:outputText value="#{bundle.EditMatriculaTitle}"></h:outputText>
         </ui:define>
         <ui:define name="content">
-
             <h:form id="formEditMatricula">
                 <p:panel header="Editar Matriculas" id="panelEditMatriculas">
                     <p:panelGrid columns="2">
-                        
-                        
                         <h:outputLabel value="#{bundle.ListMatriculaTitle_anioLectivo}"/>
                         <p:selectOneMenu converter="genericConverter" value="#{matriculaController.current.anioLectivo}">
                             <f:selectItems value="#{matriculaController.itemAnioActivo}"/>
                         </p:selectOneMenu>
-                            
-                       
-
                         <h:outputLabel value="#{bundle.ListMatriculaTitle_estudiante}"/>
                         <h:outputText value="#{matriculaController.current.usuario}" />
 
@@ -49,36 +44,24 @@
 
                         <h:outputLabel value="#{bundle.ListMatriculaTitle_observaciones}"/>
                         <p:inputTextarea label="Observaciones" required="true" value="#{matriculaController.current.observaciones}" />
-
-                        
-                        
                         <h:outputLabel value="Nivel"/>
                         <p:selectOneMenu id="idNivel" converter="genericConverter" label="Nivel" required="true" value="#{matriculaController.current.curso.nivel}"
                                          valueChangeListener="#{matriculaController.valueChanged}">
                             <f:selectItems value="#{nivelController.itemsAvailableSelectOne}"/>  
                             <f:ajax event="valueChange" render="idEspecialidad" execute="@this"/>
                         </p:selectOneMenu>
-                        
-                        
-                        
-                        
-                         <h:outputLabel value="Epecialidad"/>
-                         <p:selectOneMenu id="idEspecialidad" 
-                                          
-                                           converter="genericConverter" label="Especialidad" 
-                                           required="true" value="#{matriculaController.current.curso.especialidad}">
-                             
-                             <f:selectItems value="#{especialidadController.itemsAvailableSelectOne}"/>  
+                        <h:outputLabel value="Epecialidad"/>
+                        <p:selectOneMenu id="idEspecialidad" 
+
+                                         converter="genericConverter" label="Especialidad" 
+                                         required="true" value="#{matriculaController.current.curso.especialidad}">
+
+                            <f:selectItems value="#{especialidadController.itemsAvailableSelectOne}"/>  
                         </p:selectOneMenu>
-                        
-                        
                         <h:outputLabel value="#{bundle.ListMatriculaTitle_curso}"/>
                         <p:selectOneMenu converter="genericConverter" label="Curso" required="true" value="#{matriculaController.current.curso}">
                             <f:selectItems value="#{cursoController.itemsAvailableSelectOne}"/>  
                         </p:selectOneMenu>
-                        
-                        
-                        
                         <p:messages />
 
                         <f:facet name="footer">
