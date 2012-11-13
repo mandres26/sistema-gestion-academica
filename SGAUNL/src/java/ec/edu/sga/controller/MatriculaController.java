@@ -17,6 +17,7 @@ import javax.enterprise.context.Conversation;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 
@@ -35,6 +36,8 @@ public class MatriculaController implements Serializable {
     private ec.edu.sga.facade.AnioLectivoFacade ejbFacadeAnioLectivo;
     @Inject
     Conversation conversation;
+    @Inject
+    EspecialidadController especialidadController;
 
     //_______________________CONSTRUCTORES______________________________//
     public MatriculaController() {
@@ -177,4 +180,28 @@ public class MatriculaController implements Serializable {
         // beginConversation();
         return JsfUtil.getSelectItem(ejbFacadeAnioLectivo.findAnioActivate(Boolean.TRUE));
     }
+    
+    private List<SelectItem> idEspecialidad = new ArrayList<SelectItem>();
+    
+     public void valueChanged(ValueChangeEvent event) {
+        idEspecialidad.clear();
+        if (null != event.getNewValue()) {
+            SelectItem[] currentItems;
+ 
+            if (((String) event.getNewValue()).equals("Bachillerato")) {
+                currentItems = especialidadController.getItemsAvailableSelectOne();
+            }
+            else {
+                currentItems = especialidadController.getItemsAvailableSelectOne();
+            }
+ 
+            for (int i = 0; i < currentItems.length; i++) {
+                SelectItem item = new SelectItem(currentItems[i]);
+ 
+                idEspecialidad.add(item);
+            }
+        }
+    }
+    
+    
 }

@@ -53,8 +53,22 @@
                         
                         
                         <h:outputLabel value="Nivel"/>
-                        <p:selectOneMenu converter="genericConverter" label="Nivel" required="true" value="#{matriculaController.current.curso.nivel}">
+                        <p:selectOneMenu id="idNivel" converter="genericConverter" label="Nivel" required="true" value="#{matriculaController.current.curso.nivel}"
+                                         valueChangeListener="#{matriculaController.valueChanged}">
                             <f:selectItems value="#{nivelController.itemsAvailableSelectOne}"/>  
+                            <f:ajax event="valueChange" render="idEspecialidad" execute="@this"/>
+                        </p:selectOneMenu>
+                        
+                        
+                        
+                        
+                         <h:outputLabel value="Epecialidad"/>
+                         <p:selectOneMenu id="idEspecialidad" 
+                                          
+                                           converter="genericConverter" label="Especialidad" 
+                                           required="true" value="#{matriculaController.current.curso.especialidad}">
+                             
+                             <f:selectItems value="#{especialidadController.itemsAvailableSelectOne}"/>  
                         </p:selectOneMenu>
                         
                         
