@@ -26,7 +26,7 @@
                         <h:outputLabel value="#{bundle.CreateAnioLectivoLabel_duracion}"/>
                         <p:inputText label="Duración" value="#{anioLectivoController.current.duracion}"/>
                         <h:outputLabel value="El año es activo"/>
-                        <p:selectBooleanCheckbox value="#{anioLectivoController.current.estado}"/>
+                        <p:selectBooleanButton value="#{anioLectivoController.current.estado}" onLabel="Si" offLabel="No"/>
                         
                         
                         <f:facet name="footer">
