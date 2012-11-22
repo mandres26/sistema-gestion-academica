@@ -15,29 +15,61 @@
 
         <ui:define name="content">
 
-            <h:form id="formEdit">
-                <p:panel header="#{cursoController.cursoId!=null  ? bundle['ListCursoEditLink'] : bundle['ListCursoCreateLink']}" id="panelEditCurso">
 
-                    <p:panelGrid columns="2">
+
+            <script type="text/javascript">        
+                
+                $j(document).ready(function(){
+                    $j('.numeros').numeric();
+                    $j('.letras').alpha({allow:" "});
+                    $j('.mayusculas').alpha({allcaps:true});
+                    $j('.email').alphanumeric({allow:"._-"});
+                    
+                });
+                
+            </script>
+
+
+
+            <h:form id="formEdit" prependId="false">
+                <p:panel header="#{cursoController.cursoId!=null  ? bundle['ListCursoEditLink'] : bundle['ListCursoCreateLink']}" id="panelEditCurso"
+                         styleClass = "myPanelStyle myPanelStyleTitle">
+
+                    <p:messages  autoUpdate="true" closable="true"/>
+
+                    <p:panelGrid columns="3">
                         <h:outputLabel value="#{bundle.ListCursoTitle_nombreCurso}"/>
-                        <p:inputText id="name" label="Nombre de Curso" required="true" value="#{cursoController.current.nombreCurso}"> </p:inputText>
+                        <p:inputText id="name" label="Nombre de Curso" required="true"
+                                     value="#{cursoController.current.nombreCurso}" size="30"
+                                     validatorMessage="No ha ingresado un nombre para el curso"> </p:inputText>
+                        <p:message for="name" display="icon"/>
+
                         <h:outputLabel value="#{bundle.ListCursoTitle_nivel}"/>
-                        <p:selectOneMenu converter="genericConverter"
-                                         value="#{cursoController.current.nivel}">
+                        <p:selectOneMenu id="nivel" converter="genericConverter"
+                                         value="#{cursoController.current.nivel}"
+                                         required="true"
+                                         validatorMessage="Escoja un nivel"
+                                         >
+                            <f:selectItem itemLabel="Seleccione nivel" itemValue="" />  
                             <f:selectItems 
                                 value="#{nivelController.itemsAvailableSelectOne}"/>
                         </p:selectOneMenu>
+                        <p:message for="nivel" display="icon"/>
 
                         <h:outputLabel value="Especialidad"/>
-                        <p:selectOneMenu converter="genericConverter"
-                                         value="#{cursoController.current.especialidad}">
+                        <p:selectOneMenu id="especialidad" converter="genericConverter"
+                                         value="#{cursoController.current.especialidad}"
+                                         required="true"
+                                         validatorMessage="Escoja una especialidad">
+                            <f:selectItem itemLabel="Seleccione especialidad" itemValue=""/>
                             <f:selectItems 
                                 value="#{especialidadController.itemsAvailableSelectOne}"/>
                         </p:selectOneMenu>
+                        <p:message for="especialidad" display="icon" showSummary="true"/>
 
 
 
-                        <p:messages /> 
+
                         <f:facet name="footer">
                             <p:commandButton value="ACTUALIZAR" rendered="#{cursoController.cursoId!=null}"
                                              action="#{cursoController.update()}"
@@ -69,7 +101,10 @@
                     <p:dataTable id="tableAddParalelos" var="_paralelos" value="#{cursoController.current.paralelos}" rows="10" paginator="true">
 
                         <p:column headerText="Nombre" >
-                            <p:inputText label="Nombre de Paralelo" required="true" value="#{_paralelos.nombreParalelo}">
+                            <p:inputText label="Nombre de Paralelo" 
+                                         required="true" 
+                                         value="#{_paralelos.nombreParalelo}"
+                                         styleClass="mayusculas">
                                 <p:ajax partialSubmit="true"/>
                             </p:inputText>
                         </p:column>
