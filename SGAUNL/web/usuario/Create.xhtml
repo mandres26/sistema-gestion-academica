@@ -10,6 +10,12 @@ and open the template in the editor.
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
+
+
+
+
+
+
     <f:metadata>
         <f:viewParam name="id" value="#{usuarioController.usuarioId}"/>
     </f:metadata>
@@ -18,49 +24,185 @@ and open the template in the editor.
             <h:outputText value="#{bundle.CreateEstudianteTitle}"></h:outputText>
         </ui:define>
         <ui:define name="content">
-            <h:panelGroup id="messagePanel" layout="block">
-                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-            </h:panelGroup>
-            <h:form id="formCreateUsuario">
-                <p:panel  
-                    header="#{usuarioController.current.id != null ? bundle['ListEstudianteEditLink'] : bundle['ListEstudianteCreateLink']}" id="editPanelUsuario">
+
+
+            <script type="text/javascript">        
+                
+                $j(document).ready(function(){
+                    $j('.numeros').numeric();
+                    $j('.letras').alpha({allow:" "});
+                    $j('.mayusculas').alpha({allcaps:true});
+                    $j('.email').alphanumeric({allow:"._-"});
+                    
+                });
+                
+                
+                
+                /*$j(document).ready(function(){                
+                    $j('#formCreateUsuario').validate({
+                        rules:{
+                            'dni':{
+                                required: true,
+                                maxLength: 10 
+                            }
+                        },
+                        messages:{
+                            'dni': {
+                                required:'Ingrese el dni',
+                                minlength:'Longitud minima (10)'
+                            }
+                        }
+                    });                
+                });*/
+            
+                /*function validar(){
+                    var v = $j('#frmLogin').valid();
+                    return v;
+                    //return true;
+                };
+            
+                function validar(){
+                    var v = $j('#frmLogin').valid();
+                    return v;
+                    //return true;
+                };--> */
+            
+            
+            </script>
+
+
+
+            <p:ajaxStatus style="width:16px;height:16px;" id="ajaxStatusPanel">
+                <f:facet name="start">
+                    <h:graphicImage library="img" name="ajaxloading.gif" />
+                </f:facet>
+                <!-- <f:facet name="complete">
+                     <h:outputText value="" />
+                 </f:facet>-->
+            </p:ajaxStatus>
+
+
+
+            <h:form id="formCreateUsuario" 
+                    prependId="false">
+
+
+                <p:panel id="editPanelUsuario"
+                         header="#{usuarioController.current.id != null ? bundle['ListEstudianteEditLink'] : bundle['ListEstudianteCreateLink']}" >
+
+
+                    <p:growl id="messages"/>  
+
+                    <p:messages closable="true"/>
+
+
+
+
                     <p:accordionPanel dynamic="true" cache="true">  
                         <p:tab title="Datos personales">  
 
                             <h:panelGrid columns="4">
 
                                 <h:outputLabel value="#{bundle.CreateEstudianteLabel_dni}" for="dni" />
-                                <p:inputText id="dni" value="#{usuarioController.current.dni}" title="#{bundle.CreateEstudianteTitle_dni}" />
+                                <p:inputText id="dni" 
+                                             value="#{usuarioController.current.dni}" 
+                                             title="#{bundle.CreateEstudianteTitle_dni}"
+                                             styleClass="numeros"
+                                             label="Dni"/>
+
+
                                 <h:outputLabel value="#{bundle.CreateEstudianteLabel_libretaMilitar}" for="libretaMilitar" />
-                                <p:inputText id="libretaMilitar" value="#{usuarioController.current.libretaMilitar}" title="#{bundle.CreateEstudianteTitle_libretaMilitar}" />
-                                <h:outputLabel value="#{bundle.CreateEstudianteLabel_nombres}" for="nombres" />
-                                <p:inputText id="nombres" value="#{usuarioController.current.nombres}" title="#{bundle.CreateEstudianteTitle_nombres}" />
-                                <h:outputLabel value="#{bundle.CreateEstudianteLabel_apellidos}" for="apellidos" />
-                                <p:inputText id="apellidos" value="#{usuarioController.current.apellidos}" title="#{bundle.CreateEstudianteTitle_apellidos}" />
+                                <p:inputText id="libretaMilitar" 
+                                             value="#{usuarioController.current.libretaMilitar}"
+                                             title="#{bundle.CreateEstudianteTitle_libretaMilitar}" 
+                                             label="Libreta Militar"/>
+                                <h:outputLabel value="#{bundle.CreateEstudianteLabel_nombres}*" for="nombres" />
+
+                                <p:inputText id="nombres" 
+                                             value="#{usuarioController.current.nombres}"                                              
+                                             title="#{bundle.CreateEstudianteTitle_nombres}"
+                                             styleClass="letras"
+                                             required="true"
+                                             label="Nombres"/>
+
+                                <h:outputLabel value="#{bundle.CreateEstudianteLabel_apellidos}*" for="apellidos" />
+                                <p:inputText id="apellidos" 
+                                             value="#{usuarioController.current.apellidos}" 
+                                             title="#{bundle.CreateEstudianteTitle_apellidos}" 
+                                             label="Apellidos"
+                                             styleClass="letras"
+                                             required="true"/>
+
                                 <h:outputLabel id="sexo" value="#{bundle.CreateEstudianteLabel_genero}"/>
                                 <p:selectOneMenu id="_typeSexo" value="#{usuarioController.current.sexo}" effect="fade" >  
                                     <f:selectItems value="#{typeListController.typeListSexo}" var="_sexo" itemLabel="#{bundle[fuelType]}" itemValue="#{_sexo}"/>  
                                 </p:selectOneMenu>
                                 <h:outputLabel value="#{bundle.CreateEstudianteLabel_fechaNacimiento}" for="fechaNacimiento" />
-                                <p:calendar id="fechaNacimiento" value="#{usuarioController.current.fechaNacimiento}" navigator="true" showOn="button" title="#{bundle.CreateEstudianteTitle_fechaNacimiento}" 
-                                            pattern="dd/MM/yyyy" />
+                                <p:calendar id="fechaNacimiento" 
+                                            value="#{usuarioController.current.fechaNacimiento}" 
+                                            navigator="true" 
+                                            showOn="button" 
+                                            title="#{bundle.CreateEstudianteTitle_fechaNacimiento}" 
+                                            pattern="dd/MM/yyyy" 
+                                            required="true"/>
 
                                 <h:outputLabel value="#{bundle.CreateEstudianteLabel_ciudadNacimiento}" for="ciudadNacimiento" />
-                                <p:inputText id="ciudadNacimiento" value="#{usuarioController.current.ficha.fichaPersonal.ciudadNacimiento}" title="#{bundle.CreateEstudianteTitle_ciudadNacimiento}" />
+                                <p:inputText id="ciudadNacimiento" 
+                                             value="#{usuarioController.current.ficha.fichaPersonal.ciudadNacimiento}" 
+                                             title="#{bundle.CreateEstudianteTitle_ciudadNacimiento}" 
+                                             styleClass="letras"
+                                             required="true"
+                                             label="Ciudad de Nacimiento"/>
+
+
+
+
                                 <h:outputLabel value="#{bundle.CreateEstudianteLabel_cantonNacimiento}" for="cantonNacimiento" />
-                                <p:inputText id="cantonNacimiento" value="#{usuarioController.current.ficha.fichaPersonal.cantonNaciemiento}" title="#{bundle.CreateEstudianteTitle_cantonNacimiento}" />
+                                <p:inputText id="cantonNacimiento" 
+                                             value="#{usuarioController.current.ficha.fichaPersonal.cantonNaciemiento}" 
+                                             title="#{bundle.CreateEstudianteTitle_cantonNacimiento}" 
+                                             styleClass="letras"
+                                             label="Cantón de Nacimiento"/>
+
                                 <h:outputLabel value="#{bundle.CreateEstudianteLabel_provinciaNacimiento}" for="provinciaNacimiento" />
-                                <p:inputText id="provinciaNacimiento" value="#{usuarioController.current.ficha.fichaPersonal.provinciaNacimiento}" title="#{bundle.CreateEstudianteTitle_provinciaNacimiento}" />
+                                <p:inputText id="provinciaNacimiento" 
+                                             value="#{usuarioController.current.ficha.fichaPersonal.provinciaNacimiento}" 
+                                             title="#{bundle.CreateEstudianteTitle_provinciaNacimiento}" 
+                                             styleClass="letras"/>
+
                                 <h:outputLabel value="#{bundle.CreateEstudianteLabel_direccion}" for="direccion" />
-                                <p:inputText id="direccion" value="#{usuarioController.current.ficha.fichaPersonal.direccion}" title="#{bundle.CreateEstudianteTitle_direccion}" />
+                                <p:inputText id="direccion" 
+                                             value="#{usuarioController.current.ficha.fichaPersonal.direccion}" 
+                                             title="#{bundle.CreateEstudianteTitle_direccion}" 
+                                             styleClass="letras"/>
                                 <h:outputLabel value="#{bundle.CreateEstudianteLabel_telefono}" for="telefono" />
-                                <p:inputText id="telefono" value="#{usuarioController.current.ficha.fichaPersonal.telefono}" title="#{bundle.CreateEstudianteTitle_telefono}" />
+                                <p:inputText id="telefono" 
+                                             value="#{usuarioController.current.ficha.fichaPersonal.telefono}" 
+                                             title="#{bundle.CreateEstudianteTitle_telefono}" 
+                                             styleClass="numeros"/>
                                 <h:outputLabel value="#{bundle.CreateEstudianteLabel_celular}" for="celular" />
-                                <p:inputText id="celular" value="#{usuarioController.current.ficha.fichaPersonal.celular}" title="#{bundle.CreateEstudianteTitle_celular}" />
+                                <p:inputText id="celular" 
+                                             value="#{usuarioController.current.ficha.fichaPersonal.celular}" 
+                                             title="#{bundle.CreateEstudianteTitle_celular}" 
+                                             styleClass="numeros"/>
                                 <h:outputLabel value="#{bundle.CreateEstudianteLabel_email}" for="email" />
-                                <p:inputText id="email" value="#{usuarioController.current.ficha.fichaPersonal.email}" title="#{bundle.CreateEstudianteTitle_email}" />
+                                <p:inputText id="email" 
+                                             value="#{usuarioController.current.ficha.fichaPersonal.email}" 
+                                             label="Email"
+                                             title="#{bundle.CreateEstudianteTitle_email}" 
+                                             >
+                                    <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]"/>
+
+                                </p:inputText>
+
+
+
                                 <h:outputLabel value="#{bundle.CreateEstudianteLabel_nacionalidad}" for="nacionalidad" />
-                                <p:inputText id="nacionalidad" value="#{usuarioController.current.ficha.fichaPersonal.nacionalidad}" title="#{bundle.CreateEstudianteTitle_nacionalidad}" />
+                                <p:inputText id="nacionalidad" 
+                                             value="#{usuarioController.current.ficha.fichaPersonal.nacionalidad}" 
+                                             title="#{bundle.CreateEstudianteTitle_nacionalidad}" 
+                                             styleClass="letras"/>
+
                                 <h:outputLabel value="#{bundle.CreateEstudianteLabel_foto}" for="foto" />
                                 <p:inputText id="foto" value="#{usuarioController.current.ficha.fichaPersonal.foto}" title="#{bundle.CreateEstudianteTitle_foto}" />
 
@@ -68,7 +210,7 @@ and open the template in the editor.
 
                         </p:tab>
 
-                       
+
                         <p:tab title="Datos Socioeconomicos">
                             <h:panelGrid columns="4">
                                 <h:outputLabel value="Tiene Internet:" for="internet" />
@@ -79,7 +221,7 @@ and open the template in the editor.
 
                             </h:panelGrid>
                         </p:tab>
-                         <p:tab title="Datos Medicos">
+                        <p:tab title="Datos Medicos">
                             <h:panelGrid columns="4">
                                 <h:outputLabel value="Tipo Sangre:" />
                                 <p:selectOneMenu id="_typeSangre" value="#{usuarioController.current.ficha.fichaMedica.tipoSangre}" effect="fade" >  
@@ -98,11 +240,17 @@ and open the template in the editor.
                         </p:tab>
                     </p:accordionPanel>
                 </p:panel>
-                <p:commandButton value="Guardar" action="#{usuarioController.persist()}" rendered="#{usuarioController.current.id == null}" 
-                                 update="editPanelUsuario" icon="ui-icon ui-icon-disk"/>
+
+                <p:commandButton styleClass="boton" 
+                                 id="idguardar" value="Guardar" 
+                                 action="#{usuarioController.persist()}" 
+                                 rendered="#{usuarioController.current.id == null}" 
+                                 update="editPanelUsuario" 
+                                 icon="ui-icon ui-icon-disk"/>
 
                 <p:commandButton value="Actualizar" action="#{usuarioController.update()}" rendered="#{usuarioController.current.id != null}" 
-                                 update="editPanelUsuario" icon="ui-icon ui-icon-disk"/>
+                                 update="editPanelUsuario" icon="ui-icon ui-icon-disk"
+                                 />
                 <p:commandButton value="CANCELAR" action="#{usuarioController.cancelEdit()}" immediate="true" icon="ui-icon ui-icon-trash"/>
 
 
