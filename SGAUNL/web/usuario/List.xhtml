@@ -18,6 +18,33 @@ and open the template in the editor.
             <h:outputText value="#{bundle.ListEstudianteTitle}"></h:outputText>
         </ui:define>
         <ui:define name="content">
+
+
+
+            <script type="text/javascript">        
+                
+                $j(document).ready(function(){
+                    $j('.numeros').numeric();
+                    $j('.letras').alpha({allow:" "});
+                    $j('.mayusculas').alpha({allcaps:true});
+                    $j('.email').alphanumeric({allow:"._-"});
+                    
+                });
+                
+            </script>
+
+
+
+            <p:ajaxStatus style="width:16px;height:16px;" id="ajaxStatusPanel">
+                <f:facet name="start">
+                    <h:graphicImage library="img" name="ajaxloading.gif" />
+                </f:facet>
+                <f:facet name="complete">
+                    <h:outputText value="" />
+                </f:facet>
+            </p:ajaxStatus>
+
+
             <h:form id="formBuscarUsuario" prependId="false">
                 <h:panelGrid columns="3">
                     <h:outputText value="Buscar: "></h:outputText>
