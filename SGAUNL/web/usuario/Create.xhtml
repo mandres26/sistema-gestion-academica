@@ -116,7 +116,7 @@ and open the template in the editor.
                                              value="#{usuarioController.current.libretaMilitar}"
                                              title="#{bundle.CreateEstudianteTitle_libretaMilitar}" 
                                              label="Libreta Militar"/>
-                                <h:outputLabel value="#{bundle.CreateEstudianteLabel_nombres}*" for="nombres" />
+                                <h:outputLabel value="#{bundle.CreateEstudianteLabel_nombres} *" for="nombres" />
 
                                 <p:inputText id="nombres" 
                                              value="#{usuarioController.current.nombres}"                                              
@@ -125,7 +125,7 @@ and open the template in the editor.
                                              required="true"
                                              label="Nombres"/>
 
-                                <h:outputLabel value="#{bundle.CreateEstudianteLabel_apellidos}*" for="apellidos" />
+                                <h:outputLabel value="#{bundle.CreateEstudianteLabel_apellidos}* " for="apellidos" />
                                 <p:inputText id="apellidos" 
                                              value="#{usuarioController.current.apellidos}" 
                                              title="#{bundle.CreateEstudianteTitle_apellidos}" 
@@ -133,8 +133,13 @@ and open the template in the editor.
                                              styleClass="letras"
                                              required="true"/>
 
-                                <h:outputLabel id="sexo" value="#{bundle.CreateEstudianteLabel_genero}"/>
-                                <p:selectOneMenu id="_typeSexo" value="#{usuarioController.current.sexo}" effect="fade" >  
+                                <h:outputLabel id="sexo" value="#{bundle.CreateEstudianteLabel_genero} *"/>
+                                <p:selectOneMenu id="_typeSexo" 
+                                                 value="#{usuarioController.current.sexo}" 
+                                                 effect="fade" 
+                                                 label="Género"
+                                                 required="true">
+                                    <f:selectItem itemLabel="Seleccione género" itemValue=""/>
                                     <f:selectItems value="#{typeListController.typeListSexo}" var="_sexo" itemLabel="#{bundle[fuelType]}" itemValue="#{_sexo}"/>  
                                 </p:selectOneMenu>
                                 <h:outputLabel value="#{bundle.CreateEstudianteLabel_fechaNacimiento}" for="fechaNacimiento" />
@@ -142,6 +147,7 @@ and open the template in the editor.
                                             value="#{usuarioController.current.fechaNacimiento}" 
                                             navigator="true" 
                                             showOn="button" 
+                                            label="Fecha de Nacimiento"
                                             title="#{bundle.CreateEstudianteTitle_fechaNacimiento}" 
                                             pattern="dd/MM/yyyy" 
                                             required="true"/>
