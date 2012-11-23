@@ -4,6 +4,11 @@
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Production</param-value>
     </context-param>
+    
+    <context-param>
+        <param-name>facelets.SKIP_COMMENTS</param-name>
+        <param-value>true</param-value>
+    </context-param>
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
@@ -23,9 +28,9 @@
     </welcome-file-list>
     
     
-     <persistence-context-ref>
+    <persistence-context-ref>
         <description>Persistence context for JndiProviders. 
-		Unit name should be same as in your persistence.xml
+            Unit name should be same as in your persistence.xml
         </description>
         <persistence-context-ref-name>persistence/em</persistence-context-ref-name>
         <persistence-unit-name>SGAUNLPU</persistence-unit-name>
