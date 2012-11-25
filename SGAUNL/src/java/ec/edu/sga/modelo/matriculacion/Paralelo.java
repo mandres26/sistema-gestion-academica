@@ -36,9 +36,23 @@ public class Paralelo implements Serializable {
     @ManyToOne
     private Curso curso;
 
+    
+
 
 
     //-----------------------------CONTRUCTORES----------------------------------//
+
+    
+    public Paralelo() {
+    }
+    
+    public Paralelo(String nombreParalelo, int numeroCupos, Curso curso) {
+        this.nombreParalelo = nombreParalelo;
+        this.numeroCupos = numeroCupos;
+        this.curso = curso;
+    }
+    
+    
    
     
     //----------------------------GETTERS AND SETTERS----------------------------//
@@ -71,6 +85,7 @@ public class Paralelo implements Serializable {
     }
 
     public void setCurso(Curso curso) {
+        System.out.println("CLASE PARALELO - SET CURSO: " + curso);
         this.curso = curso;
     }
 
