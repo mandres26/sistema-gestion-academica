@@ -36,6 +36,7 @@
 
                         <h:outputLabel value="#{bundle.ListMatriculaTitle_tipoMatricula}"/>
                         <p:selectOneMenu label="Tipo de Matrícula" required="true" value="#{matriculaController.current.tipoMatricula}">
+                            <f:selectItem itemLabel="#{bundle.Item}" />
                             <f:selectItems value="#{typeListController.typeTipoMatriculas}"/>  
                         </p:selectOneMenu>
 
