@@ -25,7 +25,8 @@ import javax.persistence.TableGenerator;
 pkColumnName = "nombre", valueColumnName = "valor",
 pkColumnValue = "nivel", initialValue = 1, allocationSize = 1)
 @NamedQueries(value = {
-    @NamedQuery(name = "Nivel.findAllNiveles", query = "select n from Nivel n")})
+    @NamedQuery(name = "Nivel.findAllNiveles", query = "select n from Nivel n")
+})
 public class Nivel implements Serializable {
 
     //----------------------ATRIBUTOS--------------------------//
@@ -42,6 +43,14 @@ public class Nivel implements Serializable {
     public Nivel() {
         cursos = new ArrayList<Curso>();
     }
+
+    public Nivel(String nombreNivel, String descripcionNivel, List<Curso> cursos) {
+        this.nombreNivel = nombreNivel;
+        this.descripcionNivel = descripcionNivel;
+        this.cursos = cursos;
+    }
+    
+    
 
     //-----------------GETTERS AND SETTERS------------------------//
     public Long getId() {
