@@ -50,7 +50,7 @@
                                          required="true"
                                          validatorMessage="Escoja un nivel"
                                          >
-                            <f:selectItem itemLabel="Seleccione nivel" itemValue="" />  
+                            <f:selectItem itemLabel="#{bundle.Item}" itemValue="" />  
                             <f:selectItems 
                                 value="#{nivelController.itemsAvailableSelectOne}"/>
                         </p:selectOneMenu>
@@ -61,7 +61,7 @@
                                          value="#{cursoController.current.especialidad}"
                                          required="true"
                                          validatorMessage="Escoja una especialidad">
-                            <f:selectItem itemLabel="Seleccione especialidad" itemValue=""/>
+                            <f:selectItem itemLabel="#{bundle.Item}" itemValue=""/>
                             <f:selectItems 
                                 value="#{especialidadController.itemsAvailableSelectOne}"/>
                         </p:selectOneMenu>
