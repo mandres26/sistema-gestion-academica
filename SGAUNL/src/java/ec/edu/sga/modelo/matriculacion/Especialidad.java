@@ -32,6 +32,17 @@ public class Especialidad implements Serializable {
     private List<Curso> cursos;
 
     //-------------------------------CONSTRUCTORES----------------------//
+
+    public Especialidad() {
+    }
+
+    public Especialidad(String nombreEspecialidad, String descripcionEspecialidad, List<Curso> cursos) {
+        this.nombreEspecialidad = nombreEspecialidad;
+        this.descripcionEspecialidad = descripcionEspecialidad;
+        this.cursos = cursos;
+    }
+    
+    
     //----------------------GETERS AND SETTERS-----------------------//
     public Long getId() {
         return id;
