@@ -28,10 +28,14 @@ import javax.persistence.TableGenerator;
 @Entity
 @TableGenerator(name = "CursoGenerador", table = "GeneradorIdentificador", pkColumnName = "nombre",
 valueColumnName = "valor", pkColumnValue = "Curso", initialValue = 1, allocationSize = 1)
-@NamedQueries(value={@NamedQuery(name="Curso.findAll", query="select c from Curso c"),
-@NamedQuery(name="findCursosAndParalelos",
-        query="select distinct e from Curso e left join fetch"
-        + " e.paralelos where e.id = :id")})
+@NamedQueries(value = {
+    @NamedQuery(name = "Curso.findAll", query = "select c from Curso c"),
+    @NamedQuery(name = "findCursosAndParalelos",
+    query = "select distinct e from Curso e left join fetch"
+    + " e.paralelos where e.id = :id"),
+    @NamedQuery(name = "Curso.findAllCursosbyNivelId",
+    query = "select c from Curso c where c.nivel.id =:id")
+})
 public class Curso implements Serializable {
 
     //-----------------------ATRIBUTOS----------------------------------//

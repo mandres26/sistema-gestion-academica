@@ -1,27 +1,28 @@
 package ec.edu.sga.controller;
 
-import ec.edu.sga.modelo.matriculacion.Matricula;
 import ec.edu.sga.controller.util.JsfUtil;
 import ec.edu.sga.facade.AnioLectivoFacade;
+import ec.edu.sga.facade.CursoFacade;
+import ec.edu.sga.facade.EspecialidadFacade;
 import ec.edu.sga.facade.MatriculaFacade;
+import ec.edu.sga.facade.NivelFacade;
 import ec.edu.sga.facade.UsuarioFacade;
-import ec.edu.sga.modelo.matriculacion.AnioLectivo;
 import ec.edu.sga.modelo.matriculacion.Curso;
+import ec.edu.sga.modelo.matriculacion.Matricula;
 import ec.edu.sga.modelo.matriculacion.Nivel;
 import ec.edu.sga.modelo.usuarios.Usuario;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
-import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
+import javax.inject.Named;
 
 @Named("matriculaController")
 @SessionScoped
@@ -30,6 +31,9 @@ public class MatriculaController implements Serializable {
     private Matricula current;
     private Long matriculaId;
     private Long usuarioId;
+    private Long nivelId;
+    private Long especialidadId;
+    private Long cursoId;
     private List<Matricula> matriculas;
     private Curso curso;
     private Nivel nivel;
@@ -39,6 +43,12 @@ public class MatriculaController implements Serializable {
     private ec.edu.sga.facade.AnioLectivoFacade ejbFacadeAnioLectivo;
     @EJB
     private UsuarioFacade ejbFacadeUsuario;
+    @EJB
+    private NivelFacade ejbFacadeNivel;
+    @EJB
+    private CursoFacade ejbFacadeCurso;
+    @EJB
+    private EspecialidadFacade ejbFacadeEspecialidad;
     @Inject
     Conversation conversation;
     @Inject
@@ -51,8 +61,14 @@ public class MatriculaController implements Serializable {
         curso = new Curso();
         nivel = new Nivel();
 
-        curso.setNivel(nivel);
         current.setCurso(curso);
+        curso.setNivel(nivel);
+        
+        
+        
+        System.out.println("Este es el valor de nivelId: "+ nivelId);
+        System.out.println("Este es el valor de usuarioId: "+ usuarioId);
+        
 
     }
 
@@ -116,7 +132,6 @@ public class MatriculaController implements Serializable {
         return ejbFacadeAnioLectivo;
     }
 
-   
     public Long getUsuarioId() {
         return usuarioId;
     }
@@ -140,12 +155,32 @@ public class MatriculaController implements Serializable {
     public void setNivel(Nivel nivel) {
         this.nivel = nivel;
     }
-    
-    
+
+    public Long getNivelId() {
+        return nivelId;
+    }
+
+    public void setNivelId(Long nivelId) {
+        this.nivelId = nivelId;
+    }
+
+    public Long getEspecialidadId() {
+        return especialidadId;
+    }
+
+    public void setEspecialidadId(Long especialidadId) {
+        this.especialidadId = especialidadId;
+    }
+
+    public Long getCursoId() {
+        return cursoId;
+    }
+
+    public void setCursoId(Long cursoId) {
+        this.cursoId = cursoId;
+    }
 
     //_____________________________MÉTODOS_____________________________//
-   
-    
     // Metodo que permite buscar un usuario para poder matricular
     public void findUserEnrollment() {
         beginConversation();
@@ -154,6 +189,7 @@ public class MatriculaController implements Serializable {
             current.setUsuario(u);
         }
     }
+
     public String persist() {
         System.out.println("Ingreso a grabar la matrícula: " + current.getTipoMatricula());
         ejbFacade.create(current);
@@ -215,31 +251,42 @@ public class MatriculaController implements Serializable {
 
     //Method that return the Anio that are activate == true
     public SelectItem[] getItemAnioActivo() {
-        // beginConversation();
         return JsfUtil.getSelectItem(ejbFacadeAnioLectivo.findAnioActivate(Boolean.TRUE));
+    }
+
+    public SelectItem[] getItemsCursosbyNivelId() {
+        return JsfUtil.getSelectItems(ejbFacadeCurso.findAllCursosbyNivelId(nivelId), false);
+    }
+
+    public SelectItem[] getItemsNiveles() {
+        return JsfUtil.getSelectItems(ejbFacadeNivel.findAll(), false);
     }
     
     private List<SelectItem> idEspecialidad = new ArrayList<SelectItem>();
     
-     public void valueChanged(ValueChangeEvent event) {
+    
+    public void prueba(){
+        System.out.println("esta es una prueba");
+        System.out.println("el id de nivel es: " + nivelId);
+        System.out.println("Este es el valor de usuarioId: "+ usuarioId);
+    }
+
+    public void valueChanged(ValueChangeEvent event) {
         idEspecialidad.clear();
         if (null != event.getNewValue()) {
             SelectItem[] currentItems;
- 
+
             if (((String) event.getNewValue()).equals("Bachillerato")) {
                 currentItems = especialidadController.getItemsAvailableSelectOne();
-            }
-            else {
+            } else {
                 currentItems = especialidadController.getItemsAvailableSelectOne();
             }
- 
+
             for (int i = 0; i < currentItems.length; i++) {
                 SelectItem item = new SelectItem(currentItems[i]);
- 
+
                 idEspecialidad.add(item);
             }
         }
     }
-    
-    
 }

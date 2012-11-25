@@ -59,6 +59,11 @@ public class CursoFacade extends AbstractFacade<Curso> {
 //            
 //        }
         
-        
+        //Método que devuelve todos los cursos de acuerdo al id de un nivel
+    public List<Curso> findAllCursosbyNivelId(Long id) {
+        Query query = em.createNamedQuery("Curso.findAllCursosbyNivelId");
+        query.setParameter("id",id);
+        return query.getResultList();
+    }
     
 }
