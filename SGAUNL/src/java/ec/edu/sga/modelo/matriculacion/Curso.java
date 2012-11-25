@@ -60,6 +60,19 @@ public class Curso implements Serializable {
         paralelos = new ArrayList<Paralelo>();
     }
 
+    public Curso(String nombreCurso, Especialidad especialidad, Nivel nivel, List<Matricula> matriculas, MallaCurricular mallaCurricular, List<Paralelo> paralelos) {
+        this.nombreCurso = nombreCurso;
+        this.especialidad = especialidad;
+        this.nivel = nivel;
+        this.matriculas = matriculas;
+        this.mallaCurricular = mallaCurricular;
+        this.paralelos = paralelos;
+    }
+    
+    
+    
+    
+
     //----------------------MÉTODOS SET AND GET---------------------------------//
     public Long getId() {
         return id;
@@ -82,6 +95,7 @@ public class Curso implements Serializable {
     }
 
     public void setEspecialidad(Especialidad especialidad) {
+        System.out.println("CLASE CURSO-SET ESPECIALIDAD: " + especialidad);
         this.especialidad = especialidad;
     }
 
@@ -90,6 +104,7 @@ public class Curso implements Serializable {
     }
 
     public void setNivel(Nivel nivel) {
+        System.out.println("CLASE CURSO-SET NIVEL: " + nivel);
         this.nivel = nivel;
     }
 
@@ -98,6 +113,7 @@ public class Curso implements Serializable {
     }
 
     public void setMatriculas(List<Matricula> matriculas) {
+        
         this.matriculas = matriculas;
     }
 
