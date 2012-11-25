@@ -52,4 +52,9 @@
             <var>bundle</var>
         </resource-bundle>
     </application>
+    <lifecycle>
+        <phase-listener>
+            prueba.ciclodevida.DepuracionListener
+        </phase-listener>
+    </lifecycle>
 </faces-config>
