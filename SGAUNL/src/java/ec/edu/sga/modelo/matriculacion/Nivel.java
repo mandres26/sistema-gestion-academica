@@ -7,7 +7,9 @@ package ec.edu.sga.modelo.matriculacion;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -36,7 +38,7 @@ public class Nivel implements Serializable {
     private Long id;
     private String nombreNivel;
     private String descripcionNivel;
-    @OneToMany(mappedBy = "nivel")
+    @OneToMany(mappedBy = "nivel", cascade= CascadeType.ALL, orphanRemoval=true)
     private List<Curso> cursos;
 
     //---------------------CONTRUCTORES--------------------------//
@@ -66,6 +68,7 @@ public class Nivel implements Serializable {
     }
 
     public void setNombreNivel(String nombreNivel) {
+        System.out.println("CLASE NIVEL - SET NOMBRENIVEL: "+ nombreNivel);
         this.nombreNivel = nombreNivel;
     }
 
