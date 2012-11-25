@@ -40,39 +40,6 @@ and open the template in the editor.
                     $j('.mayúsculas').val().toUpperCase();
                     
                 });
-                
-                
-                
-                /*$j(document).ready(function(){                
-                    $j('#formCreateUsuario').validate({
-                        rules:{
-                            'dni':{
-                                required: true,
-                                maxLength: 10 
-                            }
-                        },
-                        messages:{
-                            'dni': {
-                                required:'Ingrese el dni',
-                                minlength:'Longitud minima (10)'
-                            }
-                        }
-                    });                
-                });*/
-            
-                /*function validar(){
-                    var v = $j('#frmLogin').valid();
-                    return v;
-                    //return true;
-                };
-            
-                function validar(){
-                    var v = $j('#frmLogin').valid();
-                    return v;
-                    //return true;
-                };--> */
-            
-            
             </script>
 
 
@@ -96,7 +63,7 @@ and open the template in the editor.
                          header="#{usuarioController.current.id != null ? bundle['ListEstudianteEditLink'] : bundle['ListEstudianteCreateLink']}" >
 
 
-                    <p:growl id="messages"/>  
+
 
                     <p:messages closable="true"/>
 
@@ -191,7 +158,7 @@ and open the template in the editor.
                                              value="#{usuarioController.current.ficha.fichaPersonal.direccion}" 
                                              title="#{bundle.CreateEstudianteTitle_direccion}" 
                                              styleClass="letras"
-                                             label="dirección"
+                                             label="Dirección"
                                              required="true"/>
 
                                 <h:outputLabel value="#{bundle.CreateEstudianteLabel_telefono}" for="telefono" />
