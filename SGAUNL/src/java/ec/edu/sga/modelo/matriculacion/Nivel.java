@@ -44,6 +44,7 @@ public class Nivel implements Serializable {
     //---------------------CONTRUCTORES--------------------------//
     public Nivel() {
         cursos = new ArrayList<Curso>();
+        
     }
 
     public Nivel(String nombreNivel, String descripcionNivel, List<Curso> cursos) {
