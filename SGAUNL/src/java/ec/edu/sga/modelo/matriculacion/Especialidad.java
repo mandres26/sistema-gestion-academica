@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.TableGenerator;
 
@@ -21,6 +23,10 @@ import javax.persistence.TableGenerator;
 @Entity
 @TableGenerator(name = "EspecialidadGenerador", table = "GeneradorIdentificador", pkColumnName = "nombre",
 valueColumnName = "valor", pkColumnValue = "Especialidad", initialValue = 1, allocationSize = 1)
+@NamedQueries(value={
+    @NamedQuery(name="Especialidad.findEspecialidadesByNivelId", 
+        query="SELECT e FROM Especialidad e WHERE e.nivel.id =:id")
+})
 public class Especialidad implements Serializable {
 
     private static final long serialVersionUID = 1L;
