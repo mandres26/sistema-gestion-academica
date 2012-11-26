@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.TableGenerator;
 
@@ -30,6 +31,8 @@ public class Especialidad implements Serializable {
     private String descripcionEspecialidad;
     @OneToMany(mappedBy = "especialidad")
     private List<Curso> cursos;
+    @ManyToOne
+    private Nivel nivel;
 
     //-------------------------------CONSTRUCTORES----------------------//
 
@@ -75,6 +78,17 @@ public class Especialidad implements Serializable {
     public void setCursos(List<Curso> cursos) {
         this.cursos = cursos;
     }
+
+    public Nivel getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(Nivel nivel) {
+        System.out.println("CLASE ESPECIALIDAD - SET NIVEL: " + nivel);
+        this.nivel = nivel;
+    }
+    
+    
 
     //--------------------------METODOS----------------------------------//
     @Override
