@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:metadata>
+        <f:viewParam name="usuarioId" value="#{matriculaController.usuarioId}" />
+        <f:viewParam name="cursoId" value="#{matriculaController.cursoId}"/>
+
+    </f:metadata>
+
+    <ui:composition template="/templates/plantilla.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditMatriculaTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="content">
+
+            <p:ajaxStatus style="width:16px;height:16px;" id="ajaxStatusPanel">
+                <f:facet name="start">
+                    <h:graphicImage library="img" name="ajaxloading.gif" />
+                </f:facet>
+                <f:facet name="complete">
+                    <h:outputText value="" />
+                </f:facet>
+            </p:ajaxStatus>
+
+
+
+            <h:form id="formEditMatricula" prependId="false">
+                <p:panel header="Editar Matriculas" id="panelEditMatriculas">
+                    <p:panelGrid columns="2">
+
+                        <h:outputLabel value="#{bundle.ListMatriculaTitle_estudiante}"/>
+                        <h:outputText value="#{matriculaController.current.usuario.nombres} #{matriculaController.current.usuario.nombres }" />
+
+                        
+                        <h:outputLabel value="Nivel"/>
+                        <p:selectOneMenu id="idNivel"
+                                         converter="genericConverter" 
+                                         label="Nivel" 
+                                         required="true" 
+                                         value="#{matriculaController.nivel}">
+                            <f:selectItem itemLabel="#{bundle.Item}" itemValue=""/>
+                            <f:selectItems value="#{nivelController.itemsAvailableSelectOne}"/>  
+                             <p:ajax update="idCurso idEspecialidad idParalelo" listener="#{matriculaController.prueba()}"/>
+                            
+                        </p:selectOneMenu>
+                        
+                        
+                        <h:outputLabel value="Especialidad"/>
+                        <p:selectOneMenu id="idEspecialidad"
+                                         converter="genericConverter" 
+                                         label="Especialidad" 
+                                         required="true" 
+                                         value="#{matriculaController.especialidad}">
+                            <f:selectItem itemLabel="#{bundle.Item}" itemValue=""/>
+                            <f:selectItems value="#{matriculaController.itemsEspecialidadesByNivelId}"/>  
+                            <p:ajax update="idCurso idParalelo" listener="#{matriculaController.prueba()}"/>
+                            
+                        </p:selectOneMenu>
+                        
+                        
+                        
+                        
+                        <h:outputLabel value="#{bundle.ListMatriculaTitle_curso}"/>
+                        <p:selectOneMenu id="idCurso"
+                                         converter="genericConverter" 
+                                         label="Curso" 
+                                         required="true" 
+                                         value="#{matriculaController.curso}">
+                            <f:selectItem itemLabel="#{bundle.Item}" itemValue=""/>
+                            <f:selectItems value="#{matriculaController.itemsCursosbyNivelId}"/>  
+                            <f:param name="cursoId" value="#{matriculaController.current.curso.id}"/>
+                            <p:ajax update="idParalelo" listener="#{matriculaController.prueba()}"/>
+                        </p:selectOneMenu>
+                      
+
+                        
+                        <h:outputLabel value="Paralelo"/>
+                        <p:selectOneMenu id="idParalelo" converter="genericConverter" 
+                                         label="Paralelo" 
+                                         required="true" 
+                                         value="#{matriculaController.paralelo}">
+                            <f:selectItem itemLabel="#{bundle.Item}" itemValue=""/>
+                            <f:selectItems value="#{matriculaController.itemsParalelosbyCursoId}"/>
+                        </p:selectOneMenu>
+
+
+
+
+
+
+
+                        <p:messages />
+
+                        <f:facet name="footer">
+                            <p:commandButton value="GUARDAR" action="#{matriculaController.persist()}"
+                                             update="panelEditMatriculas"/>
+                            <p:commandButton value="ACTUALIZAR"
+                                             action="#{matriculaController.update()}"/>
+                            <p:commandButton value="CANCELAR" action="#{matriculaController.cancelEdit()}" immediate="true" />
+
+                        </f:facet>
+
+                    </p:panelGrid>
+
+
+
+                </p:panel>
+
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+
+</html>
