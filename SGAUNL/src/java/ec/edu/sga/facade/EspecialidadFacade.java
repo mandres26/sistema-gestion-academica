@@ -5,9 +5,11 @@
 package ec.edu.sga.facade;
 
 import ec.edu.sga.modelo.matriculacion.Especialidad;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,4 +29,11 @@ public class EspecialidadFacade extends AbstractFacade<Especialidad> {
         super(Especialidad.class);
     }
     
+    
+    
+    public List<Especialidad> findEspecialidadesByNivelId(Long id){
+        Query query= em.createNamedQuery("Especialidad.findEspecialidadesByNivelId");
+        query.setParameter("id", id);
+        return query.getResultList();
+    }
 }
