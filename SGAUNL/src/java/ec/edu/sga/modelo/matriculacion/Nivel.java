@@ -40,10 +40,13 @@ public class Nivel implements Serializable {
     private String descripcionNivel;
     @OneToMany(mappedBy = "nivel", cascade= CascadeType.ALL, orphanRemoval=true)
     private List<Curso> cursos;
+    @OneToMany(mappedBy = "nivel", cascade= CascadeType.ALL, orphanRemoval=true)
+    private List<Especialidad> especialidades;
 
     //---------------------CONTRUCTORES--------------------------//
     public Nivel() {
         cursos = new ArrayList<Curso>();
+        especialidades=new ArrayList<Especialidad>();
         
     }
 
@@ -88,6 +91,16 @@ public class Nivel implements Serializable {
     public void setDescripcionNivel(String descripcionNivel) {
         this.descripcionNivel = descripcionNivel;
     }
+
+    public List<Especialidad> getEspecialidades() {
+        return especialidades;
+    }
+
+    public void setEspecialidades(List<Especialidad> especialidades) {
+        this.especialidades = especialidades;
+    }
+    
+    
 
     //---------------------------MÉTODOS---------------------------//
     @Override
