@@ -6,6 +6,7 @@ import ec.edu.sga.facade.CursoFacade;
 import ec.edu.sga.facade.EspecialidadFacade;
 import ec.edu.sga.facade.MatriculaFacade;
 import ec.edu.sga.facade.NivelFacade;
+import ec.edu.sga.facade.ParaleloFacade;
 import ec.edu.sga.facade.UsuarioFacade;
 import ec.edu.sga.modelo.matriculacion.Curso;
 import ec.edu.sga.modelo.matriculacion.Matricula;
@@ -46,9 +47,12 @@ public class MatriculaController implements Serializable {
     @EJB
     private NivelFacade ejbFacadeNivel;
     @EJB
+    private EspecialidadFacade ejbFacadeEspecialidad;
+    @EJB
     private CursoFacade ejbFacadeCurso;
     @EJB
-    private EspecialidadFacade ejbFacadeEspecialidad;
+    private ParaleloFacade ejbFacadeParalelo;
+    
     @Inject
     Conversation conversation;
     @Inject
@@ -255,7 +259,11 @@ public class MatriculaController implements Serializable {
     }
 
     public SelectItem[] getItemsCursosbyNivelId() {
-        return JsfUtil.getSelectItems(ejbFacadeCurso.findAllCursosbyNivelId(nivelId), false);
+        return JsfUtil.getSelectItems(ejbFacadeCurso.findAllCursosbyNivelId(Long.parseLong("3")), false); //Long.parseLong("3")
+    }
+    
+     public SelectItem[] getItemsParalelosbyCursoId() {
+        return JsfUtil.getSelectItems(ejbFacadeParalelo.findAllParalelosByCursoId(Long.parseLong("4")), false); //Long.parseLong("3")
     }
 
     public SelectItem[] getItemsNiveles() {
