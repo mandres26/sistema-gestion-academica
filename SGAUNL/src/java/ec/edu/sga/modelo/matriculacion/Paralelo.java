@@ -6,7 +6,6 @@ package ec.edu.sga.modelo.matriculacion;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,8 +21,11 @@ import javax.persistence.TableGenerator;
 @Entity
 @TableGenerator(name = "ParaleloGenerador", table = "GeneradorIdentificador", pkColumnName = "nombre",
 valueColumnName = "valor", pkColumnValue = "paralelo", initialValue = 1, allocationSize = 1)
-@NamedQueries(value={@NamedQuery(name="Paralelo.findAllParalelos", query="select p from Paralelo p"),
-@NamedQuery(name="Paralelo.findAllParalelosByCursoId",query="select p from Paralelo p where p.curso.id =:cursoId")})
+@NamedQueries(value = {
+    @NamedQuery(name = "Paralelo.findAllParalelos", query = "select p from Paralelo p"),
+    @NamedQuery(name = "Paralelo.findAllParalelosByCursoId",
+    query = "select p from Paralelo p where p.curso.id =:cursoId")
+})
 public class Paralelo implements Serializable {
 
     //----------------------------ATRIBUTOS-----------------------------------//
@@ -36,25 +38,16 @@ public class Paralelo implements Serializable {
     @ManyToOne
     private Curso curso;
 
-    
-
-
-
     //-----------------------------CONTRUCTORES----------------------------------//
-
-    
     public Paralelo() {
     }
-    
+
     public Paralelo(String nombreParalelo, int numeroCupos, Curso curso) {
         this.nombreParalelo = nombreParalelo;
         this.numeroCupos = numeroCupos;
         this.curso = curso;
     }
-    
-    
-   
-    
+
     //----------------------------GETTERS AND SETTERS----------------------------//
     public Long getId() {
         return id;
