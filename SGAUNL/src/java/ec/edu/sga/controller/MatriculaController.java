@@ -9,8 +9,10 @@ import ec.edu.sga.facade.NivelFacade;
 import ec.edu.sga.facade.ParaleloFacade;
 import ec.edu.sga.facade.UsuarioFacade;
 import ec.edu.sga.modelo.matriculacion.Curso;
+import ec.edu.sga.modelo.matriculacion.Especialidad;
 import ec.edu.sga.modelo.matriculacion.Matricula;
 import ec.edu.sga.modelo.matriculacion.Nivel;
+import ec.edu.sga.modelo.matriculacion.Paralelo;
 import ec.edu.sga.modelo.usuarios.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -38,6 +40,8 @@ public class MatriculaController implements Serializable {
     private List<Matricula> matriculas;
     private Curso curso;
     private Nivel nivel;
+    private Paralelo paralelo;
+    private Especialidad especialidad;
     @EJB
     private ec.edu.sga.facade.MatriculaFacade ejbFacade;
     @EJB
@@ -52,7 +56,6 @@ public class MatriculaController implements Serializable {
     private CursoFacade ejbFacadeCurso;
     @EJB
     private ParaleloFacade ejbFacadeParalelo;
-    
     @Inject
     Conversation conversation;
     @Inject
@@ -64,15 +67,19 @@ public class MatriculaController implements Serializable {
         matriculas = new ArrayList<Matricula>();
         curso = new Curso();
         nivel = new Nivel();
+        paralelo = new Paralelo();
 
+
+        paralelo.setCurso(curso);
         current.setCurso(curso);
-        curso.setNivel(nivel);
+        // curso.setNivel(nivel);
+
         
-        
-        
-        System.out.println("Este es el valor de nivelId: "+ nivelId);
-        System.out.println("Este es el valor de usuarioId: "+ usuarioId);
-        
+
+        System.out.println("Este es el valor de cursoId: " + nivelId);
+        System.out.println("Este es el valor de usuarioId: " + usuarioId);
+        System.out.println("Este es el valor de usuarioId: " + cursoId);
+
 
     }
 
@@ -184,6 +191,24 @@ public class MatriculaController implements Serializable {
         this.cursoId = cursoId;
     }
 
+    public Paralelo getParalelo() {
+        return paralelo;
+    }
+
+    public void setParalelo(Paralelo paralelo) {
+        this.paralelo = paralelo;
+    }
+
+    public Especialidad getEspecialidad() {
+        return especialidad;
+    }
+
+    public void setEspecialidad(Especialidad especialidad) {
+        this.especialidad = especialidad;
+    }
+    
+    
+
     //_____________________________MÉTODOS_____________________________//
     // Metodo que permite buscar un usuario para poder matricular
     public void findUserEnrollment() {
@@ -259,24 +284,29 @@ public class MatriculaController implements Serializable {
     }
 
     public SelectItem[] getItemsCursosbyNivelId() {
-        return JsfUtil.getSelectItems(ejbFacadeCurso.findAllCursosbyNivelId(Long.parseLong("3")), false); //Long.parseLong("3")
+        return JsfUtil.getSelectItems(ejbFacadeCurso.findAllCursosbyNivelId(nivel.getId()), false); //Long.parseLong("3")
     }
-    
-     public SelectItem[] getItemsParalelosbyCursoId() {
-        return JsfUtil.getSelectItems(ejbFacadeParalelo.findAllParalelosByCursoId(Long.parseLong("4")), false); //Long.parseLong("3")
+
+    public SelectItem[] getItemsParalelosbyCursoId() {
+        return JsfUtil.getSelectItems(ejbFacadeParalelo.findAllParalelosByCursoId(curso.getId()), false); //Long.parseLong("4")
     }
 
     public SelectItem[] getItemsNiveles() {
         return JsfUtil.getSelectItems(ejbFacadeNivel.findAll(), false);
     }
     
+     public SelectItem[] getItemsEspecialidadesByNivelId() {
+        return JsfUtil.getSelectItems(ejbFacadeEspecialidad.findEspecialidadesByNivelId(nivel.getId()), false);
+    }
+    
     private List<SelectItem> idEspecialidad = new ArrayList<SelectItem>();
-    
-    
-    public void prueba(){
+
+    public void prueba() {
         System.out.println("esta es una prueba");
-        System.out.println("el id de nivel es: " + nivelId);
-        System.out.println("Este es el valor de usuarioId: "+ usuarioId);
+        System.out.println("Este es el valor de nivelId: " + nivelId);
+        System.out.println("Este es el valor de cursoId: " + cursoId);
+        System.out.println("Este es el valor de usuarioId: " + usuarioId);
+        System.out.println("Este es el valor de curso: " + curso);
     }
 
     public void valueChanged(ValueChangeEvent event) {
