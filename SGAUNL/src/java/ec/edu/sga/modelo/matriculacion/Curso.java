@@ -34,7 +34,8 @@ valueColumnName = "valor", pkColumnValue = "Curso", initialValue = 1, allocation
     query = "select distinct e from Curso e left join fetch"
     + " e.paralelos where e.id = :id"),
     @NamedQuery(name = "Curso.findAllCursosbyNivelId",
-    query = "select c from Curso c where c.nivel.id =:id")
+    query = "select c from Curso c where c.nivel.id =:id"),
+    @NamedQuery(name="Curso.findCursosByEspecialidadId", query="SELECT c FROM Curso c WHERE c.especialidad.id=:id ")
 })
 public class Curso implements Serializable {
 

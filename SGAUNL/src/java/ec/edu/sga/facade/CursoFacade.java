@@ -66,4 +66,10 @@ public class CursoFacade extends AbstractFacade<Curso> {
         return query.getResultList();
     }
     
+    public List<Curso> findAllCursosbyEspecialidadId(Long id) {
+        Query query = em.createNamedQuery("Curso.findCursosByEspecialidadId");
+        query.setParameter("id",id);
+        return query.getResultList();
+    }
+    
 }

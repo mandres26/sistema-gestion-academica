@@ -30,7 +30,7 @@ import javax.inject.Named;
 @Named("matriculaController")
 @SessionScoped
 public class MatriculaController implements Serializable {
-
+    
     private Matricula current;
     private Long matriculaId;
     private Long usuarioId;
@@ -68,32 +68,34 @@ public class MatriculaController implements Serializable {
         curso = new Curso();
         nivel = new Nivel();
         paralelo = new Paralelo();
-
-
+        especialidad = new Especialidad();
+        
+        especialidad.setNivel(nivel);
+        curso.setEspecialidad(especialidad);
         paralelo.setCurso(curso);
         current.setCurso(curso);
         // curso.setNivel(nivel);
 
         
-
+        
         System.out.println("Este es el valor de cursoId: " + nivelId);
         System.out.println("Este es el valor de usuarioId: " + usuarioId);
         System.out.println("Este es el valor de usuarioId: " + cursoId);
-
-
+        
+        
     }
 
     //_____________________SETTERS AND GETTERS_____________________________//
     public Matricula getCurrent() {
         return current;
     }
-
+    
     public void setCurrent(Matricula current) {
         System.out.println("Ingreso a fijar matricula" + this.current);
         this.beginConversation();
         this.current = current;
     }
-
+    
     public Long getMatriculaId() {
         if (current != null) {
             this.matriculaId = current.getId();
@@ -101,113 +103,111 @@ public class MatriculaController implements Serializable {
         }
         return null;
     }
-
+    
     public void setMatriculaId(Long matriculaId) {
         conversation.begin();
         if (matriculaId != null && matriculaId.longValue() > 0) {
             this.current = ejbFacade.find(matriculaId);
             this.matriculaId = current.getId();
             System.out.println("Ingreso a editar matriculas: " + current.getTipoMatricula());
-
+            
         } else {
             System.out.println("Ingreso a crear una nueva matrícula");
             this.current = new Matricula();
         }
     }
-
+    
     public List<Matricula> getMatriculas() {
         return matriculas;
     }
-
+    
     public void setMatriculas(List<Matricula> matriculas) {
         this.matriculas = matriculas;
     }
-
+    
     public MatriculaFacade getEjbFacade() {
         return ejbFacade;
     }
-
+    
     public void setEjbFacade(MatriculaFacade ejbFacade) {
         this.ejbFacade = ejbFacade;
     }
-
+    
     public Conversation getConversation() {
         return conversation;
     }
-
+    
     public void setConversation(Conversation conversation) {
         this.conversation = conversation;
     }
-
+    
     public AnioLectivoFacade getEjbFacadeAnioLectivo() {
         return ejbFacadeAnioLectivo;
     }
-
+    
     public Long getUsuarioId() {
         return usuarioId;
     }
-
+    
     public void setUsuarioId(Long usuarioId) {
         this.usuarioId = usuarioId;
     }
-
+    
     public Curso getCurso() {
         return curso;
     }
-
+    
     public void setCurso(Curso curso) {
         this.curso = curso;
     }
-
+    
     public Nivel getNivel() {
         return nivel;
     }
-
+    
     public void setNivel(Nivel nivel) {
         this.nivel = nivel;
     }
-
+    
     public Long getNivelId() {
         return nivelId;
     }
-
+    
     public void setNivelId(Long nivelId) {
         this.nivelId = nivelId;
     }
-
+    
     public Long getEspecialidadId() {
         return especialidadId;
     }
-
+    
     public void setEspecialidadId(Long especialidadId) {
         this.especialidadId = especialidadId;
     }
-
+    
     public Long getCursoId() {
         return cursoId;
     }
-
+    
     public void setCursoId(Long cursoId) {
         this.cursoId = cursoId;
     }
-
+    
     public Paralelo getParalelo() {
         return paralelo;
     }
-
+    
     public void setParalelo(Paralelo paralelo) {
         this.paralelo = paralelo;
     }
-
+    
     public Especialidad getEspecialidad() {
         return especialidad;
     }
-
+    
     public void setEspecialidad(Especialidad especialidad) {
         this.especialidad = especialidad;
     }
-    
-    
 
     //_____________________________MÉTODOS_____________________________//
     // Metodo que permite buscar un usuario para poder matricular
@@ -218,19 +218,19 @@ public class MatriculaController implements Serializable {
             current.setUsuario(u);
         }
     }
-
+    
     public String persist() {
         System.out.println("Ingreso a grabar la matrícula: " + current.getTipoMatricula());
         ejbFacade.create(current);
         this.endConversation();
         String summary = ResourceBundle.getBundle("/Bundle").getString("MatriculaCreated");
         JsfUtil.addSuccessMessage(summary);
-
+        
         FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-
+        
         return "/index";
     }
-
+    
     public String update() {
         System.out.println("Ingreso a actualizar: " + current.getTipoMatricula());
         ejbFacade.edit(current);
@@ -238,7 +238,7 @@ public class MatriculaController implements Serializable {
         this.endConversation();
         return "/matricula/List";
     }
-
+    
     public String delete() {
         System.out.println("Ingreso a eliminar la matrícula: " + current.getTipoMatricula());
         ejbFacade.remove(current);
@@ -246,61 +246,69 @@ public class MatriculaController implements Serializable {
         this.endConversation();
         return "/matricula/List";
     }
-
+    
     public void cancelEdit() {
         System.out.println("Terminando la conversación, cancelando el evento");
         this.endConversation();
-
+        
     }
-
+    
     public void beginConversation() {
         if (conversation.isTransient()) {
             conversation.begin();
             System.out.println("Iniciando la conversación en matrícula");
         }
-
+        
     }
-
+    
     public void endConversation() {
         if (!conversation.isTransient()) {
             conversation.end();
             System.out.println("Finalizando la conversación en matrícula");
         }
-
+        
     }
 
     //___________________________MÉTODOS DE BÚSQUEDA___________________________//
     public SelectItem[] getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
-
+    
     public SelectItem[] getItemsAvailableSelectOne() {
-        return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
+        return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
 
     //Method that return the Anio that are activate == true
     public SelectItem[] getItemAnioActivo() {
         return JsfUtil.getSelectItem(ejbFacadeAnioLectivo.findAnioActivate(Boolean.TRUE));
     }
-
-    public SelectItem[] getItemsCursosbyNivelId() {
-        return JsfUtil.getSelectItems(ejbFacadeCurso.findAllCursosbyNivelId(nivel.getId()), false); //Long.parseLong("3")
-    }
-
-    public SelectItem[] getItemsParalelosbyCursoId() {
-        return JsfUtil.getSelectItems(ejbFacadeParalelo.findAllParalelosByCursoId(curso.getId()), false); //Long.parseLong("4")
-    }
-
+    
     public SelectItem[] getItemsNiveles() {
         return JsfUtil.getSelectItems(ejbFacadeNivel.findAll(), false);
     }
     
-     public SelectItem[] getItemsEspecialidadesByNivelId() {
+    
+    public SelectItem[] getItemsEspecialidadesByNivelId() {
         return JsfUtil.getSelectItems(ejbFacadeEspecialidad.findEspecialidadesByNivelId(nivel.getId()), false);
     }
     
+    public SelectItem[] getItemsCursosbyNivelId() {
+        return JsfUtil.getSelectItems(ejbFacadeCurso.findAllCursosbyNivelId(nivel.getId()), false); //Long.parseLong("3")
+    }
+    
+    public SelectItem[] getItemsCursosByEspecialidadId() {
+        return JsfUtil.getSelectItems(ejbFacadeCurso.findAllCursosbyEspecialidadId(especialidad.getId()), false);
+    }
+    
+    public SelectItem[] getItemsParalelosbyCursoId() {
+        return JsfUtil.getSelectItems(ejbFacadeParalelo.findAllParalelosByCursoId(curso.getId()), false); //Long.parseLong("4")
+    }
+    
+    
+    
+    
     private List<SelectItem> idEspecialidad = new ArrayList<SelectItem>();
-
+    
     public void prueba() {
         System.out.println("esta es una prueba");
         System.out.println("Este es el valor de nivelId: " + nivelId);
@@ -308,21 +316,21 @@ public class MatriculaController implements Serializable {
         System.out.println("Este es el valor de usuarioId: " + usuarioId);
         System.out.println("Este es el valor de curso: " + curso);
     }
-
+    
     public void valueChanged(ValueChangeEvent event) {
         idEspecialidad.clear();
         if (null != event.getNewValue()) {
             SelectItem[] currentItems;
-
+            
             if (((String) event.getNewValue()).equals("Bachillerato")) {
                 currentItems = especialidadController.getItemsAvailableSelectOne();
             } else {
                 currentItems = especialidadController.getItemsAvailableSelectOne();
             }
-
+            
             for (int i = 0; i < currentItems.length; i++) {
                 SelectItem item = new SelectItem(currentItems[i]);
-
+                
                 idEspecialidad.add(item);
             }
         }

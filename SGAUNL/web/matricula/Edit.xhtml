@@ -36,7 +36,7 @@
 
                         <h:outputLabel value="#{bundle.ListMatriculaTitle_tipoMatricula}"/>
                         <p:selectOneMenu label="Tipo de Matrícula" required="true" value="#{matriculaController.current.tipoMatricula}">
-                            <f:selectItem itemLabel="#{bundle.Item}" />
+                            <f:selectItem itemLabel="#{bundle.Item}" itemValue=""/>
                             <f:selectItems value="#{typeListController.typeTipoMatriculas}"/>  
                         </p:selectOneMenu>
 
@@ -48,6 +48,7 @@
                         <h:outputLabel value="Nivel"/>
                         <p:selectOneMenu id="idNivel" converter="genericConverter" label="Nivel" required="true" value="#{matriculaController.current.curso.nivel}"
                                          valueChangeListener="#{matriculaController.valueChanged}">
+                            <f:selectItem itemLabel="#{bundle.Item}" itemValue=""/>
                             <f:selectItems value="#{nivelController.itemsAvailableSelectOne}"/>  
                             <f:ajax event="valueChange" render="idEspecialidad" execute="@this"/>
                         </p:selectOneMenu>
@@ -56,11 +57,12 @@
 
                                          converter="genericConverter" label="Especialidad" 
                                          required="true" value="#{matriculaController.current.curso.especialidad}">
-
+                            <f:selectItem itemLabel="#{bundle.Item}" itemValue=""/>
                             <f:selectItems value="#{especialidadController.itemsAvailableSelectOne}"/>  
                         </p:selectOneMenu>
                         <h:outputLabel value="#{bundle.ListMatriculaTitle_curso}"/>
                         <p:selectOneMenu converter="genericConverter" label="Curso" required="true" value="#{matriculaController.current.curso}">
+                            <f:selectItem itemLabel="#{bundle.Item}" itemValue=""/>
                             <f:selectItems value="#{cursoController.itemsAvailableSelectOne}"/>  
                         </p:selectOneMenu>
                         <p:messages />
