@@ -5,6 +5,7 @@
 package ec.edu.sga.modelo.matriculacion;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.TableGenerator;
 
 /**
@@ -37,6 +39,9 @@ public class Paralelo implements Serializable {
     private int numeroCupos;
     @ManyToOne
     private Curso curso;
+    
+    @OneToMany(mappedBy = "paralelo")
+    private List<Matricula> matriculas;
 
     //-----------------------------CONTRUCTORES----------------------------------//
     public Paralelo() {
@@ -81,6 +86,16 @@ public class Paralelo implements Serializable {
         System.out.println("CLASE PARALELO - SET CURSO: " + curso);
         this.curso = curso;
     }
+
+    public List<Matricula> getMatriculas() {
+        return matriculas;
+    }
+
+    public void setMatriculas(List<Matricula> matriculas) {
+        this.matriculas = matriculas;
+    }
+    
+    
 
     //--------------------------------MÉTODOS--------------------------------//
     @Override

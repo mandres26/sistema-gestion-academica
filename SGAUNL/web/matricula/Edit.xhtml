@@ -87,10 +87,25 @@
                                          converter="genericConverter" 
                                          label="Curso" 
                                          required="true" 
-                                         value="#{matriculaController.curso}">
+                                         value="#{matriculaController.curso}"
+                                         valueChangeListener="#{matriculaController.prueba3}"
+                                         immediate="true">>
 
                             <f:selectItem itemLabel="#{bundle.Item}" itemValue=""/>
-                            <f:selectItems value="#{matriculaController.itemsCursosByEspecialidadId}"/>  
+                            <f:selectItems value="#{matriculaController.itemsCursosByEspecialidadId}"/> 
+                             <p:ajax update="idParalelo"/>
+                        </p:selectOneMenu> 
+                        
+                        
+                         <h:outputLabel value="Paralelo"/>
+                        <p:selectOneMenu id="idParalelo" 
+                                         converter="genericConverter" 
+                                         label="Paralelo" 
+                                         required="true" 
+                                         value="#{matriculaController.paralelo}">
+
+                            <f:selectItem itemLabel="#{bundle.Item}" itemValue=""/>
+                            <f:selectItems value="#{matriculaController.itemsParalelosByCursoId}"/>  
                         </p:selectOneMenu> 
 
 

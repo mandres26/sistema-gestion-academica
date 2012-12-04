@@ -49,6 +49,8 @@ public class Matricula implements Serializable {
     
     @ManyToOne
     private Curso curso;
+    @ManyToOne
+    private Paralelo paralelo;
     
     //--------------------COSTRUCTORES-----------------------//
     public Matricula() {
@@ -137,6 +139,16 @@ public class Matricula implements Serializable {
     public void setSegundaTerceraMatricula(int segundaTerceraMatricula) {
         this.segundaTerceraMatricula = segundaTerceraMatricula;
     }
+
+    public Paralelo getParalelo() {
+        return paralelo;
+    }
+
+    public void setParalelo(Paralelo paralelo) {
+        this.paralelo = paralelo;
+    }
+    
+    
 
     //------------------------METODOS--------------------------------//
     @Override

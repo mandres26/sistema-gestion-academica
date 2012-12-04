@@ -230,7 +230,7 @@ public class MatriculaController implements Serializable {
 //    }
     public String persist() {
         System.out.println("Ingreso a grabar la matrícula: " + current.getTipoMatricula());
-        current.setCurso(curso);
+        current.setParalelo(paralelo);
         ejbFacade.create(current);
         this.endConversation();
         String summary = ResourceBundle.getBundle("/Bundle").getString("MatriculaCreated");
@@ -300,6 +300,7 @@ public class MatriculaController implements Serializable {
     private SelectItem[] itemsCursosByNivelId;
     private SelectItem[] itemsEspecialidadesByNivelId;
     private SelectItem[] itemsCursosByEspecialidadId;
+   private SelectItem[] itemsParalelosByCursoId;
 
     public SelectItem[] getItemsCursosByEspecialidadId() {
         return itemsCursosByEspecialidadId;
@@ -325,6 +326,14 @@ public class MatriculaController implements Serializable {
 
     public void setItemsCursosByNivelId(SelectItem[] itemsCursosByNivelId) {
         this.itemsCursosByNivelId = itemsCursosByNivelId;
+    }
+
+    public SelectItem[] getItemsParalelosByCursoId() {
+        return itemsParalelosByCursoId;
+    }
+
+    public void setItemsParalelosByCursoId(SelectItem[] itemsParalelosByCursoId) {
+        this.itemsParalelosByCursoId = itemsParalelosByCursoId;
     }
     
     
@@ -382,6 +391,19 @@ public class MatriculaController implements Serializable {
         itemsCursosByEspecialidadId = JsfUtil.getSelectItems(ejbFacadeCurso.findAllCursosbyEspecialidadId(n.getId()), false);
     }
     
+     public void prueba3(ValueChangeEvent e){
+        System.out.println("Esta es una prueba");
+        System.out.println("Esta es una prueba");
+        System.out.println("Esta es una prueba");
+        System.out.println("Esta es una prueba");
+        System.out.println("Esta es una prueba");
+        System.out.println("Esta es una prueba");
+        FacesContext fc = FacesContext.getCurrentInstance();
+        UIViewRoot uiViewRoot = fc.getViewRoot();
+        Curso c = (Curso) e.getNewValue();
+        System.out.println("Valor de Paralelo: "+ c);
+        itemsParalelosByCursoId = JsfUtil.getSelectItems(ejbFacadeParalelo.findAllParalelosByCursoId(c.getId()), false);
+    }
     
     public void prueba1(ValueChangeEvent e){
         System.out.println("Esta es una prueba");
