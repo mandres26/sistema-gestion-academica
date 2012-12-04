@@ -51,6 +51,10 @@ public class PerfilController implements Serializable {
         this.resultlist = resultlist;
     }
 
+    public Perfil getCurrent() {
+        return current;
+    }
+
     
 
     
@@ -143,6 +147,6 @@ public class PerfilController implements Serializable {
     }
 
     public SelectItem[] getItemsAvailableSelectOne() {
-        return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
+        return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
 }

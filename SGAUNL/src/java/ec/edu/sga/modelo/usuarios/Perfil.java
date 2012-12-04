@@ -11,16 +11,20 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.TableGenerator;
 
 /**
  *
  * @author edison
  */
 @Entity
+@TableGenerator(name = "PerfilGenerador", table = "GeneradorIdentificador", pkColumnName = "nombre",
+valueColumnName = "valor", pkColumnValue = "Perfil", initialValue = 1, allocationSize = 1)
+
 public class Perfil implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator="PerfilGenerador")
     private Long id;
     private String descripcion;
     private String estudiantes;
