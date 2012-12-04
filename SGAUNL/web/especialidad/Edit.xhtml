@@ -28,6 +28,17 @@
                         <h:outputLabel value="#{bundle.ListEspecialidadTitle_descripcionEspecialidad}"/>
                         <p:inputTextarea label="Descripción" required="true" value="#{especialidadController.current.descripcionEspecialidad}"/>
                         
+                        
+                        <h:outputLabel value="Nivel"/>
+                        <p:selectOneMenu label="Nivel"
+                                         value="#{especialidadController.current.nivel}"
+                                         converter="genericConverter">
+                            <f:selectItem itemLabel="#{bundle.Item}"/>
+                            <f:selectItems value="#{nivelController.itemsAvailableSelectOne}" />
+                            
+                        </p:selectOneMenu>
+                        
+                        
                         <p:messages />
 
                         <f:facet name="footer">

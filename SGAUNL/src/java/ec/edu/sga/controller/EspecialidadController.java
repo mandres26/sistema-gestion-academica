@@ -3,6 +3,7 @@ package ec.edu.sga.controller;
 import ec.edu.sga.controller.util.JsfUtil;
 import ec.edu.sga.facade.EspecialidadFacade;
 import ec.edu.sga.modelo.matriculacion.Especialidad;
+import ec.edu.sga.modelo.matriculacion.Nivel;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,7 @@ public class EspecialidadController implements Serializable {
     private EspecialidadFacade ejbFacade;
     private Especialidad current;
     private Long especialidadId;
+    private Nivel nivel;
     @Inject
     Conversation conversation;
 
@@ -33,6 +35,8 @@ public class EspecialidadController implements Serializable {
         System.out.println("Llamando al constructor de Especialidad");
         resultlist = new ArrayList<Especialidad>();
         current = new Especialidad();
+        nivel = new Nivel();
+        current.setNivel(nivel);
     }
 
     //______________________________get and set________________________________
