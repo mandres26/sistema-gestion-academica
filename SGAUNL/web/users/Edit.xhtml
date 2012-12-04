@@ -37,7 +37,7 @@
 
                     <p:messages  autoUpdate="true" closable="true"/>
 
-                    <p:panelGrid columns="3">
+                    <p:panelGrid columns="2">
                         <h:outputLabel value="Nombre de Usuario"/>
                         <p:inputText id="idUser" label="Nombre de Usuario" required="true"
                                      value="#{userController.current.usuario}" size="30"
@@ -53,12 +53,9 @@
                         <h:outputLabel value="Perfil"/>
                         <p:selectOneMenu id="id" converter="genericConverter"
                                          value="#{userController.current.perfil}"
-                                         required="true"
-                                         validatorMessage="Escoja un nivel"
-                                         >
+                                         validatorMessage="Escoja un nivel">
                             <f:selectItem itemLabel="#{bundle.Item}" itemValue="" />  
-                            <f:selectItems 
-                                value="#{perfil}"/>
+                            <f:selectItems value="#{perfil}"/>
                         </p:selectOneMenu>
 
 
