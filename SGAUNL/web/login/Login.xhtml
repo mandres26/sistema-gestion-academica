@@ -29,7 +29,7 @@ and open the template in the editor.
 
                 <f:facet name="footer">  
                     <p:commandButton id="loginButton" value="Login" update=":growl"   
-                                     actionListener="#{loginController.login}"   
+                                     action="#{loginController.login}"   
                                      oncomplete="handleLoginRequest(xhr, status, args)"/>  
                 </f:facet>  
             </h:panelGrid>  
@@ -44,7 +44,7 @@ and open the template in the editor.
             } else {  
                 dlg.hide();  
                 jQuery('#loginLink').fadeOut();
-                window.location="/faces/index.xhtml";
+                window.location="/SGAUNL/faces/index.xhtml";
             }  
         }  
     </script> 
