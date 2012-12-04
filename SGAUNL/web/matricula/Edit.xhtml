@@ -68,24 +68,28 @@
 
                             <f:selectItem itemLabel="#{bundle.Item}" itemValue=""/>
                             <f:selectItems value="#{matriculaController.itemsNiveles}"/>  
-                            <p:ajax update="idEspecialidad"/>
+                            <p:ajax update="idEspecialidad @form"/>
                         </p:selectOneMenu>
 
 
 
-                        <h:outputLabel value="Especialidad"/>
-                        <p:selectOneMenu id="idEspecialidad" 
-                                         converter="genericConverter" 
-                                         label="Especialidad" 
-                                         required="true" 
-                                         value="#{matriculaController.especialidad}"
-                                         valueChangeListener="#{matriculaController.prueba2}"
-                                         immediate="true">
 
-                            <f:selectItem itemLabel="#{bundle.Item}" itemValue=""/>
-                            <f:selectItems value="#{matriculaController.itemsEspecialidadesByNivelId}"/>  
-                            <p:ajax update="idCurso"/>
-                        </p:selectOneMenu>    
+                        
+                        <h:outputLabel value="Especialidad" id="idLabelEspecialidad" rendered="false"/>
+                        <p:selectOneMenu rendered="false" id="idEspecialidad" 
+                                             converter="genericConverter" 
+                                             label="Especialidad" 
+                                             required="true" 
+                                             value="#{matriculaController.especialidad}"
+                                             valueChangeListener="#{matriculaController.prueba2}"
+                                             immediate="true">
+
+                                <f:selectItem itemLabel="#{bundle.Item}" itemValue=""/>
+                                <f:selectItems value="#{matriculaController.itemsEspecialidadesByNivelId}"/>  
+                                <p:ajax update="idCurso"/>
+                            </p:selectOneMenu> 
+                       
+                        
 
 
 

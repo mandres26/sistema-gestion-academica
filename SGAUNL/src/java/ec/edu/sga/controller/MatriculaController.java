@@ -21,6 +21,9 @@ import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
+import javax.faces.component.UIInput;
+import javax.faces.component.UIOutput;
+import javax.faces.component.UIPanel;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
@@ -418,6 +421,12 @@ public class MatriculaController implements Serializable {
         Nivel n = (Nivel) e.getNewValue();
         System.out.println("Valor de idNivel: "+ n);
         itemsEspecialidadesByNivelId = JsfUtil.getSelectItems(ejbFacadeEspecialidad.findEspecialidadesByNivelId(n.getId()), false);
+        if("Bachillerato".equals(n.getNombreNivel())){
+            UIInput especialidadInputText =  (UIInput) uiViewRoot.findComponent("formEditMatricula:idEspecialidad"); 
+            especialidadInputText.setRendered(true);
+             UIOutput labelEspecialidadInputText =  (UIOutput) uiViewRoot.findComponent("formEditMatricula:idLabelEspecialidad"); 
+            labelEspecialidadInputText.setRendered(true);
+        }
     }
     
 }
