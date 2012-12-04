@@ -29,16 +29,20 @@ public class LoginController implements Serializable {
     /**
      * Creates a new instance of LoginController
      */
-    public LoginController() {
-    }
+   
     Users users;
+     public LoginController() {
+         
+    }
 
     public void login(ActionEvent actionEvent) {
         RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage msg = null;
         boolean loggedIn = false;
         users = usersFacade.buscarUser(users);
+        System.out.println("Usuario:    "+users.getUsuario());
         if (users != null) {
+            System.out.println("Valor del user:   "+users.getUsuario());
             loggedIn = true;
             msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", users.getUsuario());
         } else {

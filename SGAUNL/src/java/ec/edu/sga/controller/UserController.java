@@ -52,6 +52,9 @@ public class UserController implements Serializable {
     }
 
     public Users getCurrent() {
+        if(current== null){
+            current= new Users();
+        }
         return current;
     }
 
