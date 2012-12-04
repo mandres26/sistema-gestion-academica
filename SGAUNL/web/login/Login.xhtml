@@ -39,12 +39,17 @@ and open the template in the editor.
 
     <script type="text/javascript">  
         function handleLoginRequest(xhr, status, args) {  
+            alert("es una prueba");
             if(args.validationFailed || !args.loggedIn) {  
                 jQuery('#dialog').effect("shake", { times:3 }, 100);  
             } else {  
                 dlg.hide();  
                 jQuery('#loginLink').fadeOut();
-                window.location="/SGAUNL/faces/index.xhtml";
+
+                window.location="/SGAUNL/index.jsf";
+
+                
+
             }  
         }  
     </script> 
