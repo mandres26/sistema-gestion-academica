@@ -26,21 +26,26 @@
     <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>
+
+
+
     
     
     <persistence-context-ref>
+
         <description>Persistence context for JndiProviders. 
             Unit name should be same as in your persistence.xml
         </description>
         <persistence-context-ref-name>persistence/em</persistence-context-ref-name>
         <persistence-unit-name>SGAUNLPU</persistence-unit-name>
     </persistence-context-ref>
-    
-    
+
+ 
     <context-param>  
-    <param-name>primefaces.THEME</param-name>  
-    <param-value>humanity</param-value>  
+        <param-name>primefaces.THEME</param-name>  
+        <param-value>bootstrap</param-value>  
     
+
     
-</context-param> 
+    </context-param> 
 </web-app>

@@ -10,18 +10,12 @@ and open the template in the editor.
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 
-
-
-
-
-
-
     <f:metadata>
         <f:viewParam name="id" value="#{usuarioController.usuarioId}"/>
     </f:metadata>
     <ui:composition template="/templates/plantilla.xhtml">
         <ui:define name="title">
-            <h:outputText value="#{bundle.CreateEstudianteTitle}"></h:outputText>
+            <h:outputText value="#{bundle.CreateEstudianteTitle}"/>
         </ui:define>
         <ui:define name="content">
 
@@ -57,20 +51,34 @@ and open the template in the editor.
 
             <h:form id="formCreateUsuario" 
                     prependId="false">
-
-
                 <p:panel id="editPanelUsuario"
                          header="#{usuarioController.current.id != null ? bundle['ListEstudianteEditLink'] : bundle['ListEstudianteCreateLink']}" >
 
 
 
-
                     <p:messages closable="true"/>
 
-
-
-
                     <p:accordionPanel dynamic="true" cache="true">  
+                        <p:tab title="Datos Login">
+                            <h:panelGrid columns="2">
+                                <h:outputLabel value="Login:"/>
+                                <p:inputText value="#{usuarioController.current.login}"/>
+                                <h:outputLabel value="Contraseña:"/>
+                                <p:password value="#{usuarioController.current.password}" feedback="true" 
+                                            promptLabel="Ingrese la contraseña" weakLabel="Baja" goodLabel="Media" 
+                                            strongLabel="Fuerte">
+                                </p:password>
+                                <h:outputLabel value="Rol:"/>
+                                <h:panelGroup>
+                                    <p:selectOneMenu id="_typeRol" value="#{usuarioController.current.roles}" effect="fade" 
+                                                     converter="genericConverter">
+                                        <f:selectItem itemLabel="Seleccione rol " itemValue=""/>
+                                        <f:selectItems value="#{rolController.itemsAvailableSelectOne}"/>  
+                                    </p:selectOneMenu>
+                                    <p:commandButton icon="ui-icon ui-icon-plus"/>
+                                </h:panelGroup>
+                            </h:panelGrid>
+                        </p:tab>
                         <p:tab title="Datos personales">  
 
                             <h:panelGrid columns="4">

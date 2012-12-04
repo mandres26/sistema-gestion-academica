@@ -51,6 +51,10 @@ public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "UsuarioGenerador")
     private Long id;
+    private String login;
+    private String password;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date fechaLogin;
     private String dni;
     private String libretaMilitar;
     private String nombres;
@@ -67,6 +71,8 @@ public class Usuario implements Serializable {
     private RegistroCalificaciones registroCalificaciones;
     @OneToOne(mappedBy = "usuario")
     private ExpedienteAcademico expedienteAcademico;
+    @OneToMany(mappedBy = "usuario", cascade = {CascadeType.ALL}, orphanRemoval = true)
+    private List<Rol> roles;
 
     public Usuario() {
     }
@@ -77,6 +83,30 @@ public class Usuario implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Date getFechaLogin() {
+        return fechaLogin;
+    }
+
+    public void setFechaLogin(Date fechaLogin) {
+        this.fechaLogin = fechaLogin;
     }
 
     public String getDni() {
@@ -157,6 +187,14 @@ public class Usuario implements Serializable {
 
     public void setExpedienteAcademico(ExpedienteAcademico expedienteAcademico) {
         this.expedienteAcademico = expedienteAcademico;
+    }
+
+    public List<Rol> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Rol> roles) {
+        this.roles = roles;
     }
 
     @Override
