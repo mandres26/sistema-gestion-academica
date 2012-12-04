@@ -68,7 +68,7 @@
 
                             <f:selectItem itemLabel="#{bundle.Item}" itemValue=""/>
                             <f:selectItems value="#{matriculaController.itemsNiveles}"/>  
-                            <p:ajax update="idEspecialidad @form"/>
+                            <p:ajax update="idEspecialidad idCurso idParalelo @form"/>
                         </p:selectOneMenu>
 
 
@@ -86,7 +86,7 @@
 
                                 <f:selectItem itemLabel="#{bundle.Item}" itemValue=""/>
                                 <f:selectItems value="#{matriculaController.itemsEspecialidadesByNivelId}"/>  
-                                <p:ajax update="idCurso"/>
+                                <p:ajax update="idCurso idParalelo"/>
                             </p:selectOneMenu> 
                        
                         
@@ -103,7 +103,7 @@
                                          immediate="true">>
 
                             <f:selectItem itemLabel="#{bundle.Item}" itemValue=""/>
-                            <f:selectItems value="#{matriculaController.itemsCursosByEspecialidadId}"/> 
+                            <f:selectItems value="#{matriculaController.itemsCursosByNivelIdOrEspecialidadId}"/> 
                             <p:ajax update="idParalelo"/>
                         </p:selectOneMenu> 
 

@@ -303,16 +303,18 @@ public class MatriculaController implements Serializable {
 
     private SelectItem[] itemsCursosByNivelId;
     private SelectItem[] itemsEspecialidadesByNivelId;
-    private SelectItem[] itemsCursosByEspecialidadId;
+    private SelectItem[] itemsCursosByNivelIdOrEspecialidadId;
    private SelectItem[] itemsParalelosByCursoId;
 
-    public SelectItem[] getItemsCursosByEspecialidadId() {
-        return itemsCursosByEspecialidadId;
+    public SelectItem[] getItemsCursosByNivelIdOrEspecialidadId() {
+        return itemsCursosByNivelIdOrEspecialidadId;
     }
 
-    public void setItemsCursosByEspecialidadId(SelectItem[] itemsCursosByEspecialidadId) {
-        this.itemsCursosByEspecialidadId = itemsCursosByEspecialidadId;
+    public void setItemsCursosByNivelIdOrEspecialidadId(SelectItem[] itemsCursosByNivelIdOrEspecialidadId) {
+        this.itemsCursosByNivelIdOrEspecialidadId = itemsCursosByNivelIdOrEspecialidadId;
     }
+
+    
     
     
 
@@ -392,7 +394,7 @@ public class MatriculaController implements Serializable {
         UIViewRoot uiViewRoot = fc.getViewRoot();
         Especialidad n = (Especialidad) e.getNewValue();
         System.out.println("Valor de Especialidad: "+ n);
-        itemsCursosByEspecialidadId = JsfUtil.getSelectItems(ejbFacadeCurso.findAllCursosbyEspecialidadId(n.getId()), false);
+        itemsCursosByNivelIdOrEspecialidadId = JsfUtil.getSelectItems(ejbFacadeCurso.findAllCursosbyEspecialidadId(n.getId()), false);
     }
     
      public void prueba3(ValueChangeEvent e){
@@ -420,12 +422,15 @@ public class MatriculaController implements Serializable {
         UIViewRoot uiViewRoot = fc.getViewRoot();
         Nivel n = (Nivel) e.getNewValue();
         System.out.println("Valor de idNivel: "+ n);
-        itemsEspecialidadesByNivelId = JsfUtil.getSelectItems(ejbFacadeEspecialidad.findEspecialidadesByNivelId(n.getId()), false);
+        
         if("Bachillerato".equals(n.getNombreNivel())){
             UIInput especialidadInputText =  (UIInput) uiViewRoot.findComponent("formEditMatricula:idEspecialidad"); 
             especialidadInputText.setRendered(true);
              UIOutput labelEspecialidadInputText =  (UIOutput) uiViewRoot.findComponent("formEditMatricula:idLabelEspecialidad"); 
             labelEspecialidadInputText.setRendered(true);
+            itemsEspecialidadesByNivelId = JsfUtil.getSelectItems(ejbFacadeEspecialidad.findEspecialidadesByNivelId(n.getId()), false);
+        }else{
+            itemsCursosByNivelIdOrEspecialidadId = JsfUtil.getSelectItems(ejbFacadeCurso.findAllCursosbyNivelId(n.getId()),false);
         }
     }
     
