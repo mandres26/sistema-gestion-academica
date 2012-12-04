@@ -43,12 +43,6 @@
                         <h:outputLabel value="#{bundle.ListMatriculaTitle_segundaTerceraMatricula}"/>
                         <p:inputText label="Segunda o tercera matrícula" required="true" value="#{matriculaController.current.segundaTerceraMatricula}" />
 
-                        <h:outputLabel value="#{bundle.ListMatriculaTitle_observaciones}"/>
-                        <p:inputTextarea label="Observaciones" required="true" value="#{matriculaController.current.observaciones}" />
-
-
-
-
                         <h:outputLabel value="Nivel"/>
                         <p:selectOneMenu id="idNivel" 
                                          converter="genericConverter" 
@@ -93,11 +87,11 @@
 
                             <f:selectItem itemLabel="#{bundle.Item}" itemValue=""/>
                             <f:selectItems value="#{matriculaController.itemsCursosByEspecialidadId}"/> 
-                             <p:ajax update="idParalelo"/>
+                            <p:ajax update="idParalelo"/>
                         </p:selectOneMenu> 
-                        
-                        
-                         <h:outputLabel value="Paralelo"/>
+
+
+                        <h:outputLabel value="Paralelo"/>
                         <p:selectOneMenu id="idParalelo" 
                                          converter="genericConverter" 
                                          label="Paralelo" 
@@ -109,6 +103,8 @@
                         </p:selectOneMenu> 
 
 
+                        <h:outputLabel value="#{bundle.ListMatriculaTitle_observaciones}"/>
+                        <p:inputTextarea label="Observaciones" required="true" value="#{matriculaController.current.observaciones}" />
 
 
 

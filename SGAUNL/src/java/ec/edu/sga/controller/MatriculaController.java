@@ -231,6 +231,7 @@ public class MatriculaController implements Serializable {
     public String persist() {
         System.out.println("Ingreso a grabar la matrícula: " + current.getTipoMatricula());
         current.setParalelo(paralelo);
+        current.setCurso(curso);
         ejbFacade.create(current);
         this.endConversation();
         String summary = ResourceBundle.getBundle("/Bundle").getString("MatriculaCreated");
