@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -38,7 +39,7 @@ public class Matricula implements Serializable {
     private Date fechaMatricula;
     private int numeroMatricula;
     private int folioMatricula;
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private TipoMatricula tipoMatricula;
     private String observaciones;
     private int segundaTerceraMatricula;
