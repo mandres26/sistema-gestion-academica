@@ -4,6 +4,7 @@
  */
 package ec.edu.sga.controller;
 
+import ec.edu.sga.modelo.usuarios.Users;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -26,34 +27,15 @@ public class LoginController implements Serializable {
     public LoginController() {
     }
     
-    private String username;  
-      
-    private String password;  
-      
-    public String getUsername() {  
-        return username;  
-    }  
-  
-    public void setUsername(String username) {  
-        this.username = username;  
-    }  
-  
-    public String getPassword() {  
-        return password;  
-    }  
-  
-    public void setPassword(String password) {  
-        this.password = password;  
-    }  
-  
-    public void login(ActionEvent actionEvent) {  
+    Users users;
+     public void login(ActionEvent actionEvent) {  
         RequestContext context = RequestContext.getCurrentInstance();  
         FacesMessage msg = null;  
         boolean loggedIn = false;  
           
-        if(username != null  && username.equals("admin") && password != null  && password.equals("admin")) {  
+        if(users!=null) {  
             loggedIn = true;  
-            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", username);  
+            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", users.getUsuario());  
         } else {  
             loggedIn = false;  
             msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "Invalid credentials");  
@@ -61,5 +43,15 @@ public class LoginController implements Serializable {
           
         FacesContext.getCurrentInstance().addMessage(null, msg);  
         context.addCallbackParam("loggedIn", loggedIn);  
-    }  
+    }   
+
+    public Users getUsers() {
+        return users;
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
+    }
+     
+     
 }

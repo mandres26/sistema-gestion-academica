@@ -10,13 +10,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.TableGenerator;
 
 /**
  *
  * @author edison
  */
 @Entity
-public class User implements Serializable {
+@TableGenerator(name = "UsersGenerador", table = "GeneradorIdentificador", pkColumnName = "nombre",
+valueColumnName = "valor", pkColumnValue = "Users", initialValue = 1, allocationSize = 1)
+@NamedQueries(value={
+    @NamedQuery(name="Users.buscarUsuario", query="select u from Users u where u.usuario=:usuario and u.password=:pass")
+        })
+public class Users implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -24,6 +32,7 @@ public class User implements Serializable {
     private String usuario;
     private String password;
     @ManyToOne
+    
     private Perfil perfil;
 
     public Long getId() {
@@ -68,10 +77,10 @@ public class User implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof User)) {
+        if (!(object instanceof Users)) {
             return false;
         }
-        User other = (User) object;
+        Users other = (Users) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

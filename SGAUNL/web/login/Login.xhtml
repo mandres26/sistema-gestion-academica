@@ -20,16 +20,16 @@ and open the template in the editor.
 
             <h:panelGrid columns="2" cellpadding="5">  
                 <h:outputLabel for="username" value="Username:" />  
-                <p:inputText value="#{loginController.username}"   
+                <p:inputText value="#{loginController.users.usuario}"   
                              id="username" required="true" label="username" />  
 
                 <h:outputLabel for="password" value="Password:" />  
-                <h:inputSecret value="#{loginBean.password}"   
+                <h:inputSecret value="#{loginController.users.password}"   
                                id="password" required="true" label="password" />  
 
                 <f:facet name="footer">  
                     <p:commandButton id="loginButton" value="Login" update=":growl"   
-                                     actionListener="#{loginBean.login}"   
+                                     actionListener="#{loginController.login}"   
                                      oncomplete="handleLoginRequest(xhr, status, args)"/>  
                 </f:facet>  
             </h:panelGrid>  

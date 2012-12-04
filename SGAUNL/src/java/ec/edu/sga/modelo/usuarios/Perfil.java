@@ -24,8 +24,9 @@ public class Perfil implements Serializable {
     private Long id;
     private String descripcion;
     private String estudiantes;
-    @OneToMany
-    private List<User> users;
+    
+    @OneToMany(mappedBy = "perfil")
+    private List<Users> users;
     
     public Long getId() {
         return id;
@@ -51,11 +52,11 @@ public class Perfil implements Serializable {
         this.estudiantes = estudiantes;
     }
 
-    public List<User> getUsers() {
+    public List<Users> getUsers() {
         return users;
     }
 
-    public void setUsers(List<User> users) {
+    public void setUsers(List<Users> users) {
         this.users = users;
     }
 
