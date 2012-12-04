@@ -49,12 +49,14 @@ public class Curso implements Serializable {
     private Especialidad especialidad;
     @ManyToOne
     private Nivel nivel;
-    @OneToMany(mappedBy = "curso", cascade={CascadeType.ALL}, orphanRemoval=true)   
+    
+    @OneToMany(mappedBy = "curso", cascade= CascadeType.ALL)
     private List<Matricula> matriculas;
     @OneToOne(mappedBy = "curso")
     private MallaCurricular mallaCurricular;
     @OneToMany(mappedBy = "curso", cascade={CascadeType.ALL}, orphanRemoval=true, fetch= FetchType.EAGER)    
     private List<Paralelo> paralelos;
+    
 
     //----------------------constructores--------------------------------------//
     public Curso() {

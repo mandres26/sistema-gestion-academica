@@ -7,6 +7,7 @@ package ec.edu.sga.modelo.matriculacion;
 import ec.edu.sga.modelo.usuarios.Usuario;
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -45,6 +46,7 @@ public class Matricula implements Serializable {
     private Usuario usuario;
     @ManyToOne
     private AnioLectivo anioLectivo;
+    
     @ManyToOne
     private Curso curso;
     
@@ -124,6 +126,7 @@ public class Matricula implements Serializable {
     }
    
     public void setCurso(Curso curso) {
+        System.out.println("CLASE MATRICULA-SETCURSO: "+curso);
         this.curso = curso;
     }
 

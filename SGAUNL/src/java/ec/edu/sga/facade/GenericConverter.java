@@ -64,7 +64,8 @@ public class GenericConverter implements Serializable, Converter {
             try {
                 System.out.println("==== String en converter: " + string);
                 System.out.println("==== EM en converter: " + em);
-               return em.find(getClazz(fc, uic), Long.parseLong(string));
+                Class c = getClazz(fc, uic);
+               return em.find(c, Long.parseLong(string));
             } catch(Exception e) {
                e.printStackTrace();
                 throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Conversion Error", "Conversion Error"));

@@ -45,28 +45,60 @@
 
                         <h:outputLabel value="#{bundle.ListMatriculaTitle_observaciones}"/>
                         <p:inputTextarea label="Observaciones" required="true" value="#{matriculaController.current.observaciones}" />
+
+
+
+
                         <h:outputLabel value="Nivel"/>
-                        <p:selectOneMenu id="idNivel" converter="genericConverter" label="Nivel" required="true" value="#{matriculaController.current.curso.nivel}"
-                                         valueChangeListener="#{matriculaController.valueChanged}">
+                        <p:selectOneMenu id="idNivel" 
+                                         converter="genericConverter" 
+                                         label="Nivel" 
+                                         required="true" 
+                                         value="#{matriculaController.nivel}"
+                                         valueChangeListener="#{matriculaController.prueba1}"
+                                         immediate="true" 
+                                         >
+
                             <f:selectItem itemLabel="#{bundle.Item}" itemValue=""/>
-                            <f:selectItems value="#{nivelController.itemsAvailableSelectOne}"/>  
-                            <f:ajax event="valueChange" render="idEspecialidad" execute="@this"/>
+                            <f:selectItems value="#{matriculaController.itemsNiveles}"/>  
+                            <p:ajax update="idEspecialidad"/>
                         </p:selectOneMenu>
-                        <h:outputLabel value="Epecialidad"/>
+
+
+
+                        <h:outputLabel value="Especialidad"/>
                         <p:selectOneMenu id="idEspecialidad" 
+                                         converter="genericConverter" 
+                                         label="Especialidad" 
+                                         required="true" 
+                                         value="#{matriculaController.especialidad}"
+                                         valueChangeListener="#{matriculaController.prueba2}"
+                                         immediate="true">
 
-                                         converter="genericConverter" label="Especialidad" 
-                                         required="true" value="#{matriculaController.current.curso.especialidad}">
                             <f:selectItem itemLabel="#{bundle.Item}" itemValue=""/>
-                            <f:selectItems value="#{especialidadController.itemsAvailableSelectOne}"/>  
-                        </p:selectOneMenu>
-                        <h:outputLabel value="#{bundle.ListMatriculaTitle_curso}"/>
-                        <p:selectOneMenu converter="genericConverter" label="Curso" required="true" value="#{matriculaController.current.curso}">
+                            <f:selectItems value="#{matriculaController.itemsEspecialidadesByNivelId}"/>  
+                            <p:ajax update="idCurso"/>
+                        </p:selectOneMenu>    
+
+
+
+                        <h:outputLabel value="Curso"/>
+                        <p:selectOneMenu id="idCurso" 
+                                         converter="genericConverter" 
+                                         label="Curso" 
+                                         required="true" 
+                                         value="#{matriculaController.curso}">
+
                             <f:selectItem itemLabel="#{bundle.Item}" itemValue=""/>
-                            <f:selectItems value="#{cursoController.itemsAvailableSelectOne}"/>  
-                        </p:selectOneMenu>
+                            <f:selectItems value="#{matriculaController.itemsCursosByEspecialidadId}"/>  
+                        </p:selectOneMenu> 
+
+
+
+
+
+
                         <p:messages />
-
                         <f:facet name="footer">
                             <p:commandButton value="GUARDAR" action="#{matriculaController.persist()}"
                                              update="panelEditMatriculas"/>

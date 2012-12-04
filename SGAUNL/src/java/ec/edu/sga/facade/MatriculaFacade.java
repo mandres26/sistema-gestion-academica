@@ -5,6 +5,8 @@
 package ec.edu.sga.facade;
 
 import ec.edu.sga.modelo.matriculacion.Matricula;
+import javax.annotation.security.DeclareRoles;
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
