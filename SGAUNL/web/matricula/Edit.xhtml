@@ -16,6 +16,17 @@
             <h:outputText value="#{bundle.EditMatriculaTitle}"></h:outputText>
         </ui:define>
         <ui:define name="content">
+
+            <p:ajaxStatus style="width:16px;height:16px;" id="ajaxStatusPanel">
+                <f:facet name="start">
+                    <h:graphicImage library="img" name="ajaxloading.gif" />
+                </f:facet>
+                <f:facet name="complete">
+                    <h:outputText value="" />
+                </f:facet>
+            </p:ajaxStatus>
+
+
             <h:form id="formEditMatricula">
                 <p:panel header="Editar Matriculas" id="panelEditMatriculas">
                     <p:panelGrid columns="2">
@@ -35,7 +46,9 @@
                         </h:outputText>
 
                         <h:outputLabel value="#{bundle.ListMatriculaTitle_tipoMatricula}"/>
-                        <p:selectOneMenu label="Tipo de Matrícula" required="true" value="#{matriculaController.current.tipoMatricula}">
+                        <p:selectOneMenu label="Tipo de Matrícula"                                   
+                                         required="true" 
+                                         value="#{matriculaController.current.tipoMatricula}">
                             <f:selectItem itemLabel="#{bundle.Item}" itemValue=""/>
                             <f:selectItems value="#{typeListController.typeTipoMatriculas}"/>  
                         </p:selectOneMenu>
