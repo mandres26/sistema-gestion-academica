@@ -18,19 +18,27 @@
         </ui:define>
         <ui:define name="content">
 
+            
+               <p:messages autoUpdate="true" closable="true"/>
+            
+            
             <h:form id="formEditEspecialidad">
-                <p:panel header="Editar Especialidad" id="panelEditEspecialidad">
+                <p:panel header="#{especialidadController.especialidadId!=null ? bundle['boton.editar']:bundle['boton.nuevo']}" id="panelEditEspecialidad">
                     <p:panelGrid columns="2">
                         
-                        <h:outputLabel value="#{bundle.ListEspecialidadTitle_nombreEspecialidad}"/>
-                        <p:inputText required="true" label="Nombre de Especialidad" value="#{especialidadController.current.nombreEspecialidad}"/>
+                        <h:outputLabel value="#{bundle['especialidadController.nombre']}"/>
+                        <p:inputText required="true" 
+                                     label="#{bundle['especialidadController.nombre']}" 
+                                     value="#{especialidadController.current.nombreEspecialidad}"/>
                         
-                        <h:outputLabel value="#{bundle.ListEspecialidadTitle_descripcionEspecialidad}"/>
-                        <p:inputTextarea label="Descripción" required="true" value="#{especialidadController.current.descripcionEspecialidad}"/>
+                        <h:outputLabel value="#{bundle['especialidadController.descripción']}"/>
+                        <p:inputTextarea label="#{bundle['especialidadController.descripción']}" 
+                                         required="true" 
+                                         value="#{especialidadController.current.descripcionEspecialidad}"/>
                         
                         
-                        <h:outputLabel value="Nivel"/>
-                        <p:selectOneMenu label="Nivel"
+                        <h:outputLabel value="#{bundle['especialidadController.nivel']}"/>
+                        <p:selectOneMenu label="#{bundle['especialidadController.nivel']}"
                                          value="#{especialidadController.current.nivel}"
                                          converter="genericConverter">
                             <f:selectItem itemLabel="#{bundle.Item}"/>
@@ -39,13 +47,18 @@
                         </p:selectOneMenu>
                         
                         
-                        <p:messages />
+                     
 
                         <f:facet name="footer">
-                            <p:commandButton value="GUARDAR" action="#{especialidadController.persist()}"
-                                             update="panelEditEspecialidad"/>
-                            <p:commandButton value="ACTUALIZAR"/>
-                            <p:commandButton value="CANCELAR" action="#{especialidadController.cancelEdit()}" />
+                            <p:commandButton value="#{bundle['boton.guardar']}" 
+                                             action="#{especialidadController.persist()}"
+                                             update="panelEditEspecialidad"
+                                             icon="#{bundle['icono.guardar']}"/>
+                            <p:commandButton value="#{bundle['boton.actualizar']}"
+                                             icon="#{bundle['icono.actualizar']}"/>
+                            <p:commandButton value="#{bundle['boton.cancelar']}" 
+                                             action="#{especialidadController.cancelEdit()}" 
+                                             icon="#{bundle['icono.cancelar']}"/>
 
                         </f:facet>
 
