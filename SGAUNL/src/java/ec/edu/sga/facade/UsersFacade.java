@@ -32,11 +32,11 @@ public class UsersFacade extends AbstractFacade<Users>{
         super(Users.class);
     }
 
-     public Users buscarUser(Users user) {
+     public Users buscarUser(String usser, String pass) {
 
         Query query = em.createNamedQuery("Users.buscarUsuario");
-        query.setParameter("usuario", user.getUsuario());
-        query.setParameter("pass", user.getPassword());
+        query.setParameter("usuario", usser);
+        query.setParameter("pass", pass);
 
         return (Users)query.getSingleResult();
     }

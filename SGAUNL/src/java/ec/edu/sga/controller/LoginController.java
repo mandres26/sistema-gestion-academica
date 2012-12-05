@@ -11,7 +11,6 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import org.primefaces.context.RequestContext;
 
@@ -25,35 +24,44 @@ public class LoginController implements Serializable {
 
     @EJB
     private UsersFacade usersFacade;
+    private Users users;
 
     /**
      * Creates a new instance of LoginController
      */
+    public LoginController() {
+        users = new Users();
 
-    
-
-    
-    
-    Users users;
-     public LoginController() {
-         
     }
 
     public String login() {
         RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage msg = null;
         boolean loggedIn = false;
-        users = usersFacade.buscarUser(users);
-        System.out.println("Usuario:    "+users);
+
+        try {
+            System.out.println("antes del primer if - el usuario es : " + users.getUsuario());
+            if (usersFacade.buscarUser(users.getUsuario(), users.getPassword()) != null) {
+                System.out.println("dentro del primer if");
+                users = usersFacade.buscarUser(users.getUsuario(), users.getPassword());
+            }
+        } catch (Exception e) {
+            return "/login/Login.xhtml";
+        }
+
+
+        System.out.println("fuera del primer if");
+
+        System.out.println("Usuario:    " + users);
         if (users != null) {
-            System.out.println("Valor del user:   "+users);
+            System.out.println("Valor del user:   " + users);
             loggedIn = true;
             msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", users.getUsuario());
             return "/index.xhtml";
         } else {
             loggedIn = false;
             msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "Invalid credentials");
-            
+
         }
 
         FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -62,9 +70,6 @@ public class LoginController implements Serializable {
     }
 
     public Users getUsers() {
-        if (users == null) {
-            users = new Users();
-        }
         return users;
     }
 

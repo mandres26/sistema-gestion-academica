@@ -32,32 +32,35 @@
 
 
             <h:form id="formEdit" prependId="false">
-                <p:panel header="#{cursoController.cursoId!=null  ? bundle['ListCursoEditLink'] : bundle['ListCursoCreateLink']}" id="panelEditCurso"
+                <p:panel header="#{cursoController.cursoId!=null  ? bundle['boton.editar'] : bundle['boton.nuevo']}" id="panelEditCurso"
                          styleClass = "myPanelStyle myPanelStyleTitle">
 
                     <p:messages  autoUpdate="true" closable="true"/>
 
-                    <p:panelGrid columns="3">
-                        <h:outputLabel value="#{bundle.ListCursoTitle_nombreCurso}"/>
-                        <p:inputText id="name" label="Nombre de Curso" required="true"
-                                     value="#{cursoController.current.nombreCurso}" size="30"
-                                     validatorMessage="No ha ingresado un nombre para el curso"> </p:inputText>
-                        <p:message for="name" display="icon"/>
+                    <p:panelGrid columns="2">
+                        <h:outputLabel value="#{bundle['cursoController.nombre']}"/>
+                        <p:inputText id="idNombre" label="#{bundle['cursoController.nombre']}"
+                                     required="true"
+                                     value="#{cursoController.current.nombreCurso}" 
+                                     size="30"
+                                     validatorMessage="No ha ingresado un nombre para el curso"/> 
 
-                        <h:outputLabel value="#{bundle.ListCursoTitle_nivel}"/>
-                        <p:selectOneMenu id="nivel" converter="genericConverter"
+
+                        <h:outputLabel value="#{bundle['cursoController.nivel']}"/>
+                        <p:selectOneMenu id="idNivel" 
+                                         converter="genericConverter"
                                          value="#{cursoController.current.nivel}"
                                          required="true"
                                          validatorMessage="Escoja un nivel"
-                                         >
-                            <f:selectItem itemLabel="#{bundle.Item}" itemValue="" />  
-                            <f:selectItems 
-                                value="#{nivelController.itemsAvailableSelectOne}"/>
-                        </p:selectOneMenu>
-                        <p:message for="nivel" display="icon"/>
+                                         label="#{bundle['cursoController.nivel']}">
 
-                        <h:outputLabel value="Especialidad"/>
-                        <p:selectOneMenu id="especialidad" converter="genericConverter"
+                            <f:selectItem itemLabel="#{bundle.Item}" itemValue="" />  
+                            <f:selectItems value="#{nivelController.itemsAvailableSelectOne}"/>
+                        </p:selectOneMenu>
+
+                        <h:outputLabel value="#{bundle['cursoController.especialidad']}"/>
+                        <p:selectOneMenu id="idEspecialidad" 
+                                         converter="genericConverter"
                                          value="#{cursoController.current.especialidad}"
                                          required="true"
                                          validatorMessage="Escoja una especialidad">
@@ -65,43 +68,56 @@
                             <f:selectItems 
                                 value="#{especialidadController.itemsAvailableSelectOne}"/>
                         </p:selectOneMenu>
-                        <p:message for="especialidad" display="icon" showSummary="true"/>
+
 
 
 
 
                         <f:facet name="footer">
-                            <p:commandButton value="ACTUALIZAR" rendered="#{cursoController.cursoId!=null}"
+                            <p:commandButton value="#{bundle['boton.actualizar']}" 
+                                             rendered="#{cursoController.cursoId!=null}"
                                              action="#{cursoController.update()}"
-                                             update="panelEditCurso">
-                            </p:commandButton>
+                                             update="panelEditCurso"
+                                             icon="#{bundle['icono.actualizar']}"/>
 
-                            <p:commandButton value="GUARDAR" rendered="#{cursoController.cursoId == null}"
+
+                            <p:commandButton value="#{bundle['boton.guardar']}" 
+                                             rendered="#{cursoController.cursoId == null}"
                                              action="#{cursoController.persist()}"
-                                             update="panelEditCurso">
-                            </p:commandButton>
+                                             update="panelEditCurso"
+                                             icon="#{bundle['icono.guardar']}"/>
 
-                            <p:commandButton value="CANCELAR" action="#{cursoController.cancelEdit()}"
-                                             immediate="true" icon="ui-icon ui-icon-trash">
-                            </p:commandButton>
+
+                            <p:commandButton value="#{bundle['boton.cancelar']}" 
+                                             action="#{cursoController.cancelEdit()}"
+                                             immediate="true" 
+                                             icon="#{bundle['icono.cancelar']}"/>
 
 
                         </f:facet> 
                     </p:panelGrid>
                 </p:panel>
 
-                <p:panel header="Añadir Paralelos">
+                <p:panel header="#{bundle['boton.agregar.paralelo']}">
 
 
                     <f:facet name="header">
-                        <p:commandButton value="AGREGAR PARALELO"  action="#{cursoController.addParalelos()}" 
-                                         ajax="true" update="tableAddParalelos" process="@this"/>
+                        <p:commandButton value="#{bundle['boton.agregar.paralelo']}" 
+                                         action="#{cursoController.addParalelos()}" 
+                                         ajax="true" update="tableAddParalelos" process="@this"
+                                         icon="#{bundle['icono.agregar']}"/>
 
                     </f:facet>
-                    <p:dataTable id="tableAddParalelos" var="_paralelos" value="#{cursoController.current.paralelos}" rows="10" paginator="true">
+                    
+                    
+                    <p:dataTable id="tableAddParalelos" 
+                                 var="_paralelos" 
+                                 value="#{cursoController.current.paralelos}" 
+                                 rows="10" 
+                                 paginator="true">
 
-                        <p:column headerText="Nombre" >
-                            <p:inputText label="Nombre de Paralelo" 
+                        <p:column headerText="#{bundle['paraleloController.nombre']}" >
+                            <p:inputText label="#{bundle['paraleloController.nombre']}" 
                                          required="true" 
                                          value="#{_paralelos.nombreParalelo}"
                                          styleClass="mayusculas">
@@ -109,19 +125,19 @@
                             </p:inputText>
                         </p:column>
 
-                        <p:column headerText="Numero de Cupos">
-                            <p:inputText label="Número de cupos" required="true" value="#{_paralelos.numeroCupos}" >
+                        <p:column headerText="#{bundle['paraleloController.cupos']}">
+                            <p:inputText label="#{bundle['paraleloController.cupos']}" 
+                                         required="true" value="#{_paralelos.numeroCupos}" >
                                 <p:ajax partialSubmit="true"/>
                             </p:inputText>
                         </p:column>
 
-                        <p:column headerText="Acciones">
-                            <p:button value="EDITAR">
-                            </p:button>
-
-                            <p:commandButton value="ELIMINAR">
-                            </p:commandButton>
-
+                        <p:column headerText="#{bundle['boton.acciones']}">
+                            <p:button value="#{bundle['boton.editar']}"
+                                      icon="#{bundle['icono.editar']}"/>
+                            <p:commandButton value="#{bundle['boton.eliminar']}"
+                                             icon="#{bundle['icono.eliminar']}"/>
+                            
                         </p:column>
                     </p:dataTable>
                 </p:panel>
