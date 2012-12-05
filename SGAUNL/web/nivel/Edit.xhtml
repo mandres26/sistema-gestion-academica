@@ -17,25 +17,42 @@
             <h:outputText value="#{bundle.EditNivelTitle}"></h:outputText>
         </ui:define>
         <ui:define name="content">
+            
+            
+            <p:messages />
 
             <h:form id="formEditNivel">
-                <p:panel header="Editar Niveles" id="panelEditNiveles">
+                <p:panel header="#{nivelController.nivelId!=null ? bundle['boton.editar'] : bundle['boton.nuevo']}" 
+                         id="panelEditNiveles">
+                    
                     <p:panelGrid columns="2">
                         
-                        <h:outputLabel value="#{bundle.ListNivelTitle_nombreNivel}"/>
-                        <p:inputText required="true" label="Nombre del Nivel" value="#{nivelController.current.nombreNivel}"/>
+                        <h:outputLabel value="#{bundle['nivelController.nombre']}"/>
+                        <p:inputText required="true" 
+                                     label="#{bundle['nivelController.nombre']}" 
+                                     value="#{nivelController.current.nombreNivel}"/>
                         
-                        <h:outputLabel value="#{bundle.ListNivelTitle_descripcionNivel}"/>
-                        <p:inputTextarea label="Descripción" required="true" value="#{nivelController.current.descripcionNivel}" />
+                        <h:outputLabel value="#{bundle['nivelController.descripcion']}"/>
+                        <p:inputTextarea label="#{bundle['nivelController.descripcion']}" 
+                                         required="true" 
+                                         value="#{nivelController.current.descripcionNivel}" />
                         
-                        <p:messages />
+                        
 
                         <f:facet name="footer">
-                            <p:commandButton value="GUARDAR" action="#{nivelController.persist()}"
-                                             update="panelEditNiveles"/>
-                            <p:commandButton value="ACTUALIZAR"
-                                             action="#{nivelController.update()}"/>
-                            <p:commandButton value="CANCELAR" action="#{nivelController.cancelEdit()}" immediate="true" />
+                            <p:commandButton value="#{bundle['boton.guardar']}" 
+                                             action="#{nivelController.persist()}"
+                                             update="panelEditNiveles"
+                                             icon="#{bundle['icono.guardar']}"/>
+                            
+                            <p:commandButton value="#{bundle['boton.actualizar']}"
+                                             action="#{nivelController.update()}"
+                                             icon="#{bundle['icono.actualizar']}"/>
+                            
+                            <p:commandButton value="#{bundle['boton.cancelar']}" 
+                                             action="#{nivelController.cancelEdit()}" 
+                                             immediate="true" 
+                                             icon="#{bundle['icono.cancelar']}"/>
 
                         </f:facet>
 

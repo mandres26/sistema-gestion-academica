@@ -25,7 +25,7 @@ public class CursoController implements Serializable {
 
     private Curso current;
     private List<Curso> resultlist;
-   private List<Paralelo> listParalelos;
+    private List<Paralelo> listParalelos;
     @EJB
     private ec.edu.sga.facade.CursoFacade ejbFacade;
     @EJB
@@ -35,12 +35,11 @@ public class CursoController implements Serializable {
     private Long cursoId;
     @Inject
     Conversation conversation;
-    
 
     //_____________________________________CONSTRUCTOR______________________________//
     public CursoController() {
         resultlist = new ArrayList();
-        current=new Curso();
+        current = new Curso();
     }
 
     //____________________________________getters and setters______________________//
@@ -62,40 +61,37 @@ public class CursoController implements Serializable {
         this.resultlist = resultlist;
     }
 
-    
-    
-    
-    public Long getCursoId(){
-    if(current != null){
-        cursoId = current.getId();
-        return  cursoId;
+    public Long getCursoId() {
+        if (current != null) {
+            cursoId = current.getId();
+            return cursoId;
+        }
+
+        return null;
     }
-    
-    return null;
-    }
-    
-    public void setCursoId(Long cursoId){
-    
+
+    public void setCursoId(Long cursoId) {
+
         System.out.println("========> Ingreso a fijar el id de un Curso: " + cursoId);
         this.beginConversation();
         if (cursoId != null && cursoId.longValue() > 0) {
-            
-            
-            
+
+
+
             //Method that return an Course, next of to enter the id 
             //this.current = ejbFacade.find(cursoId);
             //Method that return an Course whith all their paralels 
             this.current = ejbFacade.findCursoByCursoId(cursoId);
             this.cursoId = this.current.getId();
-            
+
             //esto era una prueba       this.getItemsAvailableSelectOne();
             System.out.println("========> INGRESO a Editar un Curso: " + current.getNombreCurso());
         } else {
             System.out.println("========> INGRESO a Crear un Curso: ");
             this.current = new Curso();
         }
-        
-        
+
+
     }
 
     public List<Paralelo> getListParalelos() {
@@ -137,50 +133,32 @@ public class CursoController implements Serializable {
     public void setConversation(Conversation conversation) {
         this.conversation = conversation;
     }
-    
-    
-    
 
     //--------------------------------------MÉTODOS--------------------------------//
     
-    
-    
-    public String findAll() { 
+    //Encuentra todos los cursos y los presenta en una tabla
+    public String findAll() {
         resultlist = ejbFacade.findAll();
-        for (Curso object : resultlist) {
-            System.out.println("cursos: "+ object);
-            
-        }
-        String summary = "Encontrado Correctamente!";
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null));
         return "curso/List";
     }
-    
-    public String findAllCursosAndParalelos() { 
+
+    public String findAllCursosAndParalelos() {
         resultlist = ejbFacade.findCursosAndParalelos();
-         for (Curso object : resultlist) {
-            System.out.println("cursos: "+ object);
-            
+        for (Curso object : resultlist) {
+            System.out.println("cursos: " + object);
+
         }
         String summary = "Encontrado Correctamente!";
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null));
         return "curso/List";
     }
-    
-    
-    
-    
-    
-    public void addParalelos(){
+
+    public void addParalelos() {
         Paralelo p = new Paralelo();
         current.add(p);
     }
-    
-    
-    
-    
-   //________________MÉTODOS PARA INICIALIZAR Y FINALIZAR LA CONVERSACIÓN_________//
-    
+
+    //________________MÉTODOS PARA INICIALIZAR Y FINALIZAR LA CONVERSACIÓN_________//
     public void beginConversation() {
         if (conversation.isTransient()) {
             conversation.begin();
@@ -194,20 +172,16 @@ public class CursoController implements Serializable {
             System.out.println("========> FINALIZANDO CONVERSACION: ");
         }
     }
-    
-    
-     public String cancelEdit() {
+
+    public String cancelEdit() {
         System.out.println("me acaban de llamar: canceledit()");
         this.endConversation();
         return "/curso/List?faces-redirect=true";
     }
-    
-    
+
     //_______________________PERSISTIR OBJETOS________________________________//
-    
-    
     public String createInstance() {
-       
+
         System.out.println("========> INGRESO a Crear una instancia de curso: " + current.getNombreCurso());
         this.current = new Curso();
         return "/curso/Edit?faces-redirect=true";
@@ -222,11 +196,11 @@ public class CursoController implements Serializable {
 
         String summary = ResourceBundle.getBundle("/Bundle").getString("CursoCreated");
         JsfUtil.addSuccessMessage(summary);
-       
+
         FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 
         return "/curso/List?faces-redirect=true";
-       
+
 
     }
 
@@ -261,26 +235,20 @@ public class CursoController implements Serializable {
         return "/curso/List?faces-redirect=true";
 
     }
-    
-    
-   // ______________________MÉTODOS PARA DEVOLVER UNA LISTA DE CURSOS_______________________//
+
+    // ______________________MÉTODOS PARA DEVOLVER UNA LISTA DE CURSOS_______________________//
     public SelectItem[] getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
 
     public SelectItem[] getItemsAvailableSelectOne() {
-       return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
+        return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
-    
-    
     private SelectItem[] itemsParalelos;
-
-    
 
     public void setItemsParalelos(SelectItem[] itemsParalelos) {
         this.itemsParalelos = itemsParalelos;
     }
-    
 //    public SelectItem[] getItemsParalelos(){
 //        
 //        int cont = 0;
