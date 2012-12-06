@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -38,6 +40,8 @@ public class Nivel implements Serializable {
     private Long id;
     private String nombreNivel;
     private String descripcionNivel;
+    @Enumerated(EnumType.STRING)
+    private TipoNivel tipoNivel = TipoNivel.INICIAL;
     @OneToMany(mappedBy = "nivel", cascade= CascadeType.ALL, orphanRemoval=true)
     private List<Curso> cursos;
     @OneToMany(mappedBy = "nivel", cascade= CascadeType.ALL, orphanRemoval=true)
@@ -76,6 +80,16 @@ public class Nivel implements Serializable {
         this.nombreNivel = nombreNivel;
     }
 
+    public TipoNivel getTipoNivel() {
+        return tipoNivel;
+    }
+
+    public void setTipoNivel(TipoNivel tipoNivel) {
+        this.tipoNivel = tipoNivel;
+    }
+
+    
+    
     public List<Curso> getCursos() {
         return cursos;
     }

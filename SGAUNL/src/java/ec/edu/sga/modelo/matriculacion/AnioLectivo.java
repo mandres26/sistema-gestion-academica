@@ -5,6 +5,7 @@
 package ec.edu.sga.modelo.matriculacion;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -123,6 +124,6 @@ public class AnioLectivo implements Serializable {
 
     @Override
     public String toString() {
-        return "" + (fechaInicio.getYear() + 1900) + " - " + (fechaFin.getYear() + 1900);
+        return new SimpleDateFormat("yyyy").format(fechaInicio);
     }
 }

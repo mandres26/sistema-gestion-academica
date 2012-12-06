@@ -89,7 +89,8 @@ and open the template in the editor.
                                              title="#{bundle.CreateEstudianteTitle_dni}"
                                              styleClass="numeros"
                                              label="Dni"
-                                             maxlength="10"/>
+                                             maxlength="10"
+                                             validator="#{validadorController.validaNumeroCedula}"/>
 
 
                                 <h:outputLabel value="#{bundle.CreateEstudianteLabel_libretaMilitar}" for="libretaMilitar" />
@@ -132,7 +133,8 @@ and open the template in the editor.
                                             label="Fecha de Nacimiento"
                                             title="#{bundle.CreateEstudianteTitle_fechaNacimiento}" 
                                             pattern="dd/MM/yyyy" 
-                                            required="true"/>
+                                            required="true"
+                                            validator="#{validadorController.validarFecha}"/>
 
                                 <h:outputLabel value="#{bundle.CreateEstudianteLabel_ciudadNacimiento}" for="ciudadNacimiento" />
                                 <p:inputText id="ciudadNacimiento" 

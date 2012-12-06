@@ -13,6 +13,8 @@ import ec.edu.sga.modelo.matriculacion.Especialidad;
 import ec.edu.sga.modelo.matriculacion.Matricula;
 import ec.edu.sga.modelo.matriculacion.Nivel;
 import ec.edu.sga.modelo.matriculacion.Paralelo;
+import ec.edu.sga.modelo.matriculacion.TipoMatricula;
+import ec.edu.sga.modelo.matriculacion.TipoNivel;
 import ec.edu.sga.modelo.usuarios.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -46,6 +48,7 @@ public class MatriculaController implements Serializable {
     private Nivel nivel;
     private Paralelo paralelo;
     private Especialidad especialidad;
+    
     @EJB
     private ec.edu.sga.facade.MatriculaFacade ejbFacade;
     @EJB
@@ -60,7 +63,6 @@ public class MatriculaController implements Serializable {
     private CursoFacade ejbFacadeCurso;
     @EJB
     private ParaleloFacade ejbFacadeParalelo;
-    
     @Inject
     Conversation conversation;
 
@@ -72,20 +74,14 @@ public class MatriculaController implements Serializable {
         nivel = new Nivel();
         paralelo = new Paralelo();
         especialidad = new Especialidad();
-
-
-//current.setCurso(curso);
-
-        // especialidad.setNivel(nivel);
-        // curso.setNivel(nivel);
-//       // curso.setEspecialidad(especialidad);
-        // paralelo.setCurso(curso);
-
-//curso.setNivel(nivel);
-
-
-
-        System.out.println("Este es el valor de cursoId: " + nivelId);
+        
+                //current.setCurso(curso);
+                // especialidad.setNivel(nivel);
+                // curso.setNivel(nivel);
+                //       // curso.setEspecialidad(especialidad);
+                // paralelo.setCurso(curso);
+                //curso.setNivel(nivel);
+                System.out.println("Este es el valor de cursoId: " + nivelId);
         System.out.println("Este es el valor de usuarioId: " + usuarioId);
         System.out.println("Este es el valor de usuarioId: " + cursoId);
 
@@ -300,11 +296,10 @@ public class MatriculaController implements Serializable {
     public SelectItem[] getItemsNiveles() {
         return JsfUtil.getSelectItems(ejbFacadeNivel.findAll(), false);
     }
-
     private SelectItem[] itemsCursosByNivelId;
     private SelectItem[] itemsEspecialidadesByNivelId;
     private SelectItem[] itemsCursosByNivelIdOrEspecialidadId;
-   private SelectItem[] itemsParalelosByCursoId;
+    private SelectItem[] itemsParalelosByCursoId;
 
     public SelectItem[] getItemsCursosByNivelIdOrEspecialidadId() {
         return itemsCursosByNivelIdOrEspecialidadId;
@@ -313,10 +308,6 @@ public class MatriculaController implements Serializable {
     public void setItemsCursosByNivelIdOrEspecialidadId(SelectItem[] itemsCursosByNivelIdOrEspecialidadId) {
         this.itemsCursosByNivelIdOrEspecialidadId = itemsCursosByNivelIdOrEspecialidadId;
     }
-
-    
-    
-    
 
     public SelectItem[] getItemsEspecialidadesByNivelId() {
         return itemsEspecialidadesByNivelId;
@@ -341,16 +332,11 @@ public class MatriculaController implements Serializable {
     public void setItemsParalelosByCursoId(SelectItem[] itemsParalelosByCursoId) {
         this.itemsParalelosByCursoId = itemsParalelosByCursoId;
     }
-    
-    
-    
-    
-    
+
 //    public SelectItem[] getItemsEspecialidadesByNivelId() {
 //       beginConversation();
 //        return JsfUtil.getSelectItems(ejbFacadeEspecialidad.findEspecialidadesByNivelId(Long.parseLong("3")), false);
 //    }
-
 //    public SelectItem[] getItemsCursosbyNivelId() {
 //        return JsfUtil.getSelectItems(ejbFacadeCurso.findAllCursosbyNivelId(current.getCurso().getNivel().getId()), false); //Long.parseLong("3")
 //    }
@@ -362,7 +348,6 @@ public class MatriculaController implements Serializable {
 //    public SelectItem[] getItemsParalelosbyCursoId() {
 //        return JsfUtil.getSelectItems(ejbFacadeParalelo.findAllParalelosByCursoId(curso.getId()), false); //Long.parseLong("4")
 //    }
-
     public void prueba() {
         System.out.println("esta es una prueba");
         System.out.println("esta es una prueba");
@@ -377,13 +362,12 @@ public class MatriculaController implements Serializable {
         System.out.println("Este es el valor de cursoId: " + cursoId);
         System.out.println("Este es el valor de usuarioId: " + usuarioId);
         System.out.println("Este es el valor de curso: " + curso);
-        
-        
+
+
         itemsEspecialidadesByNivelId = JsfUtil.getSelectItems(ejbFacadeEspecialidad.findEspecialidadesByNivelId(nivel.getId()), false);
     }
-    
-    
-    public void prueba2(ValueChangeEvent e){
+
+    public void prueba2(ValueChangeEvent e) {
         System.out.println("Esta es una prueba");
         System.out.println("Esta es una prueba");
         System.out.println("Esta es una prueba");
@@ -393,11 +377,11 @@ public class MatriculaController implements Serializable {
         FacesContext fc = FacesContext.getCurrentInstance();
         UIViewRoot uiViewRoot = fc.getViewRoot();
         Especialidad n = (Especialidad) e.getNewValue();
-        System.out.println("Valor de Especialidad: "+ n);
+        System.out.println("Valor de Especialidad: " + n);
         itemsCursosByNivelIdOrEspecialidadId = JsfUtil.getSelectItems(ejbFacadeCurso.findAllCursosbyEspecialidadId(n.getId()), false);
     }
-    
-     public void prueba3(ValueChangeEvent e){
+
+    public void prueba3(ValueChangeEvent e) {
         System.out.println("Esta es una prueba");
         System.out.println("Esta es una prueba");
         System.out.println("Esta es una prueba");
@@ -407,11 +391,11 @@ public class MatriculaController implements Serializable {
         FacesContext fc = FacesContext.getCurrentInstance();
         UIViewRoot uiViewRoot = fc.getViewRoot();
         Curso c = (Curso) e.getNewValue();
-        System.out.println("Valor de Paralelo: "+ c);
+        System.out.println("Valor de Paralelo: " + c);
         itemsParalelosByCursoId = JsfUtil.getSelectItems(ejbFacadeParalelo.findAllParalelosByCursoId(c.getId()), false);
     }
-    
-    public void prueba1(ValueChangeEvent e){
+
+    public void prueba1(ValueChangeEvent e) {
         System.out.println("Esta es una prueba");
         System.out.println("Esta es una prueba");
         System.out.println("Esta es una prueba");
@@ -421,17 +405,16 @@ public class MatriculaController implements Serializable {
         FacesContext fc = FacesContext.getCurrentInstance();
         UIViewRoot uiViewRoot = fc.getViewRoot();
         Nivel n = (Nivel) e.getNewValue();
-        System.out.println("Valor de idNivel: "+ n);
-        
-        if("Bachillerato".equals(n.getNombreNivel())){
-            UIInput especialidadInputText =  (UIInput) uiViewRoot.findComponent("formEditMatricula:idEspecialidad"); 
+        System.out.println("Valor de idNivel: " + n);
+
+        if (nivel.getTipoNivel().equals(TipoNivel.BACHILLERATO)) {
+            UIInput especialidadInputText = (UIInput) uiViewRoot.findComponent("formEditMatricula:idEspecialidad");
             especialidadInputText.setRendered(true);
-             UIOutput labelEspecialidadInputText =  (UIOutput) uiViewRoot.findComponent("formEditMatricula:idLabelEspecialidad"); 
+            UIOutput labelEspecialidadInputText = (UIOutput) uiViewRoot.findComponent("formEditMatricula:idLabelEspecialidad");
             labelEspecialidadInputText.setRendered(true);
             itemsEspecialidadesByNivelId = JsfUtil.getSelectItems(ejbFacadeEspecialidad.findEspecialidadesByNivelId(n.getId()), false);
-        }else{
-            itemsCursosByNivelIdOrEspecialidadId = JsfUtil.getSelectItems(ejbFacadeCurso.findAllCursosbyNivelId(n.getId()),false);
+        } else {
+            itemsCursosByNivelIdOrEspecialidadId = JsfUtil.getSelectItems(ejbFacadeCurso.findAllCursosbyNivelId(n.getId()), false);
         }
     }
-    
 }

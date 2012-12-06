@@ -32,6 +32,15 @@
                                      label="#{bundle['nivelController.nombre']}" 
                                      value="#{nivelController.current.nombreNivel}"/>
                         
+                        
+                        <h:outputLabel value="#{bundle['nivelController.tipo']}"/>
+                        <p:selectOneMenu label="#{bundle['nivelController.tipo']}"                                   
+                                         required="true" 
+                                         value="#{nivelController.current.tipoNivel}">
+                            <f:selectItem itemLabel="#{bundle.Item}" itemValue=""/>
+                            <f:selectItems value="#{typeListController.typeTipoNivel}"/>  
+                        </p:selectOneMenu>
+                        
                         <h:outputLabel value="#{bundle['nivelController.descripcion']}"/>
                         <p:inputTextarea label="#{bundle['nivelController.descripcion']}" 
                                          required="true" 

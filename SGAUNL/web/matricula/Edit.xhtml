@@ -58,10 +58,12 @@
 
                         <h:outputLabel value="#{bundle['matriculaController.tipo']}"/>
                         <p:selectOneMenu label="#{bundle['matriculaController.tipo']}"                                   
-                                         required="true" 
+                                         required="true"
+                                         immediate="true"
                                          value="#{matriculaController.current.tipoMatricula}">
                             <f:selectItem itemLabel="#{bundle.Item}" itemValue=""/>
                             <f:selectItems value="#{typeListController.typeTipoMatriculas}"/>  
+                            <f:ajax render="@all"></f:ajax>
                         </p:selectOneMenu>
 
                         <h:outputLabel value="#{bundle['matriculaController.repeticion']}"/>
@@ -135,7 +137,7 @@
 
 
                         <h:outputLabel value="#{bundle['matriculaController.observacion']}"/>
-                        <p:inputTextarea label="#{bundle['matriculaController.observaciones']}" 
+                        <p:inputTextarea label="#{bundle['matriculaController.observacion']}" 
                                          value="#{matriculaController.current.observaciones}"/>
 
 
