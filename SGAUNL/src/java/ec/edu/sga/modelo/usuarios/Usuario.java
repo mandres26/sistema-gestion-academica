@@ -51,8 +51,9 @@ public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "UsuarioGenerador")
     private Long id;
-    private String login;
-    private String password;
+    private String usuario;
+    private String contrasenia;
+    private boolean estado;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date fechaLogin;
     private String dni;
@@ -75,8 +76,8 @@ public class Usuario implements Serializable {
     private List<Rol> roles;
 
     public Usuario() {
-    }
-
+    } 
+    
     public Long getId() {
         return id;
     }
@@ -85,21 +86,30 @@ public class Usuario implements Serializable {
         this.id = id;
     }
 
-    public String getLogin() {
-        return login;
+    public String getUsuario() {
+        return usuario;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
-    public String getPassword() {
-        return password;
+    public String getContrasenia() {
+        return contrasenia;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setContrasenia(String contrasenia) {
+        this.contrasenia = contrasenia;
     }
+
+    public boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+ 
 
     public Date getFechaLogin() {
         return fechaLogin;

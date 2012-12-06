@@ -62,21 +62,21 @@ and open the template in the editor.
                         <p:tab title="Datos Login">
                             <h:panelGrid columns="2">
                                 <h:outputLabel value="Login:"/>
-                                <p:inputText value="#{usuarioController.current.login}"/>
+                                <p:inputText value="#{usuarioController.current.usuario}"/>
                                 <h:outputLabel value="Contraseña:"/>
-                                <p:password value="#{usuarioController.current.password}" feedback="true" 
+                                <p:password value="#{usuarioController.current.contrasenia}" feedback="true" 
                                             promptLabel="Ingrese la contraseña" weakLabel="Baja" goodLabel="Media" 
                                             strongLabel="Fuerte">
                                 </p:password>
                                 <h:outputLabel value="Rol:"/>
-                                <h:panelGroup>
-                                    <p:selectOneMenu id="_typeRol" value="#{usuarioController.current.roles}" effect="fade" 
-                                                     converter="genericConverter">
-                                        <f:selectItem itemLabel="Seleccione rol " itemValue=""/>
-                                        <f:selectItems value="#{rolController.itemsAvailableSelectOne}"/>  
-                                    </p:selectOneMenu>
-                                    <p:commandButton icon="ui-icon ui-icon-plus"/>
-                                </h:panelGroup>
+
+                                <h:selectManyCheckbox id="idRol" value="#{usuarioController.current.roles} " 
+                                                      layout="pageDirection">
+                                    <f:selectItems value="#{rolController.itemsAvailableSelectOne}" var="_rol" />  
+                                </h:selectManyCheckbox>
+                                <h:outputLabel id="idEstado" value="Estado: "/>
+                                <h:selectBooleanCheckbox value="#{usuarioController.current.estado}"/>
+
                             </h:panelGrid>
                         </p:tab>
                         <p:tab title="Datos personales">  

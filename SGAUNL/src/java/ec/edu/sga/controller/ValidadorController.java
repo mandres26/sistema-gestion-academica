@@ -5,9 +5,7 @@
 package ec.edu.sga.controller;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -38,7 +36,7 @@ public class ValidadorController implements Serializable {
             return;
         }
 
-        //verifica que los dos primeros d�gitos correspondan a un valor entre 1 y NUMERO_DE_PROVINCIAS
+        //verifica que los dos primeros dígitos correspondan a un valor entre 1 y NUMERO_DE_PROVINCIAS
         int prov = Integer.parseInt(cedula.substring(0, 2));
         
         if (!((prov > 0) && (prov <= numeroProvincias))) {
@@ -48,7 +46,7 @@ public class ValidadorController implements Serializable {
             return;
         }
 
-        //verifica que el �ltimo d�gito de la c�dula sea v�lido
+        //verifica que el último dígito de la cédula sea válido
         int[] d = new int[10];
 
         //Asignamos el string a un array
@@ -59,7 +57,7 @@ public class ValidadorController implements Serializable {
         int imp = 0;
         int par = 0;
 
-        //sumamos los duplos de posici�n impar
+        //sumamos los duplos de posición impar
         for (int i = 0; i < d.length; i += 2) {
             d[i] = ((d[i] * 2) > 9) ? ((d[i] * 2) - 9) : (d[i] * 2);
             imp += d[i];
@@ -77,10 +75,10 @@ public class ValidadorController implements Serializable {
         int d10 = Integer.parseInt(String.valueOf(suma + 10).substring(0, 1)
                 + "0") - suma;
 
-        //Si es diez el d�cimo d�gito es cero        
+        //Si es diez el décimo dígito es cero        
         d10 = (d10 == 10) ? 0 : d10;
 
-        //si el d�cimo d�gito calculado es igual al digitado la c�dula es correcta
+        //si el d�cimo d�gito calculado es igual al digitado la cédula es correcta
         if (d10 != d[9]) {
             FacesMessage message = new FacesMessage("El número de cédula no es válido!");
             context.addMessage(uiComponent.getClientId(context), message);
