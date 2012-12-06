@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package ec.edu.sga.facade;
+package ec.edu.sga.controller;
 
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
