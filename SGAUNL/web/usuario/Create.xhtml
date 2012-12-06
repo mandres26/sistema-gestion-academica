@@ -69,14 +69,14 @@ and open the template in the editor.
                                             strongLabel="Fuerte">
                                 </p:password>
                                 <h:outputLabel value="Rol:"/>
-
-                                <h:selectManyCheckbox id="idRol" value="#{usuarioController.current.roles} " 
-                                                      layout="pageDirection">
-                                    <f:selectItems value="#{rolController.itemsAvailableSelectOne}" var="_rol" />  
-                                </h:selectManyCheckbox>
-                                <h:outputLabel id="idEstado" value="Estado: "/>
-                                <h:selectBooleanCheckbox value="#{usuarioController.current.estado}"/>
-
+                                <h:panelGroup>
+                                    <p:selectManyCheckbox id="idRol" value="#{usuarioController.current.roles}" 
+                                                          converter="genericConverter" layout="pageDirection">
+                                        <f:selectItems value="#{rolController.itemsAvailableSelectOne}" var="_rol" />  
+                                    </p:selectManyCheckbox>
+                                    <h:outputLabel value="Estado:"/>
+                                    <p:selectBooleanCheckbox value="#{usuarioController.current.estado}"/>
+                                </h:panelGroup>
                             </h:panelGrid>
                         </p:tab>
                         <p:tab title="Datos personales">  
