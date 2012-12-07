@@ -8,6 +8,8 @@ import ec.edu.sga.modelo.academico.ExpedienteAcademico;
 import ec.edu.sga.modelo.academico.RegistroCalificaciones;
 import ec.edu.sga.modelo.matriculacion.Matricula;
 import java.io.Serializable;
+import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -76,8 +78,19 @@ public class Usuario implements Serializable {
     private List<Rol> roles;
 
     public Usuario() {
-    } 
-    
+        matriculas = new ArrayList<Matricula>();
+        roles = new ArrayList<Rol>();
+    }
+
+    public void add(Rol rol) {
+
+        if (!roles.contains(rol)) {
+            roles.add(rol);
+            rol.setUsuario(this);
+        }
+
+    }
+
     public Long getId() {
         return id;
     }
@@ -109,7 +122,6 @@ public class Usuario implements Serializable {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
- 
 
     public Date getFechaLogin() {
         return fechaLogin;

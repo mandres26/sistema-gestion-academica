@@ -8,11 +8,16 @@ import ec.edu.sga.controller.util.JsfUtil;
 import ec.edu.sga.controller.util.PaginationHelper;
 import ec.edu.sga.facade.FichaFacade;
 import ec.edu.sga.facade.FichaPersonalFacade;
+import ec.edu.sga.facade.RolFacade;
 import ec.edu.sga.facade.UsuarioFacade;
+import ec.edu.sga.modelo.matriculacion.Nivel;
+import ec.edu.sga.modelo.matriculacion.TipoNivel;
 import ec.edu.sga.modelo.usuarios.Ficha;
 import ec.edu.sga.modelo.usuarios.FichaMedica;
 import ec.edu.sga.modelo.usuarios.FichaPersonal;
 import ec.edu.sga.modelo.usuarios.FichaSocioeconomica;
+import ec.edu.sga.modelo.usuarios.Rol;
+import ec.edu.sga.modelo.usuarios.TipoRol;
 import ec.edu.sga.modelo.usuarios.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,12 +27,18 @@ import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIInput;
+import javax.faces.component.UIOutput;
+import javax.faces.component.UIPanel;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.component.tabview.Tab;
 
 /**
  *
@@ -43,9 +54,12 @@ public class UsuarioController implements Serializable {
     private FichaPersonal fichaP;
     private FichaMedica fichaM;
     private FichaSocioeconomica fichaS;
+    private Rol rol;
     private DataModel items = null;
     @EJB
     private ec.edu.sga.facade.UsuarioFacade ejbFacade;
+    @EJB
+    private ec.edu.sga.facade.RolFacade ejbFacadeRol;
     private PaginationHelper pagination;
     private int selectedItemIndex;
     private List<Usuario> resultlist;
@@ -68,7 +82,29 @@ public class UsuarioController implements Serializable {
         fichaS = new FichaSocioeconomica();
         fichaS.setFicha(ficha);
         ficha.setFichaSocio(fichaS);
+        rol = new Rol();
+        rol.setUsuario(current);
+
         resultlist = new ArrayList<Usuario>();
+    }
+
+    public void renderTabs(ValueChangeEvent e) {
+
+        FacesContext fc = FacesContext.getCurrentInstance();
+        UIViewRoot uiViewRoot = fc.getViewRoot();
+        Rol rol = (Rol) e.getNewValue();
+        System.out.println("Valor de idNivel: " + rol);
+
+        if (rol.getTipoRol().equals(TipoRol.ESTUDIANTE)) {
+            Tab tabPersonales = (Tab) uiViewRoot.findComponent("formUsuario:idTabPersonales");
+            tabPersonales.setRendered(true);
+
+        }
+    }
+
+    public void addRol() {
+        Rol r = new Rol();
+        current.add(r);
     }
 
     public String find() {
@@ -283,6 +319,22 @@ public class UsuarioController implements Serializable {
         return ejbFacade;
     }
 
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
+    }
+
+    public RolFacade getEjbFacadeRol() {
+        return ejbFacadeRol;
+    }
+
+    public void setEjbFacadeRol(RolFacade ejbFacadeRol) {
+        this.ejbFacadeRol = ejbFacadeRol;
+    }
+
     public PaginationHelper getPagination() {
         if (pagination == null) {
             pagination = new PaginationHelper(10) {
@@ -413,5 +465,9 @@ public class UsuarioController implements Serializable {
 
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
+    }
+
+    public SelectItem[] getItemsRol() {
+        return JsfUtil.getSelectItems(ejbFacadeRol.findAll(), false);
     }
 }

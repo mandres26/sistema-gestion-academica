@@ -6,12 +6,16 @@ package ec.edu.sga.modelo.usuarios;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.TableGenerator;
@@ -24,11 +28,14 @@ import javax.persistence.TableGenerator;
 @TableGenerator(name = "RolGenerador", table = "GeneradorIdentificador", pkColumnName = "nombre",
 valueColumnName = "valor", pkColumnValue = "Rol", initialValue = 1, allocationSize = 1)
 public class Rol implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE, generator="RolGenerador")
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "RolGenerador")
     private Long id;
     private String nombre;
+    @Enumerated(EnumType.STRING)
+    private TipoRol tipoRol;
     private String descripcion;
     @ManyToOne
     private Usuario usuario;
@@ -37,7 +44,7 @@ public class Rol implements Serializable {
 
     public Rol() {
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -70,11 +77,19 @@ public class Rol implements Serializable {
         this.usuario = usuario;
     }
 
+    public TipoRol getTipoRol() {
+        return tipoRol;
+    }
+
+    public void setTipoRol(TipoRol tipoRol) {
+        this.tipoRol = tipoRol;
+    }
+
     public List<Funcionalidad> getFuncionalidades() {
         return funcionalidades;
     }
 
-    public void setFuncionalidades(List <Funcionalidad> funcionalidades) {
+    public void setFuncionalidades(List<Funcionalidad> funcionalidades) {
         this.funcionalidades = funcionalidades;
     }
 
@@ -92,7 +107,7 @@ public class Rol implements Serializable {
             return false;
         }
         Rol other = (Rol) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if ((this.nombre == null && other.nombre!= null) || (this.nombre != null && !this.nombre.equals(other.nombre))) {
             return false;
         }
         return true;
@@ -102,5 +117,4 @@ public class Rol implements Serializable {
     public String toString() {
         return nombre;
     }
-    
 }

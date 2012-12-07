@@ -46,20 +46,14 @@ and open the template in the editor.
                     <h:outputText value="" />
                 </f:facet>
             </p:ajaxStatus>
-
-
-
-            <h:form id="formCreateUsuario" 
+            <h:form id="formUsuario" 
                     prependId="false">
                 <p:panel id="editPanelUsuario"
                          header="#{usuarioController.current.id != null ? bundle['ListEstudianteEditLink'] : bundle['ListEstudianteCreateLink']}" >
-
-
-
                     <p:messages closable="true"/>
 
                     <p:accordionPanel dynamic="true" cache="true">  
-                        <p:tab title="Datos Login">
+                        <p:tab id="idTabLogin" title="Datos Login" rendered="true">
                             <h:panelGrid columns="2">
                                 <h:outputLabel value="Login:"/>
                                 <p:inputText value="#{usuarioController.current.usuario}"/>
@@ -68,18 +62,44 @@ and open the template in the editor.
                                             promptLabel="Ingrese la contraseña" weakLabel="Baja" goodLabel="Media" 
                                             strongLabel="Fuerte">
                                 </p:password>
-                                <h:outputLabel value="Rol:"/>
-                                <h:panelGroup>
-                                    <p:selectManyCheckbox id="idRol" value="#{usuarioController.current.roles}" 
-                                                          converter="genericConverter" layout="pageDirection">
-                                        <f:selectItems value="#{rolController.itemsAvailableSelectOne}" var="_rol" />  
-                                    </p:selectManyCheckbox>
-                                    <h:outputLabel value="Estado:"/>
-                                    <p:selectBooleanCheckbox value="#{usuarioController.current.estado}"/>
-                                </h:panelGroup>
-                            </h:panelGrid>
+                                <h:outputLabel value="Estado:"/>
+                                <p:selectBooleanCheckbox value="#{usuarioController.current.estado}"/>
+                                <p:commandButton value="Agregar Roles" action="#{usuarioController.addRol()}"
+                                                 ajax="true" update="idRoles" process="@this"/>
+                                </h:panelGrid>
+                                <p:dataTable id="idRoles" value="#{usuarioController.current.roles}" 
+                                             var="_roles">
+
+                                    <p:column headerText="Nombre" >
+                                        <p:inputText value="#{_roles.nombre}" >
+                                            <p:ajax partialSubmit="true"/>
+                                        </p:inputText>
+
+                                    </p:column> 
+
+                                    <p:column headerText="Tipo" >
+                                        
+                                            <p:selectOneMenu value="#{_roles.tipoRol}" effect="fade" required="true"
+                                                             valueChangeListener="#{usuarioController.renderTabs}"
+                                                             immediate="true" >  
+                                                
+                                                <f:selectItems value="#{ typeListController.tipoRol}"
+                                                               />  
+                                                <p:ajax update="@form" />
+                                            </p:selectOneMenu>
+                                       
+                                    </p:column> 
+                                    <p:column headerText="Descripcion" >
+                                        <p:inputText value="#{_roles.descripcion}">
+                                        <p:ajax partialSubmit="true"/>
+                                        </p:inputText>
+                                    </p:column> 
+
+                                </p:dataTable>
+
+                            
                         </p:tab>
-                        <p:tab title="Datos personales">  
+                        <p:tab id="idTabPersonales" title="Datos personales" rendered="false">  
 
                             <h:panelGrid columns="4">
 
@@ -121,11 +141,11 @@ and open the template in the editor.
                                                  effect="fade" 
                                                  label="Género"
                                                  required="true">
-                                    <f:selectItem itemLabel="#{bundle.MensajeItem}" itemValue=""/>
+                                    <f:selectItem itemLabel="#{bundle.Item}" itemValue=""/>
                                     <f:selectItems value="#{typeListController.typeListSexo}" var="_sexo" itemLabel="#{bundle[fuelType]}" itemValue="#{_sexo}"/>  
                                 </p:selectOneMenu>
 
-                                <h:outputLabel value="#{bundle.CreateEstudianteLabel_fechaNacimiento}" for="fechaNacimiento" />
+                                <h:outputLabel value="#{bundle.CreateEstudianteLabel_fechaNacimiento} *" for="fechaNacimiento" />
                                 <p:calendar id="fechaNacimiento" 
                                             value="#{usuarioController.current.fechaNacimiento}" 
                                             navigator="true" 
@@ -136,7 +156,7 @@ and open the template in the editor.
                                             required="true"
                                             validator="#{validadorController.validarFecha}"/>
 
-                                <h:outputLabel value="#{bundle.CreateEstudianteLabel_ciudadNacimiento}" for="ciudadNacimiento" />
+                                <h:outputLabel value="#{bundle.CreateEstudianteLabel_ciudadNacimiento} *" for="ciudadNacimiento" />
                                 <p:inputText id="ciudadNacimiento" 
                                              value="#{usuarioController.current.ficha.fichaPersonal.ciudadNacimiento}" 
                                              title="#{bundle.CreateEstudianteTitle_ciudadNacimiento}" 
@@ -147,7 +167,7 @@ and open the template in the editor.
 
 
 
-                                <h:outputLabel value="#{bundle.CreateEstudianteLabel_cantonNacimiento}" for="cantonNacimiento" />
+                                <h:outputLabel value="#{bundle.CreateEstudianteLabel_cantonNacimiento} *" for="cantonNacimiento" />
                                 <p:inputText id="cantonNacimiento" 
                                              value="#{usuarioController.current.ficha.fichaPersonal.cantonNaciemiento}" 
                                              title="#{bundle.CreateEstudianteTitle_cantonNacimiento}" 
@@ -155,7 +175,7 @@ and open the template in the editor.
                                              label="Cantón de Nacimiento"
                                              required="true"/>
 
-                                <h:outputLabel value="#{bundle.CreateEstudianteLabel_provinciaNacimiento}" for="provinciaNacimiento" />
+                                <h:outputLabel value="#{bundle.CreateEstudianteLabel_provinciaNacimiento} *" for="provinciaNacimiento" />
                                 <p:inputText id="provinciaNacimiento" 
                                              value="#{usuarioController.current.ficha.fichaPersonal.provinciaNacimiento}" 
                                              title="#{bundle.CreateEstudianteTitle_provinciaNacimiento}" 
@@ -163,7 +183,7 @@ and open the template in the editor.
                                              label="Provincia"
                                              required="true"/>
 
-                                <h:outputLabel value="#{bundle.CreateEstudianteLabel_direccion}" for="direccion" />
+                                <h:outputLabel value="#{bundle.CreateEstudianteLabel_direccion} *" for="direccion" />
                                 <p:inputText id="direccion" 
                                              value="#{usuarioController.current.ficha.fichaPersonal.direccion}" 
                                              title="#{bundle.CreateEstudianteTitle_direccion}" 
@@ -199,7 +219,7 @@ and open the template in the editor.
 
 
 
-                                <h:outputLabel value="#{bundle.CreateEstudianteLabel_nacionalidad}: *" for="nacionalidad" />
+                                <h:outputLabel value="#{bundle.CreateEstudianteLabel_nacionalidad} *" for="nacionalidad" />
                                 <p:inputText id="nacionalidad" 
                                              value="#{usuarioController.current.ficha.fichaPersonal.nacionalidad}" 
                                              title="#{bundle.CreateEstudianteTitle_nacionalidad}" 
@@ -218,12 +238,8 @@ and open the template in the editor.
                         <p:tab title="Datos Socioeconomicos">
                             <h:panelGrid columns="4">
                                 <h:outputLabel value="Tiene Internet:" for="internet" />
-                                <p:selectBooleanButton id="internet" 
-                                                       offLabel="No"
-                                                       onLabel="Si"
-                                                       value="#{usuarioController.current.ficha.fichaSocio.internet}" 
-                                                       label="Internet" />
-
+                                <p:selectBooleanCheckbox id="internet" label="Internet" 
+                                                         value="#{usuarioController.current.ficha.fichaSocio.internet}"/> 
                                 <h:outputLabel value="Vive Con:" for="viveCon" />
                                 <p:inputText id="viveCon" 
                                              value="#{usuarioController.current.ficha.fichaSocio.viveCon}" 
