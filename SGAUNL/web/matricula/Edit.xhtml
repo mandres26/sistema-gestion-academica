@@ -61,7 +61,7 @@
                                          required="true"
                                          immediate="true"
                                          value="#{matriculaController.current.tipoMatricula}">
-                            <f:selectItem itemLabel="#{bundle.Item}" itemValue=""/>
+                            <f:selectItem itemLabel="#{bundle.item}" itemValue=""/>
                             <f:selectItems value="#{typeListController.typeTipoMatriculas}"/>  
                             <f:ajax render="@all"></f:ajax>
                         </p:selectOneMenu>
@@ -78,10 +78,9 @@
                                          required="true" 
                                          value="#{matriculaController.nivel}"
                                          valueChangeListener="#{matriculaController.prueba1}"
-                                         immediate="true" 
-                                         >
+                                         immediate="true">
 
-                            <f:selectItem itemLabel="#{bundle.Item}" itemValue=""/>
+                            <f:selectItem itemLabel="#{bundle.item}" itemValue=""/>
                             <f:selectItems value="#{matriculaController.itemsNiveles}"/>  
                             <p:ajax update="idEspecialidad idCurso idParalelo @form"/>
                         </p:selectOneMenu>
@@ -100,7 +99,7 @@
                                          valueChangeListener="#{matriculaController.prueba2}"
                                          immediate="true">
 
-                            <f:selectItem itemLabel="#{bundle.Item}" itemValue=""/>
+                            <f:selectItem itemLabel="#{bundle.item}" itemValue=""/>
                             <f:selectItems value="#{matriculaController.itemsEspecialidadesByNivelId}"/>  
                             <p:ajax update="idCurso idParalelo"/>
                         </p:selectOneMenu> 
@@ -118,7 +117,7 @@
                                          valueChangeListener="#{matriculaController.prueba3}"
                                          immediate="true">>
 
-                            <f:selectItem itemLabel="#{bundle.Item}" itemValue=""/>
+                            <f:selectItem itemLabel="#{bundle.item}" itemValue=""/>
                             <f:selectItems value="#{matriculaController.itemsCursosByNivelIdOrEspecialidadId}"/> 
                             <p:ajax update="idParalelo"/>
                         </p:selectOneMenu> 
@@ -131,7 +130,7 @@
                                          required="true" 
                                          value="#{matriculaController.paralelo}">
 
-                            <f:selectItem itemLabel="#{bundle.Item}" itemValue=""/>
+                            <f:selectItem itemLabel="#{bundle.item}" itemValue=""/>
                             <f:selectItems value="#{matriculaController.itemsParalelosByCursoId}"/>  
                         </p:selectOneMenu> 
 
