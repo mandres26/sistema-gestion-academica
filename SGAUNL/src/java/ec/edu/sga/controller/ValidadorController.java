@@ -33,6 +33,12 @@ public class ValidadorController implements Serializable {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Cédula: El número de cédula no es válido", "Ingrese solo numeros - 10  en total");
             context.addMessage(uiComponent.getClientId(context), message);
             ((UIInput) uiComponent).setValid(false);
+                             
+                     
+            //((InputText) uiComponent).setStyleClass("ui-state-error");
+            
+             //RequestContext rc = RequestContext.getCurrentInstance();
+//            rc.execute("alert('Hola')");
             return;
         }
 
