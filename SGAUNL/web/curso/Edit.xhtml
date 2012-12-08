@@ -17,34 +17,20 @@
 
 
 
-            <script type="text/javascript">        
-                
-                $j(document).ready(function(){
-                    $j('.numeros').numeric();
-                    $j('.letras').alpha({allow:" "});
-                    $j('.mayusculas').alpha({allcaps:true});
-                    $j('.email').alphanumeric({allow:"._-"});
-                    
-                });
-                
-            </script>
-
-
-
-            <h:form id="formEdit" prependId="false">
+           <h:form id="formEdit" prependId="false">
                 <p:panel header="#{cursoController.cursoId!=null  ? bundle['boton.editar'] : bundle['boton.nuevo']}" 
                          id="panelEditCurso"
                          styleClass = "myPanelStyle myPanelStyleTitle">
 
-                    <p:messages  autoUpdate="true" closable="true"/>
+                    <p:messages  closable="true"/>
 
                     <p:panelGrid columns="2">
                         <h:outputLabel value="#{bundle['cursoController.nombre']}"/>
                         <p:inputText id="idNombre" label="#{bundle['cursoController.nombre']}"
                                      required="true"
                                      value="#{cursoController.current.nombreCurso}" 
-                                     size="30"
-                                     validatorMessage="No ha ingresado un nombre para el curso"/> 
+                                     validatorMessage="No ha ingresado un nombre para el curso"
+                                     styleClass="letras"/> 
 
 
                         <h:outputLabel value="#{bundle['cursoController.nivel']}"/>
@@ -61,6 +47,7 @@
 
                         <h:outputLabel value="#{bundle['cursoController.especialidad']}"/>
                         <p:selectOneMenu id="idEspecialidad" 
+                                         label="#{bundle['cursoController.especialidad']}"
                                          converter="genericConverter"
                                          value="#{cursoController.current.especialidad}"
                                          required="true"
@@ -105,7 +92,9 @@
                     <f:facet name="header">
                         <p:commandButton value="#{bundle['boton.agregar.paralelo']}" 
                                          action="#{cursoController.addParalelos()}" 
-                                         ajax="true" update="tableAddParalelos" process="@this"
+                                         ajax="true" 
+                                         update="tableAddParalelos" 
+                                         process="@this"
                                          icon="#{bundle['icono.agregar']}"/>
 
                     </f:facet>
@@ -128,7 +117,8 @@
 
                         <p:column headerText="#{bundle['paraleloController.cupos']}">
                             <p:inputText label="#{bundle['paraleloController.cupos']}" 
-                                         required="true" value="#{_paralelos.numeroCupos}" >
+                                         required="true" value="#{_paralelos.numeroCupos}" 
+                                         styleClass="numeros">
                                 <p:ajax partialSubmit="true"/>
                             </p:inputText>
                         </p:column>
