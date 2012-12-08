@@ -51,7 +51,6 @@ and open the template in the editor.
                 <p:panel id="editPanelUsuario"
                          header="#{usuarioController.current.id != null ? bundle['ListEstudianteEditLink'] : bundle['ListEstudianteCreateLink']}" >
                     <p:messages closable="true"/>
-
                     <p:accordionPanel dynamic="true" cache="true">  
                         <p:tab id="idTabLogin" title="Datos Login" rendered="true">
                             <h:panelGrid columns="2">
@@ -64,42 +63,23 @@ and open the template in the editor.
                                 </p:password>
                                 <h:outputLabel value="Estado:"/>
                                 <p:selectBooleanCheckbox value="#{usuarioController.current.estado}"/>
-                                <p:commandButton value="Agregar Roles" action="#{usuarioController.addRol()}"
-                                                 ajax="true" update="idRoles" process="@this"/>
-                                </h:panelGrid>
-                                <p:dataTable id="idRoles" value="#{usuarioController.current.roles}" 
-                                             var="_roles">
+                                <h:outputText value="Rol"/>
+                                <p:selectOneMenu value="#{usuarioController.rol}" 
+                                                 effect="fade" 
+                                                 required="true"
+                                                 valueChangeListener="#{usuarioController.renderTabs}"
+                                                 immediate="true" 
+                                                 converter="genericConverter">
+                                    <f:selectItems value="#{rolController.itemsAvailableSelectOne}"
+                                                   />  
+                                    <p:ajax update="@form"/>
+                                </p:selectOneMenu>
 
-                                    <p:column headerText="Nombre" >
-                                        <p:inputText value="#{_roles.nombre}" >
-                                            <p:ajax partialSubmit="true"/>
-                                        </p:inputText>
+                            </h:panelGrid>
 
-                                    </p:column> 
-
-                                    <p:column headerText="Tipo" >
-                                        
-                                            <p:selectOneMenu value="#{_roles.tipoRol}" effect="fade" required="true"
-                                                             valueChangeListener="#{usuarioController.renderTabs}"
-                                                             immediate="true" >  
-                                                
-                                                <f:selectItems value="#{ typeListController.tipoRol}"
-                                                               />  
-                                                <p:ajax update="@form" />
-                                            </p:selectOneMenu>
-                                       
-                                    </p:column> 
-                                    <p:column headerText="Descripcion" >
-                                        <p:inputText value="#{_roles.descripcion}">
-                                        <p:ajax partialSubmit="true"/>
-                                        </p:inputText>
-                                    </p:column> 
-
-                                </p:dataTable>
-
-                            
                         </p:tab>
-                        <p:tab id="idTabPersonales" title="Datos personales" rendered="false">  
+                        <h:panelGrid id="idPanel" rendered="false">
+                        <p:tab id="idTabPersonales" title="Datos personales">  
 
                             <h:panelGrid columns="4">
 
@@ -233,7 +213,7 @@ and open the template in the editor.
                             </h:panelGrid>
 
                         </p:tab>
-
+                        </h:panelGrid>
 
                         <p:tab title="Datos Socioeconomicos">
                             <h:panelGrid columns="4">

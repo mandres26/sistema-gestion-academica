@@ -189,4 +189,9 @@ public class RolController implements Serializable {
     public void setConversation(Conversation conversation) {
         this.conversation = conversation;
     }
+    public String cargar(){
+        resultlist= ejbFacade.findAll();
+        return "usuario/PruebaTable";
+        
+    } 
 }

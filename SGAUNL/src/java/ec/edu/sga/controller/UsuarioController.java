@@ -38,7 +38,9 @@ import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.component.accordionpanel.AccordionPanel;
 import org.primefaces.component.tabview.Tab;
+import org.primefaces.context.RequestContext;
 
 /**
  *
@@ -82,8 +84,7 @@ public class UsuarioController implements Serializable {
         fichaS = new FichaSocioeconomica();
         fichaS.setFicha(ficha);
         ficha.setFichaSocio(fichaS);
-        rol = new Rol();
-        rol.setUsuario(current);
+
 
         resultlist = new ArrayList<Usuario>();
     }
@@ -92,12 +93,21 @@ public class UsuarioController implements Serializable {
 
         FacesContext fc = FacesContext.getCurrentInstance();
         UIViewRoot uiViewRoot = fc.getViewRoot();
-        Rol rol = (Rol) e.getNewValue();
-        System.out.println("Valor de idNivel: " + rol);
+        Rol rols = (Rol) e.getNewValue();
+        System.out.println("Valor de idRol: " + rols);
+        System.out.println("Inicio de IF");
+        RequestContext context = RequestContext.getCurrentInstance();
+        context.execute("alert('Prueba')");
+        if (rols.getTipoRol().equals(TipoRol.ESTUDIANTE)) {
 
-        if (rol.getTipoRol().equals(TipoRol.ESTUDIANTE)) {
-            Tab tabPersonales = (Tab) uiViewRoot.findComponent("formUsuario:idTabPersonales");
-            tabPersonales.setRendered(true);
+            UIPanel tabPersonal = (UIPanel) uiViewRoot.findComponent("formUsuario:idPanel");
+            tabPersonal.setRendered(true);
+            System.out.println("FIN de IF");
+            context.execute("alert('PruebaAcordion')");
+//            AccordionPanel accPersonal = (AccordionPanel) uiViewRoot.findComponent("formUser:idAcordion");
+//            accPersonal.setRendered(true);
+//            Tab accPersonal = (Tab) uiViewRoot.findComponent("formUsuario:idAcordion:idTabPersonales");
+//            accPersonal.setRendered(true);
 
         }
     }
