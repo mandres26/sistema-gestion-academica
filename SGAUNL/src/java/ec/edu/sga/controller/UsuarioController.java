@@ -6,12 +6,8 @@ package ec.edu.sga.controller;
 
 import ec.edu.sga.controller.util.JsfUtil;
 import ec.edu.sga.controller.util.PaginationHelper;
-import ec.edu.sga.facade.FichaFacade;
-import ec.edu.sga.facade.FichaPersonalFacade;
 import ec.edu.sga.facade.RolFacade;
 import ec.edu.sga.facade.UsuarioFacade;
-import ec.edu.sga.modelo.matriculacion.Nivel;
-import ec.edu.sga.modelo.matriculacion.TipoNivel;
 import ec.edu.sga.modelo.usuarios.Ficha;
 import ec.edu.sga.modelo.usuarios.FichaMedica;
 import ec.edu.sga.modelo.usuarios.FichaPersonal;
@@ -27,8 +23,6 @@ import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.component.UIInput;
-import javax.faces.component.UIOutput;
 import javax.faces.component.UIPanel;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
@@ -38,8 +32,6 @@ import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.primefaces.component.accordionpanel.AccordionPanel;
-import org.primefaces.component.tabview.Tab;
 import org.primefaces.context.RequestContext;
 
 /**

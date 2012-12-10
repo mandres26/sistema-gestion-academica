@@ -185,7 +185,7 @@ public class CursoController implements Serializable {
         System.out.println("========> INGRESO a Crear una instancia de curso: " + current.getNombreCurso());
         this.current = new Curso();
         return "/curso/Edit?faces-redirect=true";
-        //return "/vehicle/BrandEdit";
+       
     }
 
     public String persist() {
@@ -252,15 +252,5 @@ public class CursoController implements Serializable {
     public void setItemsParalelos(SelectItem[] itemsParalelos) {
         this.itemsParalelos = itemsParalelos;
     }
-//    public SelectItem[] getItemsParalelos(){
-//        
-//        int cont = 0;
-//        itemsParalelos = new SelectItem[ejbFacade.findParalelosByCursoId2(cursoId).size()];
-//        for (Paralelo paralelo : ejbFacade.findParalelosByCursoId2(cursoId)) {
-//            
-//            itemsParalelos[cont++] = new SelectItem(paralelo, paralelo.toString()); 
-//            System.out.println("prueba items"+ itemsParalelos[cont]);
-//        }
-//        return itemsParalelos;        
-//    }
+
 }

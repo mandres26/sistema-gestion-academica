@@ -8,7 +8,6 @@ import ec.edu.sga.modelo.academico.ExpedienteAcademico;
 import ec.edu.sga.modelo.academico.RegistroCalificaciones;
 import ec.edu.sga.modelo.matriculacion.Matricula;
 import java.io.Serializable;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

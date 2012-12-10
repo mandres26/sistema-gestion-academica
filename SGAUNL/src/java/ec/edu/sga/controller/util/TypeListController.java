@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package ec.edu.sga.controller;
+package ec.edu.sga.controller.util;
 
 import ec.edu.sga.modelo.matriculacion.TipoMatricula;
 import ec.edu.sga.modelo.matriculacion.TipoNivel;

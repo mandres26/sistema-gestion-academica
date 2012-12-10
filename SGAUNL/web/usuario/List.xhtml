@@ -77,6 +77,9 @@ and open the template in the editor.
                         <p:button value="#{bundle.ListEstudianteEditLink}" outcome="/usuario/Create" icon="ui-icon ui-icon-pencil">
                             <f:param name="id" value="#{usuario.id}"/>
                         </p:button>
+                        
+                        
+                        
                         <p:commandButton id="btnDelete" value="#{bundle.ListEstudianteDestroyLink}" icon="ui-icon ui-icon-trash"
                                          oncomplete="confirmation.show()" ajax="true"
                                          update=":formBuscarUsuario:confirmDialog"  
@@ -97,7 +100,9 @@ and open the template in the editor.
                         <f:param name="id" value="#{usuarioController.current.id}"/>
                     </p:commandButton>    
 
-                    <p:commandButton id="decline" value="No" oncomplete="confirmation.hide()" 
+                    <p:commandButton id="decline" 
+                                     value="No" 
+                                     oncomplete="confirmation.hide()" 
                                      action="#{usuarioController.endConversation()}" />
 
 

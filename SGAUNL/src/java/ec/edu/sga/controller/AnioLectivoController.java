@@ -76,7 +76,7 @@ public class AnioLectivoController implements Serializable {
         if (anioLectivoId != null && anioLectivoId.longValue() > 0) { //Verifica que el id no sea vacío
             this.current = ejbFacade.find(anioLectivoId);//BUsca un paralelo de acuerdo al ID y lo asigna a current
             this.anioLectivoId = current.getId();
-             System.out.println("Ingreso a editar año lectivo: " +current.getFechaInicio());
+            System.out.println("Ingreso a editar año lectivo: " + current.getFechaInicio());
 
         } else {
             System.out.println("Ingreso a crear un nuevo año lectivo");
@@ -93,9 +93,9 @@ public class AnioLectivoController implements Serializable {
         current.setUpdated(new Date());
         ejbFacade.create(current);
         this.endConversation();
-         String summary = ResourceBundle.getBundle("/Bundle").getString("AnioLectivoCreated");
+        String summary = ResourceBundle.getBundle("/Bundle").getString("AnioLectivoCreated");
         JsfUtil.addSuccessMessage(summary);
-       
+
         FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 
         return "/index";
@@ -140,18 +140,12 @@ public class AnioLectivoController implements Serializable {
 
     }
 
-    public String findAllParalelos() {
-       resultlist = ejbFacade.findAll();
-        for (AnioLectivo object : resultlist) {
-            System.out.println("anioLectivo: "+ object);
-            
-        }
-        String summary = "Encontrado Correctamente!";
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null));
+    public String findAllAnios() {
+        resultlist = ejbFacade.findAll();
         return "anioLectivo/List";
     }
-    
-     // ______________________MÉTODOS PARA DEVOLVER UNA LISTA DE AÑOS LECTIVOS_______________________//
+
+    // ______________________MÉTODOS PARA DEVOLVER UNA LISTA DE AÑOS LECTIVOS_______________________//
     public SelectItem[] getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
@@ -159,14 +153,10 @@ public class AnioLectivoController implements Serializable {
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
-    
-     public SelectItem[] getItemAnioActivate() {
+
+    public SelectItem[] getItemAnioActivate() {
         return JsfUtil.getSelectItem(ejbFacade.findAnioActivate(Boolean.TRUE));
     }
-    
-   
-    
-    
     //Method that return the Anio that are activate == true
 //    public AnioLectivo anioActivo(){
 //        beginConversation();
@@ -177,5 +167,4 @@ public class AnioLectivoController implements Serializable {
 //        
 //       
 //    }
-    
 }

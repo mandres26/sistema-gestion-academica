@@ -18,12 +18,15 @@
     <ui:composition template="/templates/plantilla.xhtml">
 
         <ui:define name="content">
-            <h:form id="formList">
+           
+            
+            <h:form id="formList" prependId="false">
                 
                 <p:messages />
                 
                 
                 <p:panel header="#{bundle['boton.lista']}">
+                    
                     <p:panelGrid columns="3" id="panelList">
 
                         <p:dataTable id="tableCursos" 
@@ -90,18 +93,26 @@
                 </p:panel>
 
 
-                <p:confirmDialog id="dialogConfirmation" message="#{bundle['boton.confirmacion']}: #{cursoController.current.nombreCurso}"
-                                 widgetVar="conf" header="#{bundle['boton.eliminar']}" severity="alert">
+                <p:confirmDialog id="dialogConfirmation" 
+                                 message="#{bundle['boton.confirmacion']}: #{cursoController.current.nombreCurso}"
+                                 widgetVar="conf" 
+                                 header="#{bundle['boton.eliminar']}" 
+                                 severity="alert">
 
-                    <p:commandButton id="confirm" value="#{bundle['boton.si']}" oncomplete="conf.hide()"
+                    <p:commandButton id="confirm" 
+                                     value="#{bundle['boton.si']}" 
+                                     oncomplete="conf.hide()"
                                      actionListener="#{cursoController.delete()}"
                                      update=":formList:tableCursos">
+                       
                         <f:param name="cursoId" value="#{cursoController.current.id}"/>
 
 
                     </p:commandButton>
 
-                    <p:commandButton id="decline" value="#{bundle['boton.no']}" oncomplete="conf.hide()"
+                    <p:commandButton id="decline" 
+                                     value="#{bundle['boton.no']}" 
+                                     oncomplete="conf.hide()"
                                      action="#{cursoController.endConversation()}">
 
                     </p:commandButton>
@@ -116,12 +127,6 @@
 
 
 
-                <ui:remove>
-                    <!--Código para poner los mensajes--> 
-                    <h:panelGroup id="messagePanel" layout="block">
-                        <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
-                    </h:panelGroup>
-                </ui:remove>
 
             </h:form>
         </ui:define>

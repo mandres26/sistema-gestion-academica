@@ -37,7 +37,6 @@
                         <p:selectOneMenu id="idNivel" 
                                          converter="genericConverter"
                                          value="#{cursoController.current.nivel}"
-                                         required="true"
                                          validatorMessage="Escoja un nivel"
                                          label="#{bundle['cursoController.nivel']}">
 
@@ -50,8 +49,7 @@
                                          label="#{bundle['cursoController.especialidad']}"
                                          converter="genericConverter"
                                          value="#{cursoController.current.especialidad}"
-                                         required="true"
-                                         validatorMessage="Escoja una especialidad">
+                                        validatorMessage="Escoja una especialidad">
                             <f:selectItem itemLabel="#{bundle.item}" itemValue=""/>
                             <f:selectItems 
                                 value="#{especialidadController.itemsAvailableSelectOne}"/>
