@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../templates/plantilla.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+
+    <f:metadata>
+
+        <f:event listener="#{anioLectivoController.findAllAnios()}" type="preRenderView" />
+
+    </f:metadata>
+
+
+    <ui:define name="content">
+
+        <h:form id="formListAnio"
+                prependId="false">
+
+
+            <p:panel header="#{bundle['boton.lista']}">
+
+                <p:dataTable id="idTable"   value="#{anioLectivoController.resultlist}"  var="_anio">
+
+                    <p:column headerText="#{bundle['anioController.fechainicio']}">
+
+                        <h:outputText value="#{_anio.fechaFin}"/>
+
+                    </p:column>
+
+                    <p:column headerText="#{bundle['anioController.fechafin']}">
+
+                        <h:outputText value="#{_anio.fechaFin}" />
+
+                    </p:column>
+
+
+                    <p:column headerText="#{bundle['anioController.duracion']}" >
+                        <h:outputText value="#{_anio.duracion}" />
+
+                    </p:column>
+
+
+                    <p:column  headerText="#{bundle['boton.acciones']}">
+
+                        <p:button value="#{bundle['boton.editar']}" />
+                        <p:button value="#{bundle['boton.eliminar']}" />
+
+                    </p:column>
+
+
+                </p:dataTable>
+            </p:panel>
+        </h:form>
+
+
+
+
+    </ui:define>
+
+</ui:composition>
