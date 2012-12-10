@@ -17,6 +17,7 @@ import ec.edu.sga.modelo.usuarios.TipoRol;
 import ec.edu.sga.modelo.usuarios.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
@@ -32,6 +33,8 @@ import javax.faces.model.ListDataModel;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.component.accordionpanel.AccordionPanel;
+import org.primefaces.component.tabview.Tab;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -81,6 +84,45 @@ public class UsuarioController implements Serializable {
         resultlist = new ArrayList<Usuario>();
     }
 
+    public String index() {
+        return "/usuario/index";
+    } // Fin public String index
+
+    public List<Usuario> listado() {
+        return ejbFacade.findAll();
+    } // Fin public List<Usuario> listado
+
+    public String create() {
+        current = new Usuario();
+        return "/usuario/new";
+    } // Fin public String create
+
+    public String agregar() {
+        Date d = new Date();
+        current.setCreated(d);
+        current.setUpdated(d);
+        ejbFacade.create(current);
+        return "/usuario/index";
+    } // Fin public String agregar
+
+    public String edit(int codigo) {
+        current = ejbFacade.find(codigo);
+        return "/usuario/edit";
+    } // Fin public Tipousuario edit
+
+    public String guardar() {
+        Date d = new Date();
+        current.setUpdated(d);
+        ejbFacade.edit(current);
+        return "/usuario/index";
+    } // Fin public String guardar
+
+    public String eliminar(int codigo) {
+        current = ejbFacade.find(codigo);
+        ejbFacade.remove(current);
+        return "/usuario/index";
+    } // Fin public String eliminar
+
     public void renderTabs(ValueChangeEvent e) {
 
         FacesContext fc = FacesContext.getCurrentInstance();
@@ -91,16 +133,27 @@ public class UsuarioController implements Serializable {
         RequestContext context = RequestContext.getCurrentInstance();
         context.execute("alert('Prueba')");
         if (rols.getTipoRol().equals(TipoRol.ESTUDIANTE)) {
-
-            UIPanel tabPersonal = (UIPanel) uiViewRoot.findComponent("formUsuario:idPanel");
-            tabPersonal.setRendered(true);
-            System.out.println("FIN de IF");
+//            System.out.println("FIN de IF");
             context.execute("alert('PruebaAcordion')");
-//            AccordionPanel accPersonal = (AccordionPanel) uiViewRoot.findComponent("formUser:idAcordion");
-//            accPersonal.setRendered(true);
-//            Tab accPersonal = (Tab) uiViewRoot.findComponent("formUsuario:idAcordion:idTabPersonales");
-//            accPersonal.setRendered(true);
+//            UIPanel tabPersonal = (UIPanel) uiViewRoot.findComponent("formUsuario:idPanel");
+//            tabPersonal.setRendered(true);
 
+            AccordionPanel accPersonal = (AccordionPanel) uiViewRoot.findComponent("formUser:idAcordion");
+            accPersonal.setRendered(true);
+            Tab acPersonal = (Tab) uiViewRoot.findComponent("formUser:idAcordion:idTabPersonal");
+            acPersonal.setRendered(true);
+
+        } else {
+
+            if (rols.getTipoRol().equals(TipoRol.ADMINISTRADOR)) {
+                context.execute("alert('PruebaAcord Tab 2')");
+                AccordionPanel accPersonal = (AccordionPanel) uiViewRoot.findComponent("formUser:idAcordion");
+                accPersonal.setRendered(true);
+                Tab acPersonal = (Tab) uiViewRoot.findComponent("formUser:idAcordion:idTabPersonal2");
+                acPersonal.setRendered(true);
+                Tab aPersonal = (Tab) uiViewRoot.findComponent("formUser:idAcordion:idTabPersonal");
+                aPersonal.setRendered(false);
+            }
         }
     }
 
@@ -337,131 +390,7 @@ public class UsuarioController implements Serializable {
         this.ejbFacadeRol = ejbFacadeRol;
     }
 
-    public PaginationHelper getPagination() {
-        if (pagination == null) {
-            pagination = new PaginationHelper(10) {
-                @Override
-                public int getItemsCount() {
-                    return getFacade().count();
-                }
-
-                @Override
-                public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
-                }
-            };
-        }
-        return pagination;
-    }
-
-    public String prepareList() {
-        recreateModel();
-        return "List";
-    }
-
-    public String prepareView() {
-        current = (Usuario) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "View";
-    }
-
-    public String prepareCreate() {
-        current = new Usuario();
-        selectedItemIndex = -1;
-        return "Create";
-    }
-
-    public String create() {
-        try {
-            getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("EstudianteCreated"));
-            return prepareCreate();
-        } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-            return null;
-        }
-    }
-
-    public String prepareEdit() {
-        current = (Usuario) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "Edit";
-    }
-
-    public String destroy() {
-        current = (Usuario) getItems().getRowData();
-        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        performDestroy();
-        recreatePagination();
-        recreateModel();
-        return "List";
-    }
-
-    public String destroyAndView() {
-        performDestroy();
-        recreateModel();
-        updateCurrentItem();
-        if (selectedItemIndex >= 0) {
-            return "View";
-        } else {
-            // all items were removed - go back to list
-            recreateModel();
-            return "List";
-        }
-    }
-
-    private void performDestroy() {
-        try {
-            getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("EstudianteDeleted"));
-        } catch (Exception e) {
-            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
-        }
-    }
-
-    private void updateCurrentItem() {
-        int count = getFacade().count();
-        if (selectedItemIndex >= count) {
-            // selected index cannot be bigger than number of items:
-            selectedItemIndex = count - 1;
-            // go to previous page if last page disappeared:
-            if (pagination.getPageFirstItem() >= count) {
-                pagination.previousPage();
-            }
-        }
-        if (selectedItemIndex >= 0) {
-            current = getFacade().findRange(new int[]{selectedItemIndex, selectedItemIndex + 1}).get(0);
-        }
-    }
-
-    public DataModel getItems() {
-        if (items == null) {
-            items = getPagination().createPageDataModel();
-        }
-        return items;
-    }
-
-    private void recreateModel() {
-        items = null;
-    }
-
-    private void recreatePagination() {
-        pagination = null;
-    }
-
-    public String next() {
-        getPagination().nextPage();
-        recreateModel();
-        return "List";
-    }
-
-    public String previous() {
-        getPagination().previousPage();
-        recreateModel();
-        return "List";
-    }
-
-    public SelectItem[] getItemsAvailableSelectMany() {
+   public SelectItem[] getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
 

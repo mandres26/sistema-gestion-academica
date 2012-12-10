@@ -36,9 +36,15 @@ and open the template in the editor.
                                  validator="#{validadorController.validaNumeroCedula}"/>
                 </h:panelGrid>
                 <p:accordionPanel id="idAcordion" rendered="false" cache="true" dynamic="true">
-                     <p:tab id="idTabPersonal" title="Datos Login">
+                    <p:tab id="idTabPersonal" title="Datos Login" rendered="false">
                     <p>
                         Hola prueba
+                    </p>
+                </p:tab>
+                    <p:tab id="idTabPersonal2" title="Datos Personales" rendered="false">
+                    <p>
+                        Hola prueba
+                        Estoy tab 2
                     </p>
                 </p:tab>
                 

@@ -72,11 +72,12 @@ and open the template in the editor.
                                                  converter="genericConverter">
                                     <f:selectItems value="#{rolController.itemsAvailableSelectOne}"
                                                    />  
-                                    <p:ajax update="@form"/>
+                                    
+                                    <p:ajax/>
                                 </p:selectOneMenu>
 
                             </h:panelGrid>
-
+                            
                         </p:tab>
                         <h:panelGrid id="idPanel" rendered="false">
                         <p:tab id="idTabPersonales" title="Datos personales">  
