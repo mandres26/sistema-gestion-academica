@@ -7,6 +7,7 @@ package ec.edu.sga.modelo.matriculacion;
 import ec.edu.sga.modelo.academico.MallaCurricular;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -20,6 +21,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.TableGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -35,28 +38,30 @@ valueColumnName = "valor", pkColumnValue = "Curso", initialValue = 1, allocation
     + " e.paralelos where e.id = :id"),
     @NamedQuery(name = "Curso.findAllCursosbyNivelId",
     query = "select c from Curso c where c.nivel.id =:id"),
-    @NamedQuery(name="Curso.findCursosByEspecialidadId", query="SELECT c FROM Curso c WHERE c.especialidad.id=:id ")
+    @NamedQuery(name = "Curso.findCursosByEspecialidadId", query = "SELECT c FROM Curso c WHERE c.especialidad.id=:id ")
 })
 public class Curso implements Serializable {
 
     //-----------------------ATRIBUTOS----------------------------------//
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE, generator="CursoGenerador")
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "CursoGenerador")
     private Long id;
     private String nombreCurso;
     @ManyToOne
     private Especialidad especialidad;
     @ManyToOne
     private Nivel nivel;
-    
-    @OneToMany(mappedBy = "curso", cascade= CascadeType.ALL)
+    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL)
     private List<Matricula> matriculas;
     @OneToOne(mappedBy = "curso")
     private MallaCurricular mallaCurricular;
-    @OneToMany(mappedBy = "curso", cascade={CascadeType.ALL}, orphanRemoval=true, fetch= FetchType.EAGER)    
+    @OneToMany(mappedBy = "curso", cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Paralelo> paralelos;
-    
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date created;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date Updated;
 
     //----------------------constructores--------------------------------------//
     public Curso() {
@@ -71,10 +76,6 @@ public class Curso implements Serializable {
         this.mallaCurricular = mallaCurricular;
         this.paralelos = paralelos;
     }
-    
-    
-    
-    
 
     //----------------------MÉTODOS SET AND GET---------------------------------//
     public Long getId() {
@@ -116,11 +117,9 @@ public class Curso implements Serializable {
     }
 
     public void setMatriculas(List<Matricula> matriculas) {
-        
+
         this.matriculas = matriculas;
     }
-
-   
 
     public MallaCurricular getMallaCurricular() {
         return mallaCurricular;
@@ -138,10 +137,28 @@ public class Curso implements Serializable {
         this.paralelos = paralelos;
     }
 
-    //----------------------MÉTODOS---------------------------------//
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public Date getUpdated() {
+        return Updated;
+    }
+
+    public void setUpdated(Date Updated) {
+        this.Updated = Updated;
+    }
+
     
-    public void add(Paralelo paralelo){
-        if(!paralelos.contains(paralelo)){
+    
+    
+    //----------------------MÉTODOS---------------------------------//
+    public void add(Paralelo paralelo) {
+        if (!paralelos.contains(paralelo)) {
             paralelos.add(paralelo);
             paralelo.setCurso(this);
         }
