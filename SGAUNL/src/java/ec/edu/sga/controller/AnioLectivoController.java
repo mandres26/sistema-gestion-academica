@@ -1,6 +1,7 @@
 package ec.edu.sga.controller;
 
 import ec.edu.sga.controller.util.JsfUtil;
+import ec.edu.sga.controller.util.SessionUtil;
 import ec.edu.sga.facade.AnioLectivoFacade;
 import ec.edu.sga.modelo.matriculacion.AnioLectivo;
 import java.io.Serializable;
@@ -11,7 +12,6 @@ import java.util.ResourceBundle;
 import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
@@ -26,6 +26,7 @@ public class AnioLectivoController implements Serializable {
     private AnioLectivoFacade ejbFacade;
     private AnioLectivo current;
     private Long anioLectivoId;
+    private Date criterio;
     @Inject
     Conversation conversation;
 
@@ -53,6 +54,18 @@ public class AnioLectivoController implements Serializable {
         this.ejbFacade = ejbFacade;
     }
 
+    public Date getCriterio() {
+        return criterio;
+    }
+
+    public void setCriterio(Date criterio) {
+        this.criterio = criterio;
+    }
+
+    
+
+    
+    
     public AnioLectivo getCurrent() {
         return current;
     }
@@ -144,6 +157,29 @@ public class AnioLectivoController implements Serializable {
         resultlist = ejbFacade.findAll();
         return "anioLectivo/List";
     }
+    
+    
+    public String findAllAniosByCriterio(){
+        System.out.println("criterio inicio: " + criterio);
+        if(criterio==null){
+          SessionUtil.addErrorMessage("No se encontró ningún resultado");
+         return "/anioLectivo/List";  
+           
+        }else{
+            System.out.println("criterio dentro del if: " + criterio);
+            resultlist = ejbFacade.findAllByCriterio(criterio);
+            if(resultlist!=null){
+                SessionUtil.addErrorMessage("Encontrado satisfactoriamente");
+            } else {
+                  SessionUtil.addErrorMessage("No se encontró ningún registro");
+            }
+      
+         return "/anioLectivo/List";
+        }
+        
+        
+    }
+    
 
     // ______________________MÉTODOS PARA DEVOLVER UNA LISTA DE AÑOS LECTIVOS_______________________//
     public SelectItem[] getItemsAvailableSelectMany() {

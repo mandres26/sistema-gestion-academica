@@ -7,22 +7,50 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
 
-    <f:metadata>
-
-        <f:event listener="#{anioLectivoController.findAllAnios()}" type="preRenderView" />
-
-    </f:metadata>
-
+  
 
     <ui:define name="content">
 
+        
+        <p:ajaxStatus style="width:16px;height:16px;" id="ajaxStatusPanel">
+                <f:facet name="start">
+                    <h:graphicImage library="img" name="ajaxloading.gif" />
+                </f:facet>
+                <f:facet name="complete">
+                    <h:outputText value="" />
+                </f:facet>
+            </p:ajaxStatus>
+        
+        
+       
+        
+        
         <h:form id="formListAnio"
                 prependId="false">
 
+            <p:messages closable="true" autoUpdate="true"/>
+            
+            
+            <h:panelGrid  columns="3">
+                
+                <h:outputLabel value="#{bundle['label.buscar']}" />
+                <p:inputText label="#{bundle['label.buscar']}" value="#{anioLectivoController.criterio}" >
+                
+                    <f:convertDateTime pattern="yyyy" />
+                </p:inputText>
+                <p:commandButton value="#{bundle['boton.buscar']}"
+                                 action="#{anioLectivoController.findAllAniosByCriterio()}"
+                                 icon="#{bundle['icono.buscar']}"
+                                 update="idTabla"
+                                 ajax="true"/>
+                             
+            </h:panelGrid>
+            
+            
 
             <p:panel header="#{bundle['boton.lista']}">
 
-                <p:dataTable id="idTable"   value="#{anioLectivoController.resultlist}"  var="_anio">
+                <p:dataTable id="idTabla"   value="#{anioLectivoController.resultlist}"  var="_anio">
 
                     <p:column headerText="#{bundle['anioController.fechainicio']}">
 

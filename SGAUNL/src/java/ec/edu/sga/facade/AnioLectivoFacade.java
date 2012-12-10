@@ -5,6 +5,8 @@
 package ec.edu.sga.facade;
 
 import ec.edu.sga.modelo.matriculacion.AnioLectivo;
+import java.util.Date;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -38,6 +40,13 @@ public class AnioLectivoFacade extends AbstractFacade<AnioLectivo> {
             return null;
         }
         
+    }
+    
+    //Enceuntra todos los años de acuerdo a un criterio de búsqueda
+    public List<AnioLectivo> findAllByCriterio(Date criterio){
+        Query query = em.createNamedQuery("AnioLectivo.findByCriterio");
+        query.setParameter("criterio", criterio);
+        return query.getResultList();
     }
     
     
