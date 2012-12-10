@@ -8,6 +8,7 @@ import ec.edu.sga.modelo.matriculacion.Curso;
 import ec.edu.sga.modelo.matriculacion.Paralelo;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
@@ -135,7 +136,6 @@ public class CursoController implements Serializable {
     }
 
     //--------------------------------------MÉTODOS--------------------------------//
-    
     //Encuentra todos los cursos y los presenta en una tabla
     public String findAll() {
         resultlist = ejbFacade.findAll();
@@ -191,6 +191,8 @@ public class CursoController implements Serializable {
     public String persist() {
 
         System.out.println("========> INGRESO a Grabar nuevo Curso: " + current.getNombreCurso());
+        current.setCreated(new Date());
+        current.setUpdated(new Date());
         ejbFacade.create(current);
         this.endConversation();
 
@@ -207,6 +209,7 @@ public class CursoController implements Serializable {
     public String update() {
 
         System.out.println("========> INGRESO a Actualizar al Curso: " + current.getNombreCurso());
+        current.setUpdated(new Date());
         ejbFacade.edit(current);
         System.out.println("ya modifique");
         this.endConversation();
