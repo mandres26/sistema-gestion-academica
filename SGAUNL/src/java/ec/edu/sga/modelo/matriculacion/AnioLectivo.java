@@ -18,6 +18,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -41,6 +42,13 @@ public class AnioLectivo implements Serializable {
     private List<Matricula> matriculas;
     private Long duracion;
     private Boolean estado;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date created;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updated;
+
+    
 
     //---------------------------CONSTRUCTORES--------------------------//
     public AnioLectivo() {
@@ -97,6 +105,22 @@ public class AnioLectivo implements Serializable {
 
     public void setEstado(Boolean estado) {
         this.estado = estado;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public Date getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(Date updated) {
+        this.updated = updated;
     }
     
     
