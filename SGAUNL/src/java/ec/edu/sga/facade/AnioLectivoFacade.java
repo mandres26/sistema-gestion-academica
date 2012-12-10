@@ -30,9 +30,14 @@ public class AnioLectivoFacade extends AbstractFacade<AnioLectivo> {
     
     //método para encontrar el año activo
     public AnioLectivo findAnioActivate(Boolean parameter){
-        Query query=em.createNamedQuery("AnioLectivo.findAnioActivo");
+        try {
+            Query query=em.createNamedQuery("AnioLectivo.findAnioActivo");
         query.setParameter("parameter", parameter);
         return (AnioLectivo) query.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+        
     }
     
     
