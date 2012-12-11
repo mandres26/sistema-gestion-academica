@@ -10,6 +10,8 @@ import javax.validation.constraints.NotNull;
  * @author juanmanuelmarchese
  */
 @Entity
+@TableGenerator(name = "MenuTipousuarioGenerador", table = "GeneradorIdentificador", pkColumnName = "nombre",
+valueColumnName = "valor", pkColumnValue = "MenuTipousuario", initialValue = 1, allocationSize = 1)
 @NamedQueries({
     @NamedQuery(name = "MenuTipousuario.findAll", query = "SELECT m FROM MenuTipousuario m"),
     @NamedQuery(name = "MenuTipousuario.findById", query = "SELECT m FROM MenuTipousuario m WHERE m.id = :id"),
@@ -24,7 +26,7 @@ public class MenuTipousuario implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator="MenuTipousuarioGenerador")
     private Long id;
     
     @Temporal(TemporalType.TIMESTAMP)

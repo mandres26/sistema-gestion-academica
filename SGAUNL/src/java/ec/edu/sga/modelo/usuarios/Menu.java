@@ -12,6 +12,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author juanmanuelmarchese
  */
 @Entity
+@TableGenerator(name = "MenuGenerador", table = "GeneradorIdentificador", pkColumnName = "nombre",
+valueColumnName = "valor", pkColumnValue = "Menu", initialValue = 1, allocationSize = 1)
 @NamedQueries({
     @NamedQuery(name = "Menu.findAll", query = "SELECT m FROM Menu m"),
     @NamedQuery(name = "Menu.findAllOrderMenu", query = "SELECT m FROM Menu m order by m.raiz , m.orden"),
@@ -29,7 +31,7 @@ public class Menu implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator="MenuGenerador")
     @Basic(optional = false)
     @Column(name = "ID")
     private Long id;

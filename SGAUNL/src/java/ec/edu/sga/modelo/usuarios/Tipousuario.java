@@ -10,6 +10,8 @@ import javax.validation.constraints.Size;
  * @author juanmanuelmarchese
  */
 @Entity
+@TableGenerator(name = "TipousuarioGenerador", table = "GeneradorIdentificador", pkColumnName = "nombre",
+valueColumnName = "valor", pkColumnValue = "Tipousuario", initialValue = 1, allocationSize = 1)
 @NamedQueries({
     @NamedQuery(name = "Tipousuario.findAll", query = "SELECT t FROM Tipousuario t"),
     @NamedQuery(name = "Tipousuario.findById", query = "SELECT t FROM Tipousuario t WHERE t.id = :id"),
@@ -21,7 +23,7 @@ public class Tipousuario implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator="TipousuarioGenerador")
     @Basic(optional = false)
     private Long id;
 
