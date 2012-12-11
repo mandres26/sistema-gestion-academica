@@ -81,7 +81,7 @@ public class Tipousuario implements Serializable {
 
     @Override
     public String toString() {
-        return nombre + " (" + id + ")";
+        return nombre;
     }
 
 }

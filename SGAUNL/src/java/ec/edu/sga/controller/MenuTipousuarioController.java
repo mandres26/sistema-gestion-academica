@@ -2,6 +2,7 @@ package ec.edu.sga.controller;
 
 import ec.edu.sga.facade.MenuTipousuarioFacade;
 import ec.edu.sga.modelo.usuarios.MenuTipousuario;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -14,7 +15,7 @@ import javax.inject.Named;
  */
 @Named
 @SessionScoped
-public class MenuTipousuarioController {
+public class MenuTipousuarioController implements  Serializable{
 
     @EJB
     private MenuTipousuarioFacade dao;
@@ -23,6 +24,7 @@ public class MenuTipousuarioController {
     // ---------------------- Constructor de la Clase ----------------------
 
     public MenuTipousuarioController() {
+        selected = new MenuTipousuario();
     }
 
     public MenuTipousuario getSelected() {
@@ -50,7 +52,7 @@ public class MenuTipousuarioController {
         selected.setCreated(d);
         selected.setUpdated(d);
         dao.create(selected);
-        return "/menu_tipousuario/index";
+        return "/index";
     } // Fin public String agregar
 
     public String edit(int codigo) {

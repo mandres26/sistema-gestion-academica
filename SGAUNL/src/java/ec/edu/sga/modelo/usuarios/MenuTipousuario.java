@@ -25,7 +25,6 @@ public class MenuTipousuario implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
-    @Basic(optional = false)
     private Long id;
     
     @Temporal(TemporalType.TIMESTAMP)

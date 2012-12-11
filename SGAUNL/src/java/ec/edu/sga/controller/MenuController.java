@@ -13,13 +13,14 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.model.SelectItem;
 import ec.edu.sga.modelo.usuarios.Menu;
+import java.io.Serializable;
 /**
  *
  * @author juanmanuelmarchese
  */
 @ManagedBean
 @SessionScoped
-public class MenuController {
+public class MenuController implements Serializable{
 
     @EJB
     private MenuFacade dao;
@@ -28,6 +29,8 @@ public class MenuController {
     // ---------------------- Constructor de la Clase ----------------------
 
     public MenuController() {
+        
+        selected = new Menu();
     }
 
     public Menu getSelected() {
@@ -55,7 +58,7 @@ public class MenuController {
         selected.setCreated(d);
         selected.setUpdated(d);
         dao.create(selected);
-        return "/menu/index";
+        return "/index";
     } // Fin public String agregar
 
     public String edit(int codigo) {
