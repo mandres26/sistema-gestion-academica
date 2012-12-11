@@ -234,7 +234,7 @@ public class MenuController implements Serializable{
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null));
 
 
-        return "/curso/List?faces-redirect=true";
+        return "/index?faces-redirect=true";
 
     }
     
