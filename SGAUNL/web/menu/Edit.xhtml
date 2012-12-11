@@ -20,32 +20,32 @@
 
 
                 <h:outputLabel value="Nombre :" for="nombre" />
-                <p:inputText id="nombre" value="#{menuController.selected.nombre}" />
+                <p:inputText id="nombre" value="#{menuController.current.nombre}" />
 
                 <h:outputLabel value="Imagen :" for="imagen" />
-                <p:inputText id="imagen" value="#{menuController.selected.imagen}" title="Imagen" />
+                <p:inputText id="imagen" value="#{menuController.current.imagen}" title="Imagen" />
 
                 <h:outputLabel value="URL :" for="url" />
-                <p:inputText id="url" value="#{menuController.selected.url}" title="Url" />
+                <p:inputText id="url" value="#{menuController.current.url}" title="Url" />
 
                 <h:outputLabel value="Action :" for="action" />
-                <p:inputText id="action" value="#{menuController.selected.action}" title="Action" />
+                <p:inputText id="action" value="#{menuController.current.action}" title="Action" />
 
                 <h:outputLabel value="Raiz :" for="raiz" />
-                <p:inputText id="raiz" value="#{menuController.selected.raiz}" title="Raiz">
+                <p:inputText id="raiz" value="#{menuController.current.raiz}" title="Raiz">
                     <f:validateLongRange minimum="0" maximum="10" />
                 </p:inputText>
 
                 <h:outputLabel value="Orden:" for="orden" />
-                <p:inputText id="orden" value="#{menuController.selected.orden}" title="Orden">
+                <p:inputText id="orden" value="#{menuController.current.orden}" title="Orden">
                     <f:validateLongRange minimum="0" maximum="10" />
                 </p:inputText>
 
                 <f:facet name="footer" >
 
-                    <p:commandButton value="Agregar" action="#{menuController.agregar}" />
-                    <h:commandButton value="Guardar" action="#{menuController.guardar}" />
-                    <p:commandButton value="Cancelar" action="#{menuController.index}" immediate="true" />
+                    <p:commandButton value="#{bundle['boton.guardar']}" action="#{menuController.persist()}" />
+                    <p:commandButton value="#{bundle['boton.actualizar']}" action="#{menuController.update()}" />
+                    <p:commandButton value="#{bundle['boton.cancelar']}" action="#{menuController.cancelEdit()}" immediate="true" />
                 </f:facet>
 
             </p:panelGrid>
