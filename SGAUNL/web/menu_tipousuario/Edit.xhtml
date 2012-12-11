@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../templates/plantilla.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+
+        <h:form>
+
+            <h2><h:outputText value="Control de Acceso"/></h2>
+
+            <h4> <h:messages globalOnly="false" style="color: red" /> </h4>
+
+
+
+            <p:panelGrid columns="2" >
+                <h:outputLabel value="Menu      :" for="menuId" />
+                <p:selectOneMenu id="menuId" value="#{menuTipousuarioController.selected.menuId}" >
+                    <f:selectItems value="#{menuController.itemsAvailableSelectOne}"/>
+                </p:selectOneMenu>
+
+                <h:outputLabel value="Tipo Usr. :" for="tipousuarioId" />
+                <p:selectOneMenu id="tipousuarioId" value="#{menuTipousuarioController.selected.tipousuarioId}" >
+                    <f:selectItems value="#{tipousuarioController.itemsAvailableSelectOne}"/>
+                </p:selectOneMenu>
+
+                <h:outputLabel value="Creado    :" for="crated" />
+                <p:inputText id="created" value="#{usuarioController.selected.created}" title="Creado" disabled="true" >
+                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                </p:inputText>
+
+                <h:outputLabel value="Modificado:" for="updated" />
+                <p:inputText id="updated" value="#{usuarioController.selected.updated}" title="Actualizado" disabled="true" >
+                    <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                </p:inputText>
+
+                <f:facet name="footer" >
+                    <h:commandButton value="Agregar" action="#{menuTipousuarioController.agregar}" />
+                    <h:commandButton value="Guardar" action="#{menuTipousuarioController.guardar}" />
+                    <h:commandButton value="Cancelar" action="#{menuTipousuarioController.index}" immediate="true" />
+                </f:facet>
+
+            </p:panelGrid>
+
+        </h:form>
+
+
+
+    </ui:define>
+
+</ui:composition>

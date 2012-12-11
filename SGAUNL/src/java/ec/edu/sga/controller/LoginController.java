@@ -62,6 +62,8 @@ public class LoginController implements Serializable {
     @Size(min=1,message="Debe ingresar la clave repetida")
     private String claveRep;
     
+    private boolean logueado;
+    
     
     /**
      * Creates a new instance of LoginController
@@ -88,6 +90,16 @@ public class LoginController implements Serializable {
 
     public String getClaveRep() { return claveRep; }
     public void setClaveRep(String claveRep) { this.claveRep = claveRep; }
+
+    public boolean isLogueado() {
+        return logueado;
+    }
+
+    public void setLogueado(boolean logueado) {
+        this.logueado = logueado;
+    }
+    
+    
     
     
     
@@ -102,7 +114,7 @@ public class LoginController implements Serializable {
     } // Fin public String acercaDe
 
     public String login() {
-        return "/home/login";
+        return "/login/login";
     } // Fin public String login
 
     // Funcion de ingreso al sistema
@@ -126,7 +138,7 @@ public class LoginController implements Serializable {
 
     public String logout() {
         SessionUtil.closeSession();
-        return "/index";
+        return "/bienvenida";
     } // Fin public String logout
 
     public String cambio_clave() {
@@ -159,11 +171,18 @@ public class LoginController implements Serializable {
     } // Fin public String cambiarPWD
 
     // Funcion que determina si hay un usuario logueado.
-    public Boolean logueado() {
-        Integer userLog = SessionUtil.getUserLog();
-        return !(userLog == null);
-    } // Fin public Boolean logueado
+//    public String logueadoPrueba() {
+//        Long userLog = SessionUtil.getUserLog();
+//        logueado =  !(userLog == null);
+//        return "/templates/plantilla";
+//    } // Fin public Boolean logueado
     
+    
+    public Boolean logueado() {
+        Long userLog = SessionUtil.getUserLog();
+        return   !(userLog == null);
+        
+    }
 
     public String irA(String action) {
         return action;
@@ -181,7 +200,7 @@ public class LoginController implements Serializable {
         if (!ctrl) { return true; } // Si el indicador dice que no hay que controlar, tiene acceso.
 
         // Si el usuario no ingreso, no hay acceso.
-        Integer userLog = SessionUtil.getUserLog();
+        Long userLog = SessionUtil.getUserLog();
         if (userLog == null) { return false; }
 
         // El usuario ingreso, si la página está en blanco, hay acceso.

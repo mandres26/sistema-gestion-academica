@@ -31,10 +31,10 @@ public class SessionUtil {
     }
 
     // Recupera el código del usuario logueado.
-    public static Integer getUserLog() {
+    public static Long getUserLog() {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpSession sesion = (HttpSession)context.getExternalContext().getSession(false);
-        Integer userLog = (Integer)sesion.getAttribute("userLog");
+        Long userLog = (Long)sesion.getAttribute("userLog");
         return userLog;
     }
 
