@@ -32,9 +32,16 @@
                 </p:selectOneMenu>
 
                 <f:facet name="footer" >
-                    <h:commandButton value="#{bundle['boton.guardar']}" action="#{menuTipousuarioController.persist()}" />
-                    <h:commandButton value="#{bundle['boton.actualizar']}" action="#{menuTipousuarioController.update()}" />
-                    <h:commandButton value="#{bundle['boton.cancelar']}" action="#{menuTipousuarioController. cancelEdit()}" immediate="true" />
+                    <p:commandButton value="#{bundle['boton.guardar']}" 
+                                     action="#{menuTipousuarioController.persist()}" 
+                                     icon="#{bundle['icono.guardar']}"/>
+                    <p:commandButton value="#{bundle['boton.actualizar']}" 
+                                     action="#{menuTipousuarioController.update()}" 
+                                     icon="#{bundle['icono.actualizar']}"/>
+                    <p:commandButton value="#{bundle['boton.cancelar']}" 
+                                     action="#{menuTipousuarioController. cancelEdit()}" 
+                                     immediate="true" 
+                                     icon="#{bundle['icono.cancelar']}"/>
                 </f:facet>
 
             </p:panelGrid>
