@@ -26,14 +26,11 @@ public class CursoController implements Serializable {
 
     private Curso current;
     private List<Curso> resultlist;
-    private List<Paralelo> listParalelos;
+    
     @EJB
     private ec.edu.sga.facade.CursoFacade ejbFacade;
-    @EJB
-    private ParaleloFacade ejbFacadeParalelo;
-    //@EJB
-    private NivelFacade ejbFacadeNivel;
-    private Long cursoId;
+   
+     private Long cursoId;
     @Inject
     Conversation conversation;
 
@@ -79,13 +76,11 @@ public class CursoController implements Serializable {
 
 
 
-            //Method that return an Course, next of to enter the id 
-            //this.current = ejbFacade.find(cursoId);
             //Method that return an Course whith all their paralels 
             this.current = ejbFacade.findCursoByCursoId(cursoId);
             this.cursoId = this.current.getId();
 
-            //esto era una prueba       this.getItemsAvailableSelectOne();
+           
             System.out.println("========> INGRESO a Editar un Curso: " + current.getNombreCurso());
         } else {
             System.out.println("========> INGRESO a Crear un Curso: ");
@@ -93,38 +88,6 @@ public class CursoController implements Serializable {
         }
 
 
-    }
-
-    public List<Paralelo> getListParalelos() {
-        return listParalelos;
-    }
-
-    public void setListParalelos(List<Paralelo> listParalelos) {
-        this.listParalelos = listParalelos;
-    }
-
-    public CursoFacade getEjbFacade() {
-        return ejbFacade;
-    }
-
-    public void setEjbFacade(CursoFacade ejbFacade) {
-        this.ejbFacade = ejbFacade;
-    }
-
-    public ParaleloFacade getEjbFacadeParalelo() {
-        return ejbFacadeParalelo;
-    }
-
-    public void setEjbFacadeParalelo(ParaleloFacade ejbFacadeParalelo) {
-        this.ejbFacadeParalelo = ejbFacadeParalelo;
-    }
-
-    public NivelFacade getEjbFacadeNivel() {
-        return ejbFacadeNivel;
-    }
-
-    public void setEjbFacadeNivel(NivelFacade ejbFacadeNivel) {
-        this.ejbFacadeNivel = ejbFacadeNivel;
     }
 
     public Conversation getConversation() {
@@ -135,6 +98,7 @@ public class CursoController implements Serializable {
         this.conversation = conversation;
     }
 
+    
     //--------------------------------------MÉTODOS--------------------------------//
     //Encuentra todos los cursos y los presenta en una tabla
     public String findAll() {
@@ -142,18 +106,7 @@ public class CursoController implements Serializable {
         return "curso/List";
     }
 
-    public String findAllCursosAndParalelos() {
-        resultlist = ejbFacade.findCursosAndParalelos();
-        for (Curso object : resultlist) {
-            System.out.println("cursos: " + object);
-
-        }
-        String summary = "Encontrado Correctamente!";
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null));
-        return "curso/List";
-    }
-
-    public void addParalelos() {
+     public void addParalelos() {
         Paralelo p = new Paralelo();
         current.add(p);
     }
@@ -245,12 +198,9 @@ public class CursoController implements Serializable {
     }
 
     public SelectItem[] getItemsAvailableSelectOne() {
-        return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
+        return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
-    private SelectItem[] itemsParalelos;
+    
 
-    public void setItemsParalelos(SelectItem[] itemsParalelos) {
-        this.itemsParalelos = itemsParalelos;
-    }
-
+    
 }
