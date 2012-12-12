@@ -7,54 +7,62 @@
                 xmlns:f="http://java.sun.com/jsf/core">
 
 
-  
+
 
     <ui:define name="content">
 
-        
+
         <p:ajaxStatus style="width:16px;height:16px;" id="ajaxStatusPanel">
-                <f:facet name="start">
-                    <h:graphicImage library="img" name="ajaxloading.gif" />
-                </f:facet>
-                <f:facet name="complete">
-                    <h:outputText value="" />
-                </f:facet>
-            </p:ajaxStatus>
-        
-        
-       
-        
-        
-        <h:form id="formListAnio"
+            <f:facet name="start">
+                <h:graphicImage library="img" name="ajaxloading.gif" />
+            </f:facet>
+            <f:facet name="complete">
+                <h:outputText value="" />
+            </f:facet>
+        </p:ajaxStatus>
+
+        <f:metadata>
+            <f:event listener="#{anioLectivoController.findAll}" type="preRenderView" />
+            <f:viewParam name="anioLectivoId" value="#{anioLectivoController.anioLectivoId}"/>
+        </f:metadata>
+
+
+
+        <h:form id="formAnioList"
                 prependId="false">
 
             <p:messages closable="true" autoUpdate="true"/>
-            
-            
+
+
+            <!--
             <h:panelGrid  columns="3">
-                
+
                 <h:outputLabel value="#{bundle['label.buscar']}" />
                 <p:inputText label="#{bundle['label.buscar']}" value="#{anioLectivoController.criterio}" >
-                
-                    <f:convertDateTime pattern="yyyy" />
+
+                    <f:convertDateTime pattern="dd/MM/yyyy" />
                 </p:inputText>
                 <p:commandButton value="#{bundle['boton.buscar']}"
                                  action="#{anioLectivoController.findAllAniosByCriterio()}"
                                  icon="#{bundle['icono.buscar']}"
-                                 update="idTabla"
+                                 update="idAnioTable"
                                  ajax="true"/>
-                             
+
             </h:panelGrid>
-            
-            
+
+-->
 
             <p:panel header="#{bundle['boton.lista']}">
 
-                <p:dataTable id="idTabla"   value="#{anioLectivoController.resultlist}"  var="_anio">
+                <p:dataTable id="idAnioTable"   
+                             value="#{anioLectivoController.resultlist}" 
+                             var="_anio"
+                             paginator="true" rows="10">
+                    
 
                     <p:column headerText="#{bundle['anioController.fechainicio']}">
 
-                        <h:outputText value="#{_anio.fechaFin}"/>
+                        <h:outputText value="#{_anio.fechaInicio}"/>
 
                     </p:column>
 
@@ -73,14 +81,58 @@
 
                     <p:column  headerText="#{bundle['boton.acciones']}">
 
-                        <p:button value="#{bundle['boton.editar']}" />
-                        <p:button value="#{bundle['boton.eliminar']}" />
+                        <p:button value="#{bundle['boton.editar']}" 
+                                  outcome="/anioLectivo/Edit"
+                                  icon="#{bundle['icono.editar']}">
+                            <f:param name="anioLectivoId" value="#{_anio.id}"/>
+                        </p:button>
+
+                        <p:commandButton value="#{bundle['boton.eliminar']}"   
+                                         oncomplete="confirmacion.show()"
+                                         ajax="true"
+                                         update=":formAnioList:idDialogoConfirmacion"
+                                         process="@this"
+                                         icon="#{bundle['icono.eliminar']}">
+                            
+                            <f:param name="anioLectivoId" value="#{_anio.id}" />
+
+                        </p:commandButton>
 
                     </p:column>
 
 
                 </p:dataTable>
             </p:panel>
+
+
+            <p:confirmDialog id="idDialogoConfirmacion"
+                             header="#{bundle['label.eliminarRegistros']}"
+                             message="#{bundle['mensaje.confirmacion']}:  #{anioLectivoController.current. fechaInicio}" 
+                             widgetVar="confirmacion"
+                             severity="alert">
+
+                <p:commandButton id="idConfirmacion" 
+                                 value="#{bundle['boton.si']}"
+                                 oncomplete="confirmacion.hide()"
+                                 action="#{anioLectivoController.delete()}"
+                                 update=":formAnioList:idAnioTable">
+
+                    <f:param name="anioLectivoId" value="#{anioLectivoController.anioLectivoId}"/>
+
+                </p:commandButton>
+
+                <p:commandButton id="idDeclinacion"
+                                 value="#{bundle['boton.no']}"
+                                 oncomplete="confirmacion.hide()"
+                                 action="#{anioLectivoController.endConversation()}">
+
+                </p:commandButton>
+
+
+            </p:confirmDialog>
+
+
+
         </h:form>
 
 
