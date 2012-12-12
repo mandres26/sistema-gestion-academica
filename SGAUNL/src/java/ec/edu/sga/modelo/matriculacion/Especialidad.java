@@ -6,6 +6,7 @@ package ec.edu.sga.modelo.matriculacion;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,7 +36,7 @@ public class Especialidad implements Serializable {
     private Long id;
     private String nombreEspecialidad;
     private String descripcionEspecialidad;
-    @OneToMany(mappedBy = "especialidad")
+    @OneToMany(mappedBy = "especialidad", cascade= CascadeType.ALL)
     private List<Curso> cursos;
     @ManyToOne
     private Nivel nivel;
