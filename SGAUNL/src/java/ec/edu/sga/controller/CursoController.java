@@ -1,11 +1,14 @@
 package ec.edu.sga.controller;
 
 import ec.edu.sga.controller.util.JsfUtil;
+import ec.edu.sga.controller.util.SessionUtil;
 import ec.edu.sga.facade.CursoFacade;
 import ec.edu.sga.facade.NivelFacade;
 import ec.edu.sga.facade.ParaleloFacade;
 import ec.edu.sga.modelo.matriculacion.Curso;
+import ec.edu.sga.modelo.matriculacion.Nivel;
 import ec.edu.sga.modelo.matriculacion.Paralelo;
+import ec.edu.sga.modelo.matriculacion.TipoNivel;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,10 +18,16 @@ import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.component.UIInput;
+import javax.faces.component.UIOutput;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
+import javax.faces.event.ValueChangeListener;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
+import org.primefaces.context.RequestContext;
 
 @Named("cursoController")
 @ConversationScoped
@@ -26,11 +35,9 @@ public class CursoController implements Serializable {
 
     private Curso current;
     private List<Curso> resultlist;
-    
     @EJB
     private ec.edu.sga.facade.CursoFacade ejbFacade;
-   
-     private Long cursoId;
+    private Long cursoId;
     @Inject
     Conversation conversation;
 
@@ -80,7 +87,7 @@ public class CursoController implements Serializable {
             this.current = ejbFacade.findCursoByCursoId(cursoId);
             this.cursoId = this.current.getId();
 
-           
+
             System.out.println("========> INGRESO a Editar un Curso: " + current.getNombreCurso());
         } else {
             System.out.println("========> INGRESO a Crear un Curso: ");
@@ -98,7 +105,6 @@ public class CursoController implements Serializable {
         this.conversation = conversation;
     }
 
-    
     //--------------------------------------MÉTODOS--------------------------------//
     //Encuentra todos los cursos y los presenta en una tabla
     public String findAll() {
@@ -106,7 +112,7 @@ public class CursoController implements Serializable {
         return "curso/List";
     }
 
-     public void addParalelos() {
+    public void addParalelos() {
         Paralelo p = new Paralelo();
         current.add(p);
     }
@@ -138,7 +144,7 @@ public class CursoController implements Serializable {
         System.out.println("========> INGRESO a Crear una instancia de curso: " + current.getNombreCurso());
         this.current = new Curso();
         return "/curso/Edit?faces-redirect=true";
-       
+
     }
 
     public String persist() {
@@ -200,7 +206,23 @@ public class CursoController implements Serializable {
     public SelectItem[] getItemsAvailableSelectOne() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
     }
-    
 
-    
+    //Método que muestra la especialidad dependiendo del nivel elegido
+    public void mostrarEspecialidad(ValueChangeEvent e) {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        UIViewRoot ui = fc.getViewRoot();
+        Nivel n = (Nivel) e.getNewValue();
+        UIInput inputEspecialidad = (UIInput) ui.findComponent("formCursoEdit:idEspecialidad");
+        UIOutput labelEspecialidad = (UIOutput) ui.findComponent("formCursoEdit:idLabelEspecialidad");
+        if (n.getTipoNivel().equals(TipoNivel.BACHILLERATO)) {
+            inputEspecialidad.setRendered(true);
+            labelEspecialidad.setRendered(true);
+
+        } else {
+            inputEspecialidad.setRendered(false);
+            labelEspecialidad.setRendered(false);
+
+        }
+
+    }
 }
