@@ -26,7 +26,7 @@
             </p:ajaxStatus>
 
 
-           <h:form id="formEdit" prependId="false">
+           <h:form id="formCursoEdit" prependId="false">
                 <p:panel header="#{cursoController.cursoId!=null  ? bundle['boton.editar'] : bundle['boton.nuevo']}" 
                          id="panelEditCurso"
                          styleClass = "myPanelStyle myPanelStyleTitle">
@@ -39,7 +39,9 @@
                                      required="true"
                                      value="#{cursoController.current.nombreCurso}" 
                                      validatorMessage="No ha ingresado un nombre para el curso"
-                                     styleClass="letras"/> 
+                                     styleClass="letras">
+                            <p:ajax/>
+                        </p:inputText>
 
 
                         <h:outputLabel value="#{bundle['cursoController.nivel']}"/>
@@ -47,14 +49,20 @@
                                          converter="genericConverter"
                                          value="#{cursoController.current.nivel}"
                                          validatorMessage="Escoja un nivel"
-                                         label="#{bundle['cursoController.nivel']}">
+                                         label="#{bundle['cursoController.nivel']}"
+                                         valueChangeListener="#{cursoController.mostrarEspecialidad}"
+                                         immediate="true">
 
                             <f:selectItem itemLabel="#{bundle.item}" itemValue="" />  
                             <f:selectItems value="#{nivelController.itemsAvailableSelectOne}"/>
+                            <p:ajax update="@form idEspecialidad"/>
                         </p:selectOneMenu>
 
-                        <h:outputLabel value="#{bundle['cursoController.especialidad']}"/>
-                        <p:selectOneMenu id="idEspecialidad" 
+                        <h:outputLabel value="#{bundle['cursoController.especialidad']}" 
+                                       id="idLabelEspecialidad"
+                                       rendered="false"/>
+                        <p:selectOneMenu id="idEspecialidad"
+                                         rendered="false"
                                          label="#{bundle['cursoController.especialidad']}"
                                          converter="genericConverter"
                                          value="#{cursoController.current.especialidad}"
