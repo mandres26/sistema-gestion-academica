@@ -81,7 +81,7 @@ public class ProgramaParticipacionEstudiantilController implements Serializable 
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ProgramaParticipacionEstudiantilCreated"));
+            JsfUtil.addInformacionMessage(ResourceBundle.getBundle("/Bundle").getString("ProgramaParticipacionEstudiantilCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -98,7 +98,7 @@ public class ProgramaParticipacionEstudiantilController implements Serializable 
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ProgramaParticipacionEstudiantilUpdated"));
+            JsfUtil.addInformacionMessage(ResourceBundle.getBundle("/Bundle").getString("ProgramaParticipacionEstudiantilUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -131,7 +131,7 @@ public class ProgramaParticipacionEstudiantilController implements Serializable 
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("ProgramaParticipacionEstudiantilDeleted"));
+            JsfUtil.addInformacionMessage(ResourceBundle.getBundle("/Bundle").getString("ProgramaParticipacionEstudiantilDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }

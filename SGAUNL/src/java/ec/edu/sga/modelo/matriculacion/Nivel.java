@@ -18,6 +18,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.TableGenerator;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -37,11 +39,13 @@ public class Nivel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "NivelGenerador")
     private Long id;
+    @NotNull
+    @Size(min=1,message="Debe ingresar un nombre")
     private String nombreNivel;
     private String descripcionNivel;
     @Enumerated(EnumType.STRING)
     private TipoNivel tipoNivel = TipoNivel.INICIAL;
-    @OneToMany(mappedBy = "nivel", cascade= CascadeType.ALL, orphanRemoval=true)
+    @OneToMany(mappedBy = "nivel")
     private List<Curso> cursos;
     @OneToMany(mappedBy = "nivel", cascade= CascadeType.ALL, orphanRemoval=true)
     private List<Especialidad> especialidades;

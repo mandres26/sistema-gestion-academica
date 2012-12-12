@@ -16,7 +16,7 @@ public class SessionUtil {
     // Se crean las variables de sesion.
     public static void addSession(Long userId, String userNombre, Long tipo, String userTipo) {
         FacesContext context = FacesContext.getCurrentInstance();
-        HttpSession sesion = (HttpSession)context.getExternalContext().getSession(true);
+        HttpSession sesion = (HttpSession)context.getExternalContext().getSession(false);
 
         sesion.setAttribute("userLog", userId);
         sesion.setAttribute("userNombre", userNombre);
@@ -33,7 +33,7 @@ public class SessionUtil {
     // Recupera el código del usuario logueado.
     public static Long getUserLog() {
         FacesContext context = FacesContext.getCurrentInstance();
-        HttpSession sesion = (HttpSession)context.getExternalContext().getSession(false);
+        HttpSession sesion = (HttpSession)context.getExternalContext().getSession(true);
         Long userLog = (Long)sesion.getAttribute("userLog");
         return userLog;
     }

@@ -23,6 +23,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -47,6 +49,9 @@ public class Curso implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "CursoGenerador")
     private Long id;
+    
+    @NotNull
+    @Size(min=1,message="Debe ingresar un nombre")
     private String nombreCurso;
     @ManyToOne
     private Especialidad especialidad;

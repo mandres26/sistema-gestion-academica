@@ -81,7 +81,7 @@ public class RegistroCalificacionesController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RegistroCalificacionesCreated"));
+            JsfUtil.addInformacionMessage(ResourceBundle.getBundle("/Bundle").getString("RegistroCalificacionesCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -98,7 +98,7 @@ public class RegistroCalificacionesController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RegistroCalificacionesUpdated"));
+            JsfUtil.addInformacionMessage(ResourceBundle.getBundle("/Bundle").getString("RegistroCalificacionesUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -131,7 +131,7 @@ public class RegistroCalificacionesController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("RegistroCalificacionesDeleted"));
+            JsfUtil.addInformacionMessage(ResourceBundle.getBundle("/Bundle").getString("RegistroCalificacionesDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }

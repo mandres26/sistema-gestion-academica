@@ -36,7 +36,7 @@ public class Especialidad implements Serializable {
     private Long id;
     private String nombreEspecialidad;
     private String descripcionEspecialidad;
-    @OneToMany(mappedBy = "especialidad", cascade= CascadeType.ALL)
+    @OneToMany(mappedBy = "especialidad")
     private List<Curso> cursos;
     @ManyToOne
     private Nivel nivel;

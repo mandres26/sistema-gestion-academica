@@ -81,7 +81,7 @@ public class PeriodoAcademicoController implements Serializable {
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("QuimestreCreated"));
+            JsfUtil.addInformacionMessage(ResourceBundle.getBundle("/Bundle").getString("QuimestreCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -98,7 +98,7 @@ public class PeriodoAcademicoController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("QuimestreUpdated"));
+            JsfUtil.addInformacionMessage(ResourceBundle.getBundle("/Bundle").getString("QuimestreUpdated"));
             return "View";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -131,7 +131,7 @@ public class PeriodoAcademicoController implements Serializable {
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("QuimestreDeleted"));
+            JsfUtil.addInformacionMessage(ResourceBundle.getBundle("/Bundle").getString("QuimestreDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }

@@ -15,6 +15,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.TableGenerator;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -35,7 +37,10 @@ public class Paralelo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "ParaleloGenerador")
     private Long id;
+    @NotNull
+    @Size(min=1,message="Debe ingresar un nombre")
     private String nombreParalelo;
+    
     private int numeroCupos;
     @ManyToOne
     private Curso curso;

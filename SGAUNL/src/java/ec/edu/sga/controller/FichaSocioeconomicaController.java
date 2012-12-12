@@ -68,7 +68,7 @@ public class FichaSocioeconomicaController implements Serializable{
         this.endConversation();
 
         String summary = ResourceBundle.getBundle("/Bundle").getString("EstudianteCreated");
-        JsfUtil.addSuccessMessage(summary);
+        JsfUtil.addInformacionMessage(summary);
         //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null));
         FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 
@@ -209,7 +209,7 @@ public class FichaSocioeconomicaController implements Serializable{
     public String create() {
         try {
             getFacade().create(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("EstudianteCreated"));
+            JsfUtil.addInformacionMessage(ResourceBundle.getBundle("/Bundle").getString("EstudianteCreated"));
             return prepareCreate();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
@@ -259,7 +259,7 @@ public class FichaSocioeconomicaController implements Serializable{
     private void performDestroy() {
         try {
             getFacade().remove(current);
-            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("EstudianteDeleted"));
+            JsfUtil.addInformacionMessage(ResourceBundle.getBundle("/Bundle").getString("EstudianteDeleted"));
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
         }

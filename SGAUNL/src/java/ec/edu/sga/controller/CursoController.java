@@ -1,10 +1,6 @@
 package ec.edu.sga.controller;
 
 import ec.edu.sga.controller.util.JsfUtil;
-import ec.edu.sga.controller.util.SessionUtil;
-import ec.edu.sga.facade.CursoFacade;
-import ec.edu.sga.facade.NivelFacade;
-import ec.edu.sga.facade.ParaleloFacade;
 import ec.edu.sga.modelo.matriculacion.Curso;
 import ec.edu.sga.modelo.matriculacion.Nivel;
 import ec.edu.sga.modelo.matriculacion.Paralelo;
@@ -23,11 +19,9 @@ import javax.faces.component.UIOutput;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
-import javax.faces.event.ValueChangeListener;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
-import org.primefaces.context.RequestContext;
 
 @Named("cursoController")
 @ConversationScoped
@@ -155,9 +149,8 @@ public class CursoController implements Serializable {
         ejbFacade.create(current);
         this.endConversation();
 
-        String summary = ResourceBundle.getBundle("/Bundle").getString("CursoCreated");
-        JsfUtil.addSuccessMessage(summary);
-
+        String summary = ResourceBundle.getBundle("/Bundle").getString("mensaje.curso.creado");
+        JsfUtil.addInformacionMessage(summary);
         FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 
         return "/curso/List?faces-redirect=true";
@@ -166,17 +159,15 @@ public class CursoController implements Serializable {
     }
 
     public String update() {
-
         System.out.println("========> INGRESO a Actualizar al Curso: " + current.getNombreCurso());
         current.setUpdated(new Date());
         ejbFacade.edit(current);
         System.out.println("ya modifique");
         this.endConversation();
 
-        String summary = ResourceBundle.getBundle("/Bundle").getString("EstudianteUpdated");
-        FacesContext.getCurrentInstance().addMessage("successInfo", new FacesMessage(FacesMessage.SEVERITY_INFO, summary, summary));
+        String summary = ResourceBundle.getBundle("/Bundle").getString("mensaje.curso.actualizado");
+        JsfUtil.addInformacionMessage(summary);
         FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-
         return "/curso/List?faces-redirect=true";
 
     }
@@ -186,14 +177,11 @@ public class CursoController implements Serializable {
         ejbFacade.remove(current);
 
         //cambia este método por uno implementado con búsqueda por criteria
-        this.findAll();
-
+        //this.findAll();
         this.endConversation();
-
-        String summary = "Curso Eliminado Correctamente!";
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null));
-
-
+        String summary = ResourceBundle.getBundle("/Bundle").getString("mensaje.curso.eliminado");
+        JsfUtil.addInformacionMessage(summary);
+        FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
         return "/curso/List?faces-redirect=true";
 
     }

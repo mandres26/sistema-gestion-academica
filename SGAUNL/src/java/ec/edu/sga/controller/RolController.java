@@ -62,7 +62,7 @@ public class RolController implements Serializable {
         this.endConversation();
 
         String summary = ResourceBundle.getBundle("/Bundle").getString("EstudianteCreated");
-        JsfUtil.addSuccessMessage(summary);
+        JsfUtil.addInformacionMessage(summary);
         //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null));
         FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 

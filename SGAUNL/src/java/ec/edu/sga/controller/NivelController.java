@@ -86,7 +86,7 @@ public class NivelController implements Serializable {
         ejbFacade.create(current);
         this.endConversation();
          String summary = ResourceBundle.getBundle("/Bundle").getString("NivelCreated");
-        JsfUtil.addSuccessMessage(summary);
+        JsfUtil.addInformacionMessage(summary);
        
         FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 

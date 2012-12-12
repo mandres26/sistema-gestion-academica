@@ -116,7 +116,7 @@ public MenuTipousuario getCurrent() {
         this.endConversation();
 
         String summary = ResourceBundle.getBundle("/Bundle").getString("CursoCreated");
-        JsfUtil.addSuccessMessage(summary);
+        JsfUtil.addInformacionMessage(summary);
 
         FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 

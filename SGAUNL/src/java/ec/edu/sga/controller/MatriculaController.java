@@ -215,7 +215,7 @@ public class MatriculaController implements Serializable {
         ejbFacade.create(current);
         this.endConversation();
         String summary = ResourceBundle.getBundle("/Bundle").getString("MatriculaCreated");
-        JsfUtil.addSuccessMessage(summary);
+        JsfUtil.addInformacionMessage(summary);
         FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
         return "/index";
     }

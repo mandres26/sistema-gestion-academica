@@ -89,7 +89,7 @@ public class EspecialidadController implements Serializable {
         ejbFacade.create(current);
         this.endConversation();
          String summary = ResourceBundle.getBundle("/Bundle").getString("EspecialidadCreated");
-        JsfUtil.addSuccessMessage(summary);
+        JsfUtil.addInformacionMessage(summary);
        
         FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 

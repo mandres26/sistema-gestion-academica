@@ -1,5 +1,4 @@
 package ec.edu.sga.controller;
-
 import ec.edu.sga.controller.util.JsfUtil;
 import ec.edu.sga.facade.AnioLectivoFacade;
 import ec.edu.sga.modelo.matriculacion.AnioLectivo;
@@ -93,11 +92,9 @@ public class AnioLectivoController implements Serializable {
         current.setUpdated(new Date());
         ejbFacade.create(current);
         this.endConversation();
-        String summary = ResourceBundle.getBundle("/Bundle").getString("AnioLectivoCreated");
-        JsfUtil.addSuccessMessage(summary);
-
+        String summary = ResourceBundle.getBundle("/Bundle").getString("mensaje.anio.creado");
+        JsfUtil.addInformacionMessage(summary);
         FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-
         return "/anioLectivo/List?faces-redirect=true";
     }
 
@@ -107,6 +104,9 @@ public class AnioLectivoController implements Serializable {
         ejbFacade.edit(current);
         System.out.println("Ya actualicé el año lectivo: " + current.getFechaInicio());
         this.endConversation();
+        String summary = ResourceBundle.getBundle("/Bundle").getString("mensaje.anio.actualizado");
+        JsfUtil.addInformacionMessage(summary);
+        FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
         return "/anioLectivo/List?faces-redirect=true";
     }
 
@@ -115,6 +115,9 @@ public class AnioLectivoController implements Serializable {
         ejbFacade.remove(current);
         System.out.println("ya eliminé el año lectivo");
         this.endConversation();
+        String summary = ResourceBundle.getBundle("/Bundle").getString("mensaje.anio.eliminado");
+        JsfUtil.addInformacionMessage(summary);
+        FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
         return "/anioLectivo/List?faces-redirect=true";
     }
 
@@ -146,7 +149,7 @@ public class AnioLectivoController implements Serializable {
         return "anioLectivo/List";
     }
 
-    //Método que encuentra todos los años de acuerdo a un criterio
+    //Método que encuentra todos los años de acuerdo a un criterio(metodo que si funciona)
 //    public String findAllAniosByCriterio() {
 //        System.out.println("criterio inicio: " + criterio);
 //        if (criterio != null) {
