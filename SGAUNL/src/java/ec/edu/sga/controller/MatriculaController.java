@@ -72,17 +72,6 @@ public class MatriculaController implements Serializable {
         paralelo = new Paralelo();
         especialidad = new Especialidad();
 
-        //current.setCurso(curso);
-        // especialidad.setNivel(nivel);
-        // curso.setNivel(nivel);
-        //       // curso.setEspecialidad(especialidad);
-        // paralelo.setCurso(curso);
-        //curso.setNivel(nivel);
-        System.out.println("Este es el valor de cursoId: " + nivelId);
-        System.out.println("Este es el valor de usuarioId: " + usuarioId);
-        System.out.println("Este es el valor de usuarioId: " + cursoId);
-
-
     }
 
     //_____________________SETTERS AND GETTERS_____________________________//
@@ -219,11 +208,6 @@ public class MatriculaController implements Serializable {
         }
     }
 
-//    public void asignarCursosParalelos() {
-//
-//        Nivel n = ejbFacadeNivel.find(nivel.getId());
-//
-//    }
     public String persist() {
         System.out.println("Ingreso a grabar la matrícula: " + current.getTipoMatricula());
         current.setParalelo(paralelo);
@@ -232,9 +216,7 @@ public class MatriculaController implements Serializable {
         this.endConversation();
         String summary = ResourceBundle.getBundle("/Bundle").getString("MatriculaCreated");
         JsfUtil.addSuccessMessage(summary);
-
         FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
-
         return "/index";
     }
 
@@ -331,39 +313,6 @@ public class MatriculaController implements Serializable {
         this.itemsParalelosByCursoId = itemsParalelosByCursoId;
     }
 
-//    public SelectItem[] getItemsEspecialidadesByNivelId() {
-//       beginConversation();
-//        return JsfUtil.getSelectItems(ejbFacadeEspecialidad.findEspecialidadesByNivelId(Long.parseLong("3")), false);
-//    }
-//    public SelectItem[] getItemsCursosbyNivelId() {
-//        return JsfUtil.getSelectItems(ejbFacadeCurso.findAllCursosbyNivelId(current.getCurso().getNivel().getId()), false); //Long.parseLong("3")
-//    }
-//
-//    public SelectItem[] getItemsCursosByEspecialidadId() {
-//        return JsfUtil.getSelectItems(ejbFacadeCurso.findAllCursosbyEspecialidadId(especialidad.getId()), false);
-//    }
-//
-//    public SelectItem[] getItemsParalelosbyCursoId() {
-//        return JsfUtil.getSelectItems(ejbFacadeParalelo.findAllParalelosByCursoId(curso.getId()), false); //Long.parseLong("4")
-//    }
-    public void prueba() {
-        System.out.println("esta es una prueba");
-        System.out.println("esta es una prueba");
-        System.out.println("esta es una prueba");
-        System.out.println("esta es una prueba");
-        System.out.println("esta es una prueba");
-        System.out.println("esta es una prueba");
-        System.out.println("esta es una prueba");
-        System.out.println("esta es una prueba");
-        System.out.println("Este es el valor de nivel: " + current.getCurso().getNivel());
-        System.out.println("Este es el valor de nivelId: " + current.getCurso().getNivel().getId());
-        System.out.println("Este es el valor de cursoId: " + cursoId);
-        System.out.println("Este es el valor de usuarioId: " + usuarioId);
-        System.out.println("Este es el valor de curso: " + curso);
-
-
-        itemsEspecialidadesByNivelId = JsfUtil.getSelectItems(ejbFacadeEspecialidad.findEspecialidadesByNivelId(nivel.getId()), false);
-    }
 
     public void prueba1(ValueChangeEvent e) {
         FacesContext fc = FacesContext.getCurrentInstance();
