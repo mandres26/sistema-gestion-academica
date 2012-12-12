@@ -1,7 +1,6 @@
 package ec.edu.sga.controller;
 
 import ec.edu.sga.controller.util.JsfUtil;
-import ec.edu.sga.controller.util.SessionUtil;
 import ec.edu.sga.facade.AnioLectivoFacade;
 import ec.edu.sga.modelo.matriculacion.AnioLectivo;
 import java.io.Serializable;
@@ -46,15 +45,7 @@ public class AnioLectivoController implements Serializable {
         this.resultlist = resultlist;
     }
 
-    public AnioLectivoFacade getEjbFacade() {
-        return ejbFacade;
-    }
-
-    public void setEjbFacade(AnioLectivoFacade ejbFacade) {
-        this.ejbFacade = ejbFacade;
-    }
-
-    public Date getCriterio() {
+     public Date getCriterio() {
         return criterio;
     }
 
@@ -62,10 +53,6 @@ public class AnioLectivoController implements Serializable {
         this.criterio = criterio;
     }
 
-    
-
-    
-    
     public AnioLectivo getCurrent() {
         return current;
     }
@@ -76,6 +63,8 @@ public class AnioLectivoController implements Serializable {
         this.current = current;
     }
 
+    
+    
     public Long getAnioLectivoId() {
         if (current != null) {
             this.anioLectivoId = current.getId();
@@ -84,10 +73,10 @@ public class AnioLectivoController implements Serializable {
         return null;
     }
 
-    public void setAnioLectivo(Long anioLectivoId) {
-        conversation.begin();
+    public void setAnioLectivoId(Long anioLectivoId) {
+        this.beginConversation();
         if (anioLectivoId != null && anioLectivoId.longValue() > 0) { //Verifica que el id no sea vacío
-            this.current = ejbFacade.find(anioLectivoId);//BUsca un paralelo de acuerdo al ID y lo asigna a current
+            this.current = ejbFacade.find(anioLectivoId);//Busca un año de acuerdo al ID y lo asigna a current
             this.anioLectivoId = current.getId();
             System.out.println("Ingreso a editar año lectivo: " + current.getFechaInicio());
 
@@ -95,8 +84,6 @@ public class AnioLectivoController implements Serializable {
             System.out.println("Ingreso a crear un nuevo año lectivo");
             this.current = new AnioLectivo();
         }
-
-
     }
 
     //____________________________MÉTODOS_______________________________
@@ -111,7 +98,7 @@ public class AnioLectivoController implements Serializable {
 
         FacesContext.getCurrentInstance().getExternalContext().getFlash().setKeepMessages(true);
 
-        return "/index";
+        return "/anioLectivo/List?faces-redirect=true";
     }
 
     public String update() {
@@ -120,7 +107,7 @@ public class AnioLectivoController implements Serializable {
         ejbFacade.edit(current);
         System.out.println("Ya actualicé el año lectivo: " + current.getFechaInicio());
         this.endConversation();
-        return "/anioLectivo/List";
+        return "/anioLectivo/List?faces-redirect=true";
     }
 
     public String delete() {
@@ -128,13 +115,13 @@ public class AnioLectivoController implements Serializable {
         ejbFacade.remove(current);
         System.out.println("ya eliminé el año lectivo");
         this.endConversation();
-        return "/anioLectivo/List";
+        return "/anioLectivo/List?faces-redirect=true";
     }
 
-    public void cancelEdit() {
-        System.out.println("Terminando la conversación, cancelando el evento");
+    public String cancelEdit() {
+        System.out.println("me acaban de llamar: canceledit()");
         this.endConversation();
-
+        return "/anioLectivo/List?faces-redirect=true";
     }
 
     public void beginConversation() {
@@ -153,33 +140,28 @@ public class AnioLectivoController implements Serializable {
 
     }
 
-    public String findAllAnios() {
+    //Método que encuentra todos los años
+    public String findAll() {
         resultlist = ejbFacade.findAll();
         return "anioLectivo/List";
     }
-    
-    
-    public String findAllAniosByCriterio(){
-        System.out.println("criterio inicio: " + criterio);
-        if(criterio==null){
-          SessionUtil.addErrorMessage("No se encontró ningún resultado");
-         return "/anioLectivo/List";  
-           
-        }else{
-            System.out.println("criterio dentro del if: " + criterio);
-            resultlist = ejbFacade.findAllByCriterio(criterio);
-            if(resultlist!=null){
-                SessionUtil.addErrorMessage("Encontrado satisfactoriamente");
-            } else {
-                  SessionUtil.addErrorMessage("No se encontró ningún registro");
-            }
-      
-         return "/anioLectivo/List";
-        }
-        
-        
-    }
-    
+
+    //Método que encuentra todos los años de acuerdo a un criterio
+//    public String findAllAniosByCriterio() {
+//        System.out.println("criterio inicio: " + criterio);
+//        if (criterio != null) {
+//            resultlist = null;
+//            }
+//
+//        Date prueba = new Date();
+//        for (AnioLectivo a : ejbFacade.findAll()) {
+//            if (a.getFechaInicio().getYear() == criterio.getYear()) {
+//                resultlist.add(a);
+//            }
+//        }
+//
+//        return "/anioLectivo/List";
+//    }
 
     // ______________________MÉTODOS PARA DEVOLVER UNA LISTA DE AÑOS LECTIVOS_______________________//
     public SelectItem[] getItemsAvailableSelectMany() {
@@ -190,17 +172,9 @@ public class AnioLectivoController implements Serializable {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), true);
     }
 
+    //Método que retorna el año que está actualmente activo
     public SelectItem[] getItemAnioActivate() {
         return JsfUtil.getSelectItem(ejbFacade.findAnioActivate(Boolean.TRUE));
     }
-    //Method that return the Anio that are activate == true
-//    public AnioLectivo anioActivo(){
-//        beginConversation();
-//        AnioLectivo a = ejbFacade.findAnioActivate(Boolean.TRUE);
-//        System.out.println("el año activo es: " +a);
-//        anioLectivoId=a.getId();
-//        return ejbFacade.findAnioActivate(Boolean.TRUE);
-//        
-//       
-//    }
+ 
 }
