@@ -127,6 +127,10 @@ public class Menu implements Serializable {
         }
         return true;
     }
+    
+    public boolean isLength(){
+        return action.length() > 0;
+    }
 
     @Override
     public String toString() {

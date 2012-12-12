@@ -52,7 +52,7 @@ public class MenuController implements Serializable{
         return "/menu/index";
     }
 
-    public List<Menu> listado() {
+    public List<Menu> getListado() {
         return ejbFacade.findAllOrderMenu();
     }
 

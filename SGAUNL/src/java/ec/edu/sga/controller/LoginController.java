@@ -21,6 +21,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.validation.constraints.Size;
 import org.primefaces.context.RequestContext;
@@ -32,6 +33,9 @@ import org.primefaces.context.RequestContext;
 @Named(value = "loginController")
 @SessionScoped
 public class LoginController implements Serializable {
+    
+    @Inject
+    private SessionBean sessionBean;
 
     @EJB
     private UsersFacade usersFacade;
@@ -70,8 +74,14 @@ public class LoginController implements Serializable {
      */
     public LoginController() {
         users = new Users();
+        logueado= this.logueado();
 
     }
+
+    public void setSessionBean(SessionBean sessionBean) {
+        this.sessionBean = sessionBean;
+    }
+    
     
     
     // --------------------- Getters y Setters ---------------------
@@ -91,7 +101,7 @@ public class LoginController implements Serializable {
     public String getClaveRep() { return claveRep; }
     public void setClaveRep(String claveRep) { this.claveRep = claveRep; }
 
-    public boolean isLogueado() {
+    public boolean getLogueado() {
         return logueado;
     }
 
@@ -129,6 +139,9 @@ public class LoginController implements Serializable {
         }
 
         // Cierra la sesion y la crea con el nuevo usuario logueada.
+        
+        sessionBean.setUsuarioLogeado(login);
+        
         SessionUtil.closeSession();
         SessionUtil.addSession(login.getId(), login.getNombres(), login.getTipousuarioId().getId(), login.getTipousuarioId().getNombre());
 
