@@ -2,7 +2,6 @@ package ec.edu.sga.controller;
 
 import ec.edu.sga.controller.util.JsfUtil;
 import ec.edu.sga.facade.MenuTipousuarioFacade;
-import ec.edu.sga.modelo.usuarios.Menu;
 import ec.edu.sga.modelo.usuarios.MenuTipousuario;
 import java.io.Serializable;
 import java.util.Date;
@@ -12,7 +11,6 @@ import javax.ejb.EJB;
 import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -74,37 +72,8 @@ public MenuTipousuario getCurrent() {
         return dao.findAll();
     } // Fin public List<Usuario> listado
 
-    public String create() {
-        selected = new MenuTipousuario();
-        return "/menu_tipousuario/new";
-    } // Fin public String create
-
-    public String agregar() {
-        Date d = new Date();
-        selected.setCreated(d);
-        selected.setUpdated(d);
-        dao.create(selected);
-        return "/index";
-    } // Fin public String agregar
-
-    public String edit(int codigo) {
-        selected = dao.find(codigo);
-        return "/menu_tipousuario/edit";
-    } // Fin public Tipousuario edit
-
-    public String guardar() {
-        Date d = new Date();
-        selected.setUpdated(d);
-        dao.edit(selected);
-        return "/menu_tipousuario/index";
-    } // Fin public String guardar
-
-    public String eliminar(int codigo) {
-        selected = dao.find(codigo);
-        dao.remove(selected);
-        return "/menu_tipousuario/index";
-    } // Fin public String eliminar
-    
+   
+  
     
     
 

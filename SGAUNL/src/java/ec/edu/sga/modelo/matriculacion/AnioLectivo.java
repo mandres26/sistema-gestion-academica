@@ -28,7 +28,7 @@ import javax.persistence.TemporalType;
 @TableGenerator(name = "AnioLectivoGenerador", table = "GeneradorIdentificador", pkColumnName = "nombre",
 valueColumnName = "valor", pkColumnValue = "AnioLectivo", initialValue = 1, allocationSize = 1)
 @NamedQueries(value={@NamedQuery(name="AnioLectivo.findAnioActivo",query="select a from AnioLectivo a where a.estado=:parameter"),
-@NamedQuery(name="AnioLectivo.findByCriterio", query="SELECT a FROM AnioLectivo a WHERE a.fechaFin=:criterio")
+@NamedQuery(name="AnioLectivo.findByCriterio", query="SELECT a FROM AnioLectivo a WHERE a.fechaInicio=:criterio")
 })
 public class AnioLectivo implements Serializable {
 

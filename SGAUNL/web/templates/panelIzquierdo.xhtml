@@ -2,8 +2,45 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 
+
+
+
+    <h3> <h:outputText value="Menú Sistema"/> </h3>
+
+    <c:if test="#{homeController.logueado()}">
+
+        <h:form>
+
+            <c:forEach items="#{menuController.listado()}" var="item">
+
+                
+
+                <c:choose>
+
+                    <c:when test="#{item.action.length() > 0}">
+                        <h:graphicImage library="images" name="#{img}"/>
+                        <h:commandLink action="#{homeController.irA(item.action)}" value="#{item.nombre}"/>
+                    </c:when>
+
+                    
+
+                    <c:otherwise> <h:outputText value="#{item.nombre}"/> </c:otherwise>
+
+                </c:choose>
+                <br />
+
+            </c:forEach>
+
+        </h:form>
+
+    </c:if>
+
+
+
+    
     <h:form>
         <p:menu >  
             <p:submenu label="Inicio">  
@@ -13,7 +50,7 @@
             </p:submenu>  
 
             <p:submenu label="Configuración del Sistema">  
-                <p:menuitem value="Años Lectivos" outcome="/anioLectivo/Edit"/> 
+                <p:menuitem value="Años Lectivos" outcome="/anioLectivo/List"/> 
                 <p:menuitem value="Niveles" outcome="/nivel/Edit"/>
                 <p:menuitem value="Cursos" outcome="/curso/List"/>
                 <p:menuitem value="Especialidad" outcome="/especialidad/Edit"/>
@@ -27,7 +64,9 @@
                 <p:menuitem value="Internal" />  
             </p:submenu>  
         </p:menu> 
-    </h:form>
+    </h:form> 
+    
+    
 
 </html>
 

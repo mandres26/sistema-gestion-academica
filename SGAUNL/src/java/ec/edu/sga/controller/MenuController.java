@@ -53,40 +53,12 @@ public class MenuController implements Serializable{
     }
 
     public List<Menu> listado() {
-        return dao.findAllOrderMenu();
+        return ejbFacade.findAllOrderMenu();
     }
 
-    public String create() {
-        selected = new Menu();
-        return "/menu/new";
-    } // Fin public String create
 
-    public String agregar() {
-        Date d = new Date();
-        selected.setCreated(d);
-        selected.setUpdated(d);
-        dao.create(selected);
-        return "/index";
-    } // Fin public String agregar
 
-    public String edit(int codigo) {
-        selected = dao.find(codigo);
-        return "/menu/edit";
-    }
-
-    public String guardar() {
-        Date d = new Date();
-        selected.setUpdated(d);
-        dao.edit(selected);
-        return "/menu/index";
-    } // Fin public String guardar
-
-    public String eliminar(int codigo) {
-        selected = dao.find(codigo);
-        try { dao.remove(selected); }
-        catch (Exception e) { SessionUtil.addErrorMessage("No se puede eliminar, posibles datos asociados"); }
-        return "/menu/index";
-    } // Fin public String eliminar
+   
 
     // --------------------- Métodos de Ayuda para acceder al Bean por otras Clases ---------------------
 

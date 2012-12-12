@@ -101,7 +101,7 @@
 
                             <f:selectItem itemLabel="#{bundle.item}" itemValue=""/>
                             <f:selectItems value="#{matriculaController.itemsEspecialidadesByNivelId}"/>  
-                            <p:ajax update="idCurso idParalelo"/>
+                            <p:ajax update="idCurso idParalelo @form"/>
                         </p:selectOneMenu> 
 
 
@@ -119,7 +119,7 @@
 
                             <f:selectItem itemLabel="#{bundle.item}" itemValue=""/>
                             <f:selectItems value="#{matriculaController.itemsCursosByNivelIdOrEspecialidadId}"/> 
-                            <p:ajax update="idParalelo"/>
+                            <p:ajax update="idParalelo @form"/>
                         </p:selectOneMenu> 
 
 
