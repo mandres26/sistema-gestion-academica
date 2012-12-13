@@ -17,13 +17,14 @@ import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
 import javax.inject.Named;
+
 /**
  *
  * @author edison
  */
-@Named(value="menuController")
+@Named(value = "menuController")
 @ConversationScoped
-public class MenuController implements Serializable{
+public class MenuController implements Serializable {
 
     @EJB
     private MenuFacade dao;
@@ -31,24 +32,24 @@ public class MenuController implements Serializable{
     private MenuFacade ejbFacade;
     private Menu selected;
     private Menu current;
-     @Inject
+    @Inject
     Conversation conversation;
-     private Long menuId;
+    private Long menuId;
 
     // ---------------------- Constructor de la Clase ----------------------
-
     public MenuController() {
         current = new Menu();
         selected = new Menu();
     }
 
     public Menu getSelected() {
-        if (selected == null) { selected = new Menu(); }
+        if (selected == null) {
+            selected = new Menu();
+        }
         return selected;
     }
 
     // ---------------------- Métodos del Managed Bean ----------------------
-
     public String index() {
         return "/menu/index";
     }
@@ -57,9 +58,7 @@ public class MenuController implements Serializable{
         return ejbFacade.findAllOrderMenu();
     }
 
-
     // --------------------- Métodos de Ayuda para acceder al Bean por otras Clases ---------------------
-
     public SelectItem[] getItemsAvailableSelectOne() {
         return getSelectItems(dao.findAll(), true);
     }
@@ -91,9 +90,7 @@ public class MenuController implements Serializable{
         this.current = current;
     }
 
-    
-    
-     public Long getMenuId() {
+    public Long getMenuId() {
         if (current != null) {
             menuId = current.getId();
             return menuId;
@@ -108,9 +105,9 @@ public class MenuController implements Serializable{
         this.beginConversation();
         if (menuId != null && menuId.longValue() > 0) {
 
-           this.menuId = this.current.getId();
+            this.menuId = this.current.getId();
 
-            
+
             System.out.println("========> INGRESO a Editar un Menu: " + current.getNombre());
         } else {
             System.out.println("========> INGRESO a Crear un Menu: ");
@@ -119,14 +116,7 @@ public class MenuController implements Serializable{
 
 
     }
-  
-    
-    
-    
-    
-    
-    
-    
+
     //________________MÉTODOS PARA INICIALIZAR Y FINALIZAR LA CONVERSACIÓN_________//
     public void beginConversation() {
         if (conversation.isTransient()) {
@@ -154,7 +144,7 @@ public class MenuController implements Serializable{
         System.out.println("========> INGRESO a Crear una instancia de Menu: " + current.getNombre());
         this.current = new Menu();
         return "/index?faces-redirect=true";
-       
+
     }
 
     public String persist() {
@@ -196,7 +186,7 @@ public class MenuController implements Serializable{
         ejbFacade.remove(current);
 
         //cambia este método por uno implementado con búsqueda por criteria
-      //  this.findAll();
+        //  this.findAll();
 
         this.endConversation();
 
@@ -207,6 +197,6 @@ public class MenuController implements Serializable{
         return "/index?faces-redirect=true";
 
     }
-    
 
+    
 }

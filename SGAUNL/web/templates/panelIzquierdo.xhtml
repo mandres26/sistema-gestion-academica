@@ -13,11 +13,13 @@
         <h:form>
             <c:forEach items="#{menuController.listado}" var="item">
                 <c:choose>
-                    <c:when test="#{item!=null}">
+                    <c:when test="#{item.lengt}">
                         <h:graphicImage library="images" name="#{img}"/>
                         <h:commandLink action="#{loginController.irA(item.actio)}" value="#{item.nombre}"/>
                     </c:when>
-                    <c:otherwise> <h:outputText value="#{item.nombre}"/> </c:otherwise>
+                    <c:otherwise> 
+                        <h:outputText value="#{item.nombre}"/> 
+                    </c:otherwise>
                 </c:choose>
                 <br />
             </c:forEach>

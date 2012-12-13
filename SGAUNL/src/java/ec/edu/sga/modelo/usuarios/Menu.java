@@ -64,7 +64,7 @@ public class Menu implements Serializable {
 
     public Menu(Long id) {
         this.id = id;
-    }    
+    }
 
     // -------------------------- Getters y Setters --------------------------
     public Long getId() {
@@ -162,7 +162,7 @@ public class Menu implements Serializable {
 
     public Boolean isLengt() {
         return this.actio.length() > 0;
-    }
+        }
 
     @Override
     public String toString() {
