@@ -18,6 +18,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.ejb.EJB;
+import javax.enterprise.context.ConversationScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -132,8 +133,8 @@ public class LoginController implements Serializable {
         }
         sessionbean.setUsuarioLogeado(login);
         // Cierra la sesion y la crea con el nuevo usuario logueada.
-        SessionUtil.closeSession();
-        SessionUtil.addSession(login.getId(), login.getNombres(), login.getTipousuarioId().getId(), login.getTipousuarioId().getNombre());
+        //SessionUtil.closeSession();
+        //SessionUtil.addSession(login.getId(), login.getNombres(), login.getTipousuarioId().getId(), login.getTipousuarioId().getNombre());
 
         return "/index";
 
@@ -174,7 +175,7 @@ public class LoginController implements Serializable {
     } // Fin public String cambiarPWD
 
    
-    public Boolean logueado() {
+    public Boolean getLogueado() {
         Long userLog = SessionUtil.getUserLog();
         return !(userLog == null);
 

@@ -160,8 +160,8 @@ public class Menu implements Serializable {
         return true;
     }
 
-    public Boolean isLength() {
-        return actio.length() > 0;
+    public Boolean isLengt() {
+        return this.actio.length() > 0;
     }
 
     @Override

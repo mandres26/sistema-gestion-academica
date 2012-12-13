@@ -17,9 +17,9 @@ import javax.inject.Named;
 
 /**
  *
- * @author juanmanuelmarchese
+ * @authoredison
  */
-@Named
+@Named(value="menuTipousuarioController")
 @ConversationScoped
 public class MenuTipousuarioController implements  Serializable{
 

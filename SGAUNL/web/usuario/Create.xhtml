@@ -55,9 +55,9 @@ and open the template in the editor.
                         <p:tab id="idTabLogin" title="Datos Login" rendered="true">
                             <h:panelGrid columns="2">
                                 <h:outputLabel value="Login:"/>
-                                <p:inputText value="#{usuarioController.current.usuario}"/>
+                                <p:inputText value="#{usuarioController.current.login}"/>
                                 <h:outputLabel value="Contraseña:"/>
-                                <p:password value="#{usuarioController.current.contrasenia}" feedback="true" 
+                                <p:password value="#{usuarioController.current.clave}" feedback="true" 
                                             promptLabel="Ingrese la contraseña" weakLabel="Baja" goodLabel="Media" 
                                             strongLabel="Fuerte">
                                 </p:password>
