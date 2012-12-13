@@ -30,88 +30,84 @@ import javax.validation.constraints.Size;
 @Named(value = "loginController")
 @SessionScoped
 public class LoginController implements Serializable {
-    
-    @Inject
-    private SessionBean sessionBean;
 
+    @Inject
+    SessionBean sessionbean;
     @EJB
-    private UsersFacade usersFacade;
-    @EJB    
     private TipousuarioFacade ejbTipoUsuario;
     @EJB
     private UsuarioFacade ejbUsuario;
     @EJB
     private MenuTipousuarioFacade ejbMenuTipoUsuario;
     @EJB
-    private  MenuFacade ejbMenu;
-    
-    private Users users;
-
-    
-    @Size(min=1,message="Debe ingresar un usuario")
+    private MenuFacade ejbMenu;
+    @Size(min = 1, message = "Debe ingresar un usuario")
     private String usuario;
-
-    @Size(min=1,message="Debe ingresar la clave")
+    @Size(min = 1, message = "Debe ingresar la clave")
     private String clave;
-
-    @Size(min=1,message="Debe ingresar la clave actual")
+    @Size(min = 1, message = "Debe ingresar la clave actual")
     private String claveAct;
-
-    @Size(min=1,message="Debe ingresar la clave nueva")
+    @Size(min = 1, message = "Debe ingresar la clave nueva")
     private String claveNew;
-
-    @Size(min=1,message="Debe ingresar la clave repetida")
+    @Size(min = 1, message = "Debe ingresar la clave repetida")
     private String claveRep;
-    
-    private boolean logueado;
-    
-    
+
     /**
      * Creates a new instance of LoginController
      */
     public LoginController() {
-        users = new Users();
-        logueado= this.logueado();
-
     }
 
-    public void setSessionBean(SessionBean sessionBean) {
-        this.sessionBean = sessionBean;
-    }
-    
-    
-    
     // --------------------- Getters y Setters ---------------------
-
-    public String getUsuario() { return usuario; }
-    public void setUsuario(String usuario) { this.usuario = usuario; }
-    
-    public String getClave() { return clave; }
-    public void setClave(String clave) { this.clave = clave; }
-
-    public String getClaveAct() { return claveAct; }
-    public void setClaveAct(String claveAct) { this.claveAct = claveAct; }
-
-    public String getClaveNew() { return claveNew; }
-    public void setClaveNew(String claveNew) { this.claveNew = claveNew; }
-
-    public String getClaveRep() { return claveRep; }
-    public void setClaveRep(String claveRep) { this.claveRep = claveRep; }
-
-    public boolean getLogueado() {
-        return logueado;
+    public String getUsuario() {
+        return usuario;
     }
 
-    public void setLogueado(boolean logueado) {
-        this.logueado = logueado;
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
-    
-    
-    
-    
-    
-      // --------------------- Métodos del Bean ---------------------
 
+    public String getClave() {
+        return clave;
+    }
+
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
+
+    public String getClaveAct() {
+        return claveAct;
+    }
+
+    public void setClaveAct(String claveAct) {
+        this.claveAct = claveAct;
+    }
+
+    public String getClaveNew() {
+        return claveNew;
+    }
+
+    public void setClaveNew(String claveNew) {
+        this.claveNew = claveNew;
+    }
+
+    public String getClaveRep() {
+        return claveRep;
+    }
+
+    public void setClaveRep(String claveRep) {
+        this.claveRep = claveRep;
+    }
+
+    public void setSessionbean(SessionBean sessionbean) {
+        this.sessionbean = sessionbean;
+    }
+
+    public SessionBean getSessionbean() {
+        return sessionbean;
+    }
+
+    // --------------------- Métodos del Bean ---------------------
     public String index() {
         return "/index";
     } // Fin public String index
@@ -134,11 +130,8 @@ public class LoginController implements Serializable {
             SessionUtil.addErrorMessage("Usuario o Claves incorrectos");
             return null;
         }
-
+        sessionbean.setUsuarioLogeado(login);
         // Cierra la sesion y la crea con el nuevo usuario logueada.
-        
-        sessionBean.setUsuarioLogeado(login);
-        
         SessionUtil.closeSession();
         SessionUtil.addSession(login.getId(), login.getNombres(), login.getTipousuarioId().getId(), login.getTipousuarioId().getNombre());
 
@@ -180,18 +173,11 @@ public class LoginController implements Serializable {
 
     } // Fin public String cambiarPWD
 
-    // Funcion que determina si hay un usuario logueado.
-//    public String logueadoPrueba() {
-//        Long userLog = SessionUtil.getUserLog();
-//        logueado =  !(userLog == null);
-//        return "/templates/plantilla";
-//    } // Fin public Boolean logueado
-    
-    
+   
     public Boolean logueado() {
         Long userLog = SessionUtil.getUserLog();
-        return   !(userLog == null);
-        
+        return !(userLog == null);
+
     }
 
     public String irA(String action) {
@@ -207,23 +193,33 @@ public class LoginController implements Serializable {
     // Determina si la pagina para el tipo de usuario puede ser accedida.
     public boolean tieneAcceso(Boolean ctrl, String pagina) {
 
-        if (!ctrl) { return true; } // Si el indicador dice que no hay que controlar, tiene acceso.
+        if (!ctrl) {
+            return true;
+        } // Si el indicador dice que no hay que controlar, tiene acceso.
 
         // Si el usuario no ingreso, no hay acceso.
         Long userLog = SessionUtil.getUserLog();
-        if (userLog == null) { return false; }
+        if (userLog == null) {
+            return false;
+        }
 
         // El usuario ingreso, si la página está en blanco, hay acceso.
         // Página en blanco indica que solo se requiere está logueado).
-        if (pagina.equals("")) { return true; }
+        if (pagina.equals("")) {
+            return true;
+        }
 
         // Si la opción de menú no existe, no hay acceso.
-        Menu menu = ejbMenu.findByAction(pagina); 
-        if (menu == null) { return false; }
+        Menu menu = ejbMenu.findByAction(pagina);
+        if (menu == null) {
+            return false;
+        }
 
         // No debería pasar, pero si el tipo no existe, no hay acceso.
         Tipousuario tipo = ejbTipoUsuario.find(SessionUtil.getIdUserTipoLog());
-        if (tipo == null) { return false; }
+        if (tipo == null) {
+            return false;
+        }
 
         // Se controla acceso por menu (se busca en la tabla de accesos el tipo usuario y la página).
         return ejbMenuTipoUsuario.findByMenuAndTipousuario(menu, tipo);
@@ -236,7 +232,7 @@ public class LoginController implements Serializable {
         String tipo = SessionUtil.getUserTipoLog();
         String usuario = "";
         if (nombre != null && tipo != null) {
-           usuario = nombre + " (" + tipo + ")";
+            usuario = nombre + " (" + tipo + ")";
         }
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy h:mm a");
@@ -246,54 +242,4 @@ public class LoginController implements Serializable {
         return usuario + " - " + fechaStr + " - Desarrollado con Java EE 6 - ";
 
     } // Fin public String infoDelPie
-    
-    
-    
-    
-    
-    //METODOS ANTERIORES
-//    public String login() {
-//        RequestContext context = RequestContext.getCurrentInstance();
-//        FacesMessage msg = null;
-//        boolean loggedIn = false;
-//
-//        try {
-//            System.out.println("antes del primer if - el usuario es : " + users.getUsuario());
-//            if (usersFacade.buscarUser(users.getUsuario(), users.getPassword()) != null) {
-//                System.out.println("dentro del primer if");
-//                users = usersFacade.buscarUser(users.getUsuario(), users.getPassword());
-//            }
-//        } catch (Exception e) {
-//            return "/login/Login.xhtml";
-//        }
-//
-//
-//        System.out.println("fuera del primer if");
-//
-//        System.out.println("Usuario:    " + users);
-//        if (users != null) {
-//            System.out.println("Valor del user:   " + users);
-//            loggedIn = true;
-//            msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", users.getUsuario());
-//            return "/index.xhtml";
-//        } else {
-//            loggedIn = false;
-//            msg = new FacesMessage(FacesMessage.SEVERITY_WARN, "Login Error", "Invalid credentials");
-//
-//        }
-//
-//        FacesContext.getCurrentInstance().addMessage(null, msg);
-//        context.addCallbackParam("loggedIn", loggedIn);
-//        return "/login/Login.xhtml";
-//    }
-//
-//    public Users getUsers() {
-//        return users;
-//    }
-//
-//    public void setUsers(Users users) {
-//        this.users = users;
-//    }
-    
-    
 }

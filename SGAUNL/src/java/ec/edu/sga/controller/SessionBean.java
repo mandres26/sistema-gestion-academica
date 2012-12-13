@@ -13,12 +13,11 @@ import javax.inject.Named;
  *
  * @author edison
  */
-
-@Named
+@Named(value="sessionBean")
 @SessionScoped
 public class SessionBean implements Serializable{
     
-    private Usuario usuarioLogeado;
+    Usuario usuarioLogeado;
 
     public Usuario getUsuarioLogeado() {
         return usuarioLogeado;
@@ -27,7 +26,5 @@ public class SessionBean implements Serializable{
     public void setUsuarioLogeado(Usuario usuarioLogeado) {
         this.usuarioLogeado = usuarioLogeado;
     }
-    
-    
     
 }

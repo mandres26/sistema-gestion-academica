@@ -40,7 +40,7 @@ public class MenuFacade extends AbstractFacade<Menu> {
     public Menu findByAction(String action) {
         try {
             Query query = em.createNamedQuery("Menu.findByAction");
-            query.setParameter("action", action);
+            query.setParameter("actio", action);
             return (Menu)query.getSingleResult();
         }
         catch (Exception e) { return null; }

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author juanmanuelmarchese
+ * @author edison
  */
 public class SessionUtil {
 
@@ -33,7 +33,7 @@ public class SessionUtil {
     // Recupera el código del usuario logueado.
     public static Long getUserLog() {
         FacesContext context = FacesContext.getCurrentInstance();
-        HttpSession sesion = (HttpSession)context.getExternalContext().getSession(true);
+        HttpSession sesion = (HttpSession)context.getExternalContext().getSession(false);
         Long userLog = (Long)sesion.getAttribute("userLog");
         return userLog;
     }

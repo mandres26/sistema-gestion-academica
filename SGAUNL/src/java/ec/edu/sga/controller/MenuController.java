@@ -16,11 +16,12 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.inject.Inject;
+import javax.inject.Named;
 /**
  *
- * @author juanmanuelmarchese
+ * @author edison
  */
-@ManagedBean
+@Named(value="menuController")
 @ConversationScoped
 public class MenuController implements Serializable{
 
@@ -56,9 +57,6 @@ public class MenuController implements Serializable{
         return ejbFacade.findAllOrderMenu();
     }
 
-
-
-   
 
     // --------------------- Métodos de Ayuda para acceder al Bean por otras Clases ---------------------
 

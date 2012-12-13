@@ -5,11 +5,10 @@ import java.util.Date;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author juanmanuelmarchese
+ * @author edison
  */
 @Entity
 @TableGenerator(name = "MenuGenerador", table = "GeneradorIdentificador", pkColumnName = "nombre",
@@ -21,7 +20,7 @@ valueColumnName = "valor", pkColumnValue = "Menu", initialValue = 1, allocationS
     @NamedQuery(name = "Menu.findByNombre", query = "SELECT m FROM Menu m WHERE m.nombre = :nombre"),
     @NamedQuery(name = "Menu.findByImagen", query = "SELECT m FROM Menu m WHERE m.imagen = :imagen"),
     @NamedQuery(name = "Menu.findByUrl", query = "SELECT m FROM Menu m WHERE m.url = :url"),
-    @NamedQuery(name = "Menu.findByAction", query = "SELECT m FROM Menu m WHERE m.action = :action"),
+    @NamedQuery(name = "Menu.findByAction", query = "SELECT m FROM Menu m WHERE m.actio = :action"),
     @NamedQuery(name = "Menu.findByRaiz", query = "SELECT m FROM Menu m WHERE m.raiz = :raiz"),
     @NamedQuery(name = "Menu.findByOrden", query = "SELECT m FROM Menu m WHERE m.orden = :orden"),
     @NamedQuery(name = "Menu.findByCreated", query = "SELECT m FROM Menu m WHERE m.created = :created"),
@@ -29,85 +28,118 @@ valueColumnName = "valor", pkColumnValue = "Menu", initialValue = 1, allocationS
 public class Menu implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE, generator="MenuGenerador")
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "MenuGenerador")
     @Basic(optional = false)
     @Column(name = "ID")
     private Long id;
-    
-    @Size(min = 1, max = 100, message="Debe ingresar el Nombre")
+    @Size(min = 1, max = 100, message = "Debe ingresar el Nombre")
     @Column
     private String nombre;
-    
     @Size(max = 100)
     @Column
     private String imagen;
-    
     @Size
     @Column(name = "URL")
     private String url;
-    
     @Size
     @Column
-    private String action;
-    
+    private String actio;
     @Column(name = "RAIZ")
     @NotNull(message = "Debe ingresar Raiz")
     private Integer raiz;
-    
     @Column(name = "ORDEN")
     @NotNull(message = "Debe ingresar Orden")
     private Integer orden;
-    
     @Column(name = "CREATED")
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
-    
     @Column(name = "UPDATED")
     @Temporal(TemporalType.TIMESTAMP)
     private Date updated;
 
     // -------------------------- Contructores de la Clase --------------------------
-
     public Menu() {
     }
 
     public Menu(Long id) {
         this.id = id;
-    }
+    }    
 
     // -------------------------- Getters y Setters --------------------------
+    public Long getId() {
+        return id;
+    }
 
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre;}
+    public String getNombre() {
+        return nombre;
+    }
 
-    public String getImagen() { return imagen; }
-    public void setImagen(String imagen) { this.imagen = imagen; }
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-    public String getUrl() { return url; }
-    public void setUrl(String url) { this.url = url; }
+    public String getImagen() {
+        return imagen;
+    }
 
-    public String getAction() { return action; }
-    public void setAction(String action) { this.action = action; }
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
+    }
 
-    public Integer getRaiz() { return raiz; }
-    public void setRaiz(Integer raiz) { this.raiz = raiz; }
+    public String getUrl() {
+        return url;
+    }
 
-    public Integer getOrden() { return orden; }
-    public void setOrden(Integer orden) { this.orden = orden; }
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
-    public Date getCreated() { return created; }
-    public void setCreated(Date created) { this.created = created; }
+    public String getActio() {
+        return actio;
+    }
 
-    public Date getUpdated() { return updated; }
-    public void setUpdated(Date updated) { this.updated = updated; }
+    public void setActio(String actio) {
+        this.actio = actio;
+    }
+
+    public Integer getRaiz() {
+        return raiz;
+    }
+
+    public void setRaiz(Integer raiz) {
+        this.raiz = raiz;
+    }
+
+    public Integer getOrden() {
+        return orden;
+    }
+
+    public void setOrden(Integer orden) {
+        this.orden = orden;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public Date getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(Date updated) {
+        this.updated = updated;
+    }
 
     // -------------------------- Métodos de la Clase --------------------------
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -127,14 +159,13 @@ public class Menu implements Serializable {
         }
         return true;
     }
-    
-    public boolean isLength(){
-        return action.length() > 0;
+
+    public Boolean isLength() {
+        return actio.length() > 0;
     }
 
     @Override
     public String toString() {
         return nombre;
     }
-    
 }
